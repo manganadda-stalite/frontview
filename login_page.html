@@ -501,8 +501,8 @@ body{
 </div>
 
 <script>
-/* Clock */
-function tick(){const n=new Date();document.getElementById('clk').textContent=String(n.getHours()).padStart(2,'0')+':'+String(n.getMinutes()).padStart(2,'0');}
+/* Clock (no-op if there's no #clk element on this page) */
+function tick(){const el=document.getElementById('clk');if(!el)return;const n=new Date();el.textContent=String(n.getHours()).padStart(2,'0')+':'+String(n.getMinutes()).padStart(2,'0');}
 tick();setInterval(tick,30000);
 
 /* Validation */
