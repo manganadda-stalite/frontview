@@ -155,6 +155,15 @@ body{
 .country-flag .flag-code{font-family:sans-serif;font-size:11px;font-weight:700;color:var(--text2);}
 .phone-input-wrap{flex:1;position:relative;}
 
+/* Show/hide password toggle */
+.pwd-toggle{
+  position:absolute;right:12px;top:50%;transform:translateY(-50%);
+  cursor:pointer;font-size:14px;opacity:0.7;user-select:none;
+  transition:opacity .15s;
+}
+.pwd-toggle:hover{opacity:1;}
+.field-input.has-toggle{padding-right:38px;}
+
 /* ── TERMS ── */
 .terms-row{
   display:flex;align-items:flex-start;gap:10px;
@@ -277,6 +286,7 @@ body{
   .login-link { margin-top:12px; }
 }
 </style>
+<script src="ng_locations.js"></script>
 </head>
 <body>
 
@@ -291,7 +301,7 @@ body{
     <div class="reg-hero">
       <div class="app-logo">🎵</div>
       <div class="reg-title">Join <span>Shurafah</span></div>
-      <div class="reg-sub">Create your free account in seconds.<br>No password needed — just your name &amp; phone.</div>
+      <div class="reg-sub">Create your free account in seconds.<br>Pick a password and we'll keep your phone safe.</div>
 
       <!-- Steps -->
       <div class="steps">
@@ -306,7 +316,7 @@ body{
     <!-- Info card -->
     <div class="info-card">
       <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-      <div class="info-card-text"><strong>No password required!</strong> We use your phone number to identify you. Keep it safe — you'll need it to log in.</div>
+      <div class="info-card-text"><strong>Phone &amp; password login.</strong> We use your phone number as your unique ID and your password to keep your account safe. Forgot your password? We'll OTP your phone to reset it.</div>
     </div>
 
     <!-- ═══════════════════════════════════════
@@ -447,6 +457,29 @@ body{
         <div class="field-hint">This is your unique login identifier</div>
       </div>
 
+      <!-- Password -->
+      <div class="field">
+        <div class="field-label">Password <span class="req">*</span></div>
+        <div class="field-input-wrap">
+          <svg class="field-icon" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <input class="field-input has-toggle" id="password" type="password" placeholder="At least 6 characters" autocomplete="new-password">
+          <span class="pwd-toggle" id="pwdToggle" onclick="togglePwd('password','pwdToggle')" aria-label="Show password">👁️</span>
+        </div>
+        <div class="field-error" id="pwdErr">Password must be at least 6 characters</div>
+        <div class="field-hint">Use 6+ characters with letters &amp; numbers</div>
+      </div>
+
+      <!-- Confirm Password -->
+      <div class="field">
+        <div class="field-label">Confirm Password <span class="req">*</span></div>
+        <div class="field-input-wrap">
+          <svg class="field-icon" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <input class="field-input has-toggle" id="password2" type="password" placeholder="Re-enter your password" autocomplete="new-password">
+          <span class="pwd-toggle" id="pwd2Toggle" onclick="togglePwd('password2','pwd2Toggle')" aria-label="Show password">👁️</span>
+        </div>
+        <div class="field-error" id="pwd2Err">Passwords do not match</div>
+      </div>
+
       <!-- Continue Button -->
       <div class="reg-btn" id="btn1" onclick="goStep2()">
         <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
@@ -468,6 +501,20 @@ body{
         Your Location
       </div>
 
+      <!-- ── NIGERIA-ONLY: Zone dropdown ── -->
+      <div class="field" id="ngZoneField">
+        <div class="field-label">Zone <span class="req">*</span></div>
+        <div class="field-input-wrap">
+          <svg class="field-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          <select class="field-select" id="zoneSelect" onchange="onZoneChange()">
+            <option value="">Select your zone…</option>
+          </select>
+          <div class="select-arrow"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="field-error" id="zoneErr">Please select your zone</div>
+        <div class="field-hint">Pick the zone you belong to</div>
+      </div>
+
       <!-- ── NIGERIA-ONLY: State dropdown ── -->
       <div class="field" id="ngStateField">
         <div class="field-label">State <span class="req">*</span></div>
@@ -475,34 +522,24 @@ body{
           <svg class="field-icon" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
           <select class="field-select" id="stateSelect" onchange="onStateChange()">
             <option value="">Select your state…</option>
-            <option>Abia</option><option>Adamawa</option><option>Akwa Ibom</option>
-            <option>Anambra</option><option>Bauchi</option><option>Bayelsa</option>
-            <option>Benue</option><option>Borno</option><option>Cross River</option>
-            <option>Delta</option><option>Ebonyi</option><option>Edo</option>
-            <option>Ekiti</option><option>Enugu</option><option>FCT — Abuja</option>
-            <option>Gombe</option><option>Imo</option><option>Jigawa</option>
-            <option>Kaduna</option><option>Kano</option><option>Katsina</option>
-            <option>Kebbi</option><option>Kogi</option><option>Kwara</option>
-            <option>Lagos</option><option>Nasarawa</option><option>Niger</option>
-            <option>Ogun</option><option>Ondo</option><option>Osun</option>
-            <option>Oyo</option><option>Plateau</option><option>Rivers</option>
-            <option>Sokoto</option><option>Taraba</option><option>Yobe</option><option>Zamfara</option>
           </select>
           <div class="select-arrow"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
         </div>
         <div class="field-error" id="stateErr">Please select your state</div>
       </div>
 
-      <!-- ── NIGERIA-ONLY: LGA text input ── -->
+      <!-- ── NIGERIA-ONLY: LGA dropdown ── -->
       <div class="field" id="ngLgaField">
         <div class="field-label">Local Government Area (LGA) <span class="req">*</span></div>
         <div class="field-input-wrap">
           <svg class="field-icon" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-          <input class="field-input" id="lgaInput" type="text" placeholder="e.g. Nassarawa, Kano Municipal…">
-          <span class="valid-icon">✓</span>
+          <select class="field-select" id="lgaSelect" onchange="onLgaChange()">
+            <option value="">Select state first…</option>
+          </select>
+          <div class="select-arrow"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
         </div>
-        <div class="field-error" id="lgaErr">Please enter your LGA</div>
-        <div class="field-hint" id="lgaHint">Type your Local Government Area name</div>
+        <div class="field-error" id="lgaErr">Please select your LGA</div>
+        <div class="field-hint" id="lgaHint">Pick the LGA where you live</div>
       </div>
 
       <!-- ── NON-NIGERIA: State/Province text input ── -->
@@ -576,37 +613,62 @@ function onCountryChange(){
   document.getElementById('phoneErr').classList.remove('show');
 }
 
-/* ── State change → clear LGA ── */
+/* ── Zone change ── */
+function onZoneChange(){
+  const v = document.getElementById('zoneSelect').value;
+  document.getElementById('zoneErr').classList.remove('show');
+  document.getElementById('zoneSelect').className = v ? 'field-select valid' : 'field-select';
+}
+
+/* ── State change → repopulate LGAs ── */
 function onStateChange(){
   const v = document.getElementById('stateSelect').value;
   document.getElementById('stateErr').classList.remove('show');
-  if(v) document.getElementById('stateSelect').className='field-select valid';
-  // Clear LGA when state changes
-  document.getElementById('lgaInput').value='';
-  document.getElementById('lgaInput').className='field-input';
+  document.getElementById('stateSelect').className = v ? 'field-select valid' : 'field-select';
+  // Repopulate LGA list for the new state
+  const lgaSel = document.getElementById('lgaSelect');
+  NG_LOC.populateLgas(lgaSel, v);
+  lgaSel.className='field-select';
   document.getElementById('lgaErr').classList.remove('show');
-  // Update LGA hint
   document.getElementById('lgaHint').textContent = v
-    ? 'Type your LGA in '+v
-    : 'Type your Local Government Area name';
+    ? 'Pick the LGA where you live in '+v
+    : 'Pick the LGA where you live';
+}
+
+/* ── LGA change ── */
+function onLgaChange(){
+  const v = document.getElementById('lgaSelect').value;
+  document.getElementById('lgaErr').classList.remove('show');
+  document.getElementById('lgaSelect').className = v ? 'field-select valid' : 'field-select';
 }
 
 /* ── Toggle Nigeria vs International location fields ── */
 function applyLocationFields(country){
   const isNG = (country === 'Nigeria');
+  document.getElementById('ngZoneField').style.display  = isNG ? '' : 'none';
   document.getElementById('ngStateField').style.display = isNG ? '' : 'none';
   document.getElementById('ngLgaField').style.display   = isNG ? '' : 'none';
   document.getElementById('intStateField').style.display= isNG ? 'none' : '';
 
   // Clear fields when switching
+  document.getElementById('zoneSelect').value='';
+  document.getElementById('zoneSelect').className='field-select';
   document.getElementById('stateSelect').value='';
   document.getElementById('stateSelect').className='field-select';
-  document.getElementById('lgaInput').value='';
-  document.getElementById('lgaInput').className='field-input';
+  NG_LOC.populateLgas(document.getElementById('lgaSelect'), '');
+  document.getElementById('lgaSelect').className='field-select';
   document.getElementById('intStateInput').value='';
   document.getElementById('intStateInput').className='field-input';
-  ['stateErr','lgaErr','intStateErr'].forEach(id=>document.getElementById(id).classList.remove('show'));
-  document.getElementById('lgaHint').textContent='Type your Local Government Area name';
+  ['zoneErr','stateErr','lgaErr','intStateErr'].forEach(id=>document.getElementById(id).classList.remove('show'));
+  document.getElementById('lgaHint').textContent='Pick the LGA where you live';
+}
+
+/* ── Show / hide password fields ── */
+function togglePwd(inputId, toggleId){
+  const inp = document.getElementById(inputId);
+  const tog = document.getElementById(toggleId);
+  if(inp.type === 'password'){ inp.type='text'; tog.textContent='🙈'; }
+  else                       { inp.type='password'; tog.textContent='👁️'; }
 }
 
 /* ── Terms toggle ── */
@@ -651,9 +713,35 @@ function validatePhone(){
   inp.className='field-input valid'; err.classList.remove('show'); return true;
 }
 
+function validatePassword(){
+  const v = document.getElementById('password').value;
+  const inp = document.getElementById('password');
+  const err = document.getElementById('pwdErr');
+  if(v.length < 6){
+    inp.className='field-input invalid'; err.classList.add('show'); return false;
+  }
+  inp.className='field-input valid'; err.classList.remove('show'); return true;
+}
+
+function validatePasswordMatch(){
+  const a = document.getElementById('password').value;
+  const b = document.getElementById('password2').value;
+  const inp = document.getElementById('password2');
+  const err = document.getElementById('pwd2Err');
+  if(b.length === 0 || a !== b){
+    inp.className='field-input invalid'; err.classList.add('show'); return false;
+  }
+  inp.className='field-input valid'; err.classList.remove('show'); return true;
+}
+
 /* ── Step navigation ── */
 function goStep2(){
-  if(!validateName() | !validatePhone()) return;
+  // Run all validators first so every error is shown together
+  const okName = validateName();
+  const okPhone = validatePhone();
+  const okPwd = validatePassword();
+  const okPwd2 = validatePasswordMatch();
+  if(!(okName && okPhone && okPwd && okPwd2)) return;
 
   // Transition step indicator
   document.getElementById('step1').className='step done';
@@ -686,6 +774,15 @@ function submitReg(){
   const isNG = (country === 'Nigeria');
 
   if(isNG){
+    // Zone dropdown
+    const zone = document.getElementById('zoneSelect').value;
+    if(!zone){
+      document.getElementById('zoneErr').classList.add('show'); ok=false;
+    } else {
+      document.getElementById('zoneErr').classList.remove('show');
+      document.getElementById('zoneSelect').className='field-select valid';
+    }
+
     // State dropdown
     const state = document.getElementById('stateSelect').value;
     if(!state){
@@ -695,14 +792,14 @@ function submitReg(){
       document.getElementById('stateSelect').className='field-select valid';
     }
 
-    // LGA text
-    const lga = document.getElementById('lgaInput').value.trim();
-    if(lga.length < 2){
+    // LGA dropdown
+    const lga = document.getElementById('lgaSelect').value;
+    if(!lga){
       document.getElementById('lgaErr').classList.add('show'); ok=false;
-      document.getElementById('lgaInput').className='field-input invalid';
+      document.getElementById('lgaSelect').className='field-select';
     } else {
       document.getElementById('lgaErr').classList.remove('show');
-      document.getElementById('lgaInput').className='field-input valid';
+      document.getElementById('lgaSelect').className='field-select valid';
     }
   } else {
     // International state/province text
@@ -738,10 +835,12 @@ function submitReg(){
 /* ── Live validation ── */
 document.getElementById('fullName').addEventListener('blur', validateName);
 document.getElementById('phoneNum').addEventListener('blur', validatePhone);
-document.getElementById('lgaInput').addEventListener('input', function(){
-  if(this.value.trim().length>=2){
+document.getElementById('password').addEventListener('blur', validatePassword);
+document.getElementById('password2').addEventListener('blur', validatePasswordMatch);
+document.getElementById('password').addEventListener('input', function(){
+  if(this.value.length >= 6){
     this.className='field-input valid';
-    document.getElementById('lgaErr').classList.remove('show');
+    document.getElementById('pwdErr').classList.remove('show');
   }
 });
 document.getElementById('intStateInput').addEventListener('input', function(){
@@ -765,7 +864,10 @@ document.getElementById('flagBtn').addEventListener('click', ()=>{
   showToast('Dial code: '+dial+' ('+country+')','ok');
 });
 
-/* ── Init: ensure Nigeria fields are shown on page load ── */
+/* ── Init: populate zone & state dropdowns, show Nigeria fields ── */
+NG_LOC.populateZones(document.getElementById('zoneSelect'));
+NG_LOC.populateStates(document.getElementById('stateSelect'));
+NG_LOC.populateLgas(document.getElementById('lgaSelect'), '');
 applyLocationFields('Nigeria');
 </script>
 </body>
