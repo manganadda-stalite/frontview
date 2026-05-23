@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Shurafah — Top Artists</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#080B12;--surface:#0F1420;--surface2:#161C2E;--surface3:#1E2740;
+  --accent:#FF6B35;--accent2:#FFB347;--blue:#4D9FFF;--green:#2ECC8F;
+  --purple:#9B6BFF;--pink:#FF4D8F;--yellow:#FFD166;
+  --text:#F0F4FF;--text2:#8A94B0;--text3:#4A5270;
+  --border:rgba(255,255,255,0.06);
+}
+body.light{
+  --bg:#F4F6FC;--surface:#FFFFFF;--surface2:#E8ECF7;--surface3:#D8DEEF;
+  --text:#12172E;--text2:#5A6380;--text3:#9AA0BA;
+  --border:rgba(0,0,0,0.07);
+}
+body.light .hero-strip{background:linear-gradient(135deg,#EDE8FA,#E8EEF8) !important;border-color:rgba(155,107,255,0.2) !important;}
+body.light .artist-card{background:var(--surface) !important;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min-height:100vh;display:flex;flex-direction:column;}
+.phone{width:100%;background:var(--bg);display:flex;flex-direction:column;min-height:100vh;}
+.scroll{flex:1;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;}
+.scroll::-webkit-scrollbar{display:none;}
+
+/* STATUS */
+.status{display:flex;justify-content:space-between;align-items:center;padding:14px 22px 0;font-size:11px;font-weight:700;font-family:sans-serif;}
+.si{display:flex;gap:5px;align-items:center;}
+.si svg{width:12px;height:12px;fill:var(--text);}
+
+/* TOP NAV */
+.topnav{display:flex;align-items:center;gap:12px;padding:12px 16px 0;}
+.back-btn{width:34px;height:34px;background:var(--surface);border-radius:50%;display:flex;align-items:center;justify-content:center;border:1px solid var(--border);cursor:pointer;flex-shrink:0;}
+.back-btn svg{width:15px;height:15px;fill:none;stroke:var(--text2);stroke-width:2;}
+.page-title{font-family:sans-serif;font-size:18px;font-weight:800;flex:1;}
+.page-title span{background:linear-gradient(135deg,var(--purple),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.theme-toggle{display:inline-flex;align-items:center;gap:5px;cursor:pointer;background:var(--surface2);border-radius:50px;padding:5px 10px 5px 8px;border:1.5px solid var(--accent);flex-shrink:0;user-select:none;}
+.theme-toggle .tt-icon{font-size:13px;}
+.theme-toggle .tt-label{font-family:sans-serif;font-size:9px;font-weight:700;color:var(--accent);}
+
+/* HERO STRIP */
+.hero-strip{margin:14px 14px 0;background:linear-gradient(135deg,#120A2A,#1A0A1A,#0A0A20);border-radius:16px;padding:14px 16px;border:1px solid rgba(155,107,255,0.2);position:relative;overflow:hidden;display:flex;align-items:center;gap:14px;}
+.hero-strip::before{content:'';position:absolute;top:-30px;right:-30px;width:120px;height:120px;background:radial-gradient(circle,rgba(155,107,255,0.2) 0%,transparent 70%);}
+.hs-icon{font-size:28px;flex-shrink:0;}
+.hs-info{flex:1;}
+.hs-label{font-size:10px;color:rgba(155,107,255,0.6);margin-bottom:2px;text-transform:uppercase;letter-spacing:0.4px;font-family:sans-serif;font-weight:600;}
+.hs-val{font-family:sans-serif;font-size:18px;font-weight:800;color:var(--purple);}
+.hs-sub{font-size:10px;color:var(--text3);margin-top:1px;}
+.hs-stats{display:flex;gap:14px;}
+.hs-stat-n{font-family:sans-serif;font-size:14px;font-weight:800;}
+.hs-stat-l{font-size:9px;color:var(--text3);margin-top:1px;}
+
+/* SEARCH */
+.search-wrap{margin:12px 14px 0;position:relative;}
+.search-input{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:10px 14px 10px 38px;font-size:12px;color:var(--text);font-family:'DM Sans',sans-serif;outline:none;transition:border-color 0.2s;}
+.search-input::placeholder{color:var(--text3);}
+.search-input:focus{border-color:rgba(155,107,255,0.4);}
+.search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);}
+.search-icon svg{width:14px;height:14px;fill:none;stroke:var(--text3);stroke-width:2;}
+
+/* FILTER PILLS */
+.filter-row{display:flex;gap:8px;padding:10px 14px 0;overflow-x:auto;scrollbar-width:none;}
+.filter-row::-webkit-scrollbar{display:none;}
+.fpill{flex-shrink:0;padding:6px 13px;border-radius:50px;font-size:10px;font-weight:700;font-family:sans-serif;cursor:pointer;border:1px solid var(--border);white-space:nowrap;background:var(--surface);color:var(--text2);}
+.fpill.on{background:var(--purple);color:white;border-color:var(--purple);box-shadow:0 3px 10px rgba(155,107,255,0.3);}
+
+/* SORT ROW */
+.sort-row{display:flex;justify-content:space-between;align-items:center;padding:10px 14px 8px;}
+.sort-info{font-size:11px;color:var(--text3);}
+.sort-info b{color:var(--text2);}
+.view-toggle{display:flex;gap:4px;background:var(--surface);border-radius:9px;padding:3px;border:1px solid var(--border);}
+.vt-btn{width:28px;height:26px;border-radius:6px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background 0.15s;}
+.vt-btn.active{background:var(--purple);}
+.vt-btn svg{width:13px;height:13px;fill:none;stroke:var(--text3);stroke-width:2;}
+.vt-btn.active svg{stroke:white;}
+
+/* ── CARD VIEW (grid 2-col) ── */
+.artists-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 14px;}
+
+.artist-card{background:var(--surface);border-radius:16px;padding:14px 12px;border:1px solid var(--border);cursor:pointer;position:relative;overflow:hidden;transition:transform 0.15s,box-shadow 0.15s;text-align:center;}
+.artist-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.3);}
+.artist-card::before{content:'';position:absolute;top:-20px;right:-20px;width:80px;height:80px;border-radius:50%;opacity:0.08;}
+
+/* rank badge top-left */
+.ac-rank{position:absolute;top:8px;left:8px;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:sans-serif;font-size:9px;font-weight:800;}
+.rank-gold{background:rgba(255,209,102,0.2);color:var(--yellow);border:1px solid rgba(255,209,102,0.4);}
+.rank-silver{background:rgba(200,200,220,0.15);color:#C8C8DC;border:1px solid rgba(200,200,220,0.3);}
+.rank-bronze{background:rgba(205,127,50,0.15);color:#CD7F32;border:1px solid rgba(205,127,50,0.3);}
+.rank-normal{background:var(--surface2);color:var(--text3);border:1px solid var(--border);}
+
+/* verified badge top-right */
+.ac-verified{position:absolute;top:8px;right:8px;width:18px;height:18px;background:var(--blue);border-radius:50%;display:flex;align-items:center;justify-content:center;}
+.ac-verified svg{width:9px;height:9px;fill:white;}
+
+/* live badge */
+.ac-live{position:absolute;top:8px;right:30px;background:var(--green);border-radius:50px;padding:2px 6px;font-size:7px;font-family:sans-serif;font-weight:700;color:white;display:flex;align-items:center;gap:3px;}
+.live-dot{width:5px;height:5px;background:white;border-radius:50%;animation:blink 1s ease-in-out infinite;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.2}}
+
+.ac-avatar{width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;margin:14px auto 8px;position:relative;}
+.ac-avatar-ring{position:absolute;inset:-3px;border-radius:50%;padding:3px;}
+.ac-name{font-family:sans-serif;font-size:12px;font-weight:800;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.ac-genre{font-size:9px;color:var(--text2);margin-bottom:8px;}
+.ac-stats{display:flex;justify-content:space-around;margin-bottom:10px;}
+.ac-stat-n{font-family:sans-serif;font-size:11px;font-weight:800;}
+.ac-stat-l{font-size:8px;color:var(--text3);}
+.follow-btn{width:100%;padding:7px;border-radius:9px;font-family:sans-serif;font-size:10px;font-weight:700;cursor:pointer;transition:all 0.15s;border:1px solid var(--purple);color:var(--purple);background:rgba(155,107,255,0.08);}
+.follow-btn.following{background:var(--purple);color:white;border-color:var(--purple);}
+.follow-btn:hover{background:var(--purple);color:white;}
+
+/* ── LIST VIEW ── */
+.artists-list{padding:0 14px;display:flex;flex-direction:column;gap:6px;}
+.artist-row{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface);border-radius:14px;border:1px solid var(--border);cursor:pointer;transition:border-color 0.15s;}
+.artist-row:hover{border-color:rgba(155,107,255,0.25);}
+
+.ar-rank{width:22px;text-align:center;flex-shrink:0;}
+.ar-rank-num{font-family:sans-serif;font-size:12px;font-weight:800;color:var(--text3);}
+.ar-rank-num.rg{color:var(--yellow);}
+.ar-rank-num.rs{color:#C8C8DC;}
+.ar-rank-num.rb{color:#CD7F32;}
+
+.ar-avatar{width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;position:relative;}
+.ar-live-dot{position:absolute;bottom:-1px;right:-1px;width:11px;height:11px;background:var(--green);border:2px solid var(--bg);border-radius:50%;}
+.ar-verified{position:absolute;bottom:-1px;right:-1px;width:14px;height:14px;background:var(--blue);border:2px solid var(--bg);border-radius:50%;display:flex;align-items:center;justify-content:center;}
+.ar-verified svg{width:7px;height:7px;fill:white;}
+
+.ar-info{flex:1;min-width:0;}
+.ar-name{font-family:sans-serif;font-size:12px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:2px;}
+.ar-meta{font-size:10px;color:var(--text2);margin-bottom:3px;}
+.ar-stats{display:flex;gap:8px;}
+.ar-stat{font-size:9px;color:var(--text3);display:flex;align-items:center;gap:2px;}
+.ar-stat svg{width:8px;height:8px;fill:none;stroke:currentColor;stroke-width:2;}
+
+.ar-right{display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0;}
+.ar-follow{background:transparent;border:1px solid var(--purple);border-radius:50px;padding:4px 12px;font-size:9px;font-weight:700;color:var(--purple);font-family:sans-serif;cursor:pointer;transition:all 0.15s;}
+.ar-follow.following{background:var(--purple);color:white;}
+.ar-plays{font-size:9px;color:var(--text3);}
+
+/* PAGINATION */
+.pagination-wrap{margin:16px 14px;background:var(--surface);border-radius:16px;padding:14px 16px;border:1px solid var(--border);}
+.page-info{text-align:center;font-size:11px;color:var(--text3);margin-bottom:12px;}
+.page-info b{color:var(--text2);}
+.page-progress{height:3px;background:var(--surface3);border-radius:2px;overflow:hidden;margin-bottom:14px;}
+.page-progress-fill{height:100%;background:linear-gradient(90deg,var(--purple),var(--pink));border-radius:2px;transition:width 0.4s ease;}
+.page-controls{display:flex;align-items:center;gap:8px;}
+.pg-btn{height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;gap:6px;cursor:pointer;font-family:sans-serif;font-size:11px;font-weight:700;padding:0 14px;transition:all 0.15s;border:1px solid var(--border);}
+.pg-prev{background:var(--surface2);color:var(--text2);}
+.pg-prev:hover{border-color:rgba(155,107,255,0.3);}
+.pg-prev.disabled{opacity:0.35;pointer-events:none;}
+.pg-next{background:var(--purple);color:white;flex:1;border-color:var(--purple);box-shadow:0 3px 12px rgba(155,107,255,0.28);}
+.pg-next.disabled{opacity:0.4;pointer-events:none;}
+.pg-btn svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:2.5;}
+.page-dots{flex:1;display:flex;justify-content:center;gap:5px;align-items:center;}
+.pdot{width:7px;height:7px;border-radius:50%;background:var(--surface3);cursor:pointer;transition:all 0.2s;}
+.pdot.active{background:var(--purple);width:18px;border-radius:4px;}
+.end-msg{text-align:center;padding:12px 14px;font-size:11px;color:var(--text3);font-family:sans-serif;}
+
+/* MINI PLAYER */
+.mini-player{margin:6px 12px 6px;background:linear-gradient(135deg,#160A2E,#0E0A20);border-radius:15px;padding:10px 12px;border:1px solid rgba(155,107,255,0.15);box-shadow:0 6px 22px rgba(0,0,0,0.45);flex-shrink:0;}
+.mp-top{display:flex;align-items:center;gap:10px;}
+.mp-art{width:38px;height:38px;border-radius:9px;background:linear-gradient(135deg,var(--purple),var(--pink));display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.mp-inf{flex:1;min-width:0;}
+.mp-title{font-family:sans-serif;font-size:12px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:1px;}
+.mp-artist{font-size:10px;color:var(--text2);}
+.mp-ctrl{display:flex;align-items:center;gap:6px;}
+.mp-ctrl > svg{width:17px;height:17px;fill:none;stroke:var(--text2);stroke-width:2;cursor:pointer;}
+.mp-play{width:32px;height:32px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;}
+.mp-play svg{width:13px;height:13px;fill:white;}
+.mp-prog{display:flex;align-items:center;gap:7px;margin-top:7px;}
+.mp-bar{flex:1;height:3px;background:var(--surface3);border-radius:2px;overflow:hidden;}
+.mp-fill{width:32%;height:100%;background:linear-gradient(90deg,var(--purple),var(--pink));border-radius:2px;}
+.mp-t{font-size:9px;color:var(--text3);font-family:sans-serif;}
+
+/* BOTTOM NAV */
+.bnav{display:flex;justify-content:space-around;align-items:center;padding:10px 8px 14px;background:var(--surface);border-top:1px solid var(--border);flex-shrink:0;position:sticky;bottom:0;z-index:10;}
+.ni{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:5px 10px;border-radius:10px;}
+.ni.on{background:rgba(255,107,53,0.1);}
+.ni svg{width:18px;height:18px;fill:none;stroke:var(--text3);stroke-width:2;}
+.ni.on svg{stroke:var(--accent);}
+.nl{font-size:9px;font-family:sans-serif;font-weight:700;color:var(--text3);}
+.ni.on .nl{color:var(--accent);}
+
+.g1{background:linear-gradient(135deg,#9B6BFF,#4D9FFF);}
+.g2{background:linear-gradient(135deg,#FF6B35,#FFB347);}
+.g3{background:linear-gradient(135deg,#FF4D8F,#FF6B35);}
+.g4{background:linear-gradient(135deg,#2ECC8F,#4D9FFF);}
+.g5{background:linear-gradient(135deg,#FFB347,#FF4D8F);}
+.g6{background:linear-gradient(135deg,#4D9FFF,#9B6BFF);}
+.g7{background:linear-gradient(135deg,#FF6B35,#FF4D8F);}
+.g8{background:linear-gradient(135deg,#2ECC8F,#9B6BFF);}
+
+.spacer{height:10px;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* RESPONSIVE DESIGN */
+@media (min-width:768px) {
+  .phone { max-width:768px; margin:0 auto; }
+  .topnav { padding:16px 24px 0; }
+  .hero-strip { margin:18px 24px 0; }
+  .filter-row { padding:14px 24px 0; }
+  .sort-row { padding:12px 24px 10px; }
+  .artist-grid { padding:0 24px; gap:12px; }
+  .pagination-wrap { margin:18px 24px; }
+  .mini-player { margin:10px 24px 6px; }
+}
+
+@media (min-width:1024px) {
+  .phone { max-width:1000px; }
+  .topnav { padding:20px 32px 0; }
+  .hero-strip { margin:22px 32px 0; }
+  .filter-row { padding:18px 32px 0; }
+  .sort-row { padding:14px 32px 12px; }
+  .artist-grid { padding:0 32px; gap:14px; }
+  .pagination-wrap { margin:20px 32px; }
+  .mini-player { margin:12px 32px 6px; }
+}
+
+@media (max-width:480px) {
+  .topnav { padding:10px 14px 0; }
+  .hero-strip { margin:12px 12px 0; }
+  .filter-row { padding:12px 12px 0; }
+  .sort-row { padding:10px 12px 8px; }
+  .artist-grid { padding:0 12px; gap:8px; }
+  .pagination-wrap { margin:14px 12px; }
+  .mini-player { margin:8px 12px 6px; }
+}
+</style>
+</head>
+<body>
+<div class="phone">
+  <div class="scroll">
+    <!-- AD CONTAINER: Header Banner -->
+    <div id="ad-header-banner"></div>
+
+
+    <!-- TOP NAV -->
+    <div class="topnav">
+      <div class="back-btn" onclick="history.back()">
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      </div>
+      <div class="page-title">🎤 <span>Top Artists</span></div>
+      <div class="theme-toggle" id="themeToggle">
+        <span class="tt-icon" id="ttIcon">🌙</span>
+        <span class="tt-label" id="ttLabel">Dark</span>
+      </div>
+    </div>
+
+    <!-- HERO STRIP -->
+    <!-- Laravel: {{ $totalArtists }}, {{ $verifiedCount }}, {{ $liveCount }} -->
+    <div class="hero-strip">
+      <div class="hs-icon">🎤</div>
+      <div class="hs-info">
+        <div class="hs-label">Artist Roster</div>
+        <div class="hs-val">86 Artists</div>
+        <div class="hs-sub">Ranked by total plays &amp; downloads</div>
+      </div>
+      <div class="hs-stats">
+        <div><div class="hs-stat-n" style="color:var(--blue);">42</div><div class="hs-stat-l">Verified</div></div>
+        <div><div class="hs-stat-n" style="color:var(--green);">8</div><div class="hs-stat-l">Live Now</div></div>
+        <div><div class="hs-stat-n" style="color:var(--purple);">86</div><div class="hs-stat-l">Total</div></div>
+      </div>
+    </div>
+
+    <!-- SEARCH -->
+    <!-- Laravel: value="{{ request('q') }}" -->
+    <div class="search-wrap">
+      <div class="search-icon">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </div>
+      <input class="search-input" id="searchInput" type="text" placeholder="Search artists by name or genre…">
+    </div>
+
+    <!-- FILTER PILLS -->
+    <!-- Laravel: active class based on request('filter') -->
+    <div class="filter-row" id="filterRow">
+      <div class="fpill on"  data-filter="all">All</div>
+      <div class="fpill off" data-filter="verified">✅ Verified</div>
+      <div class="fpill off" data-filter="live">🔴 Live Now</div>
+      <div class="fpill off" data-filter="nasheed">Nasheed</div>
+      <div class="fpill off" data-filter="shuhada">Shuhada</div>
+      <div class="fpill off" data-filter="maulud">Maulud</div>
+    </div>
+
+    <!-- SORT + VIEW TOGGLE -->
+    <div class="sort-row">
+      <!-- Laravel: {{ $from }}–{{ $to }} of {{ $total }} -->
+      <div class="sort-info">Showing <b id="rangeLabel">1–10</b> of <b id="totalLabel">20</b></div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div class="view-toggle">
+          <div class="vt-btn active" id="gridViewBtn" onclick="setView('grid')">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+          </div>
+          <div class="vt-btn" id="listViewBtn" onclick="setView('list')">
+            <svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ARTISTS CONTAINER — JS renders here -->
+    <!-- Laravel: loop $artists and build .artists-grid or .artists-list manually -->
+    <div id="artistsContainer"></div>
+
+    <!-- PAGINATION -->
+    <!-- Laravel: replace with {{ $artists->links() }} or custom Blade component -->
+    <div class="pagination-wrap" id="paginationWrap">
+      <div class="page-info">Page <b id="curPage">1</b> of <b id="totalPages">2</b> &nbsp;·&nbsp; 10 per page</div>
+      <div class="page-progress">
+        <div class="page-progress-fill" id="progressFill" style="width:50%;"></div>
+      </div>
+      <div class="page-controls">
+        <div class="pg-btn pg-prev disabled" id="prevBtn" onclick="changePage(-1)">
+          <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+          Prev
+        </div>
+        <div class="page-dots" id="pageDots"></div>
+        <div class="pg-btn pg-next" id="nextBtn" onclick="changePage(1)">
+          Next
+          <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="end-msg" id="endMsg" style="display:none;">🎤 You've seen all artists!</div>
+    <div class="spacer"></div>
+  </div>
+
+  <!-- MINI PLAYER -->
+  <div class="mini-player">
+    <div class="mp-top">
+      <div class="mp-art">🎤</div>
+      <div class="mp-inf">
+        <div class="mp-title">Kurmus</div>
+        <div class="mp-artist">Uzairu Badamasi</div>
+      </div>
+      <div class="mp-ctrl">
+        <svg viewBox="0 0 24 24"><polygon points="19 20 9 12 19 4 19 20"/><line x1="5" y1="19" x2="5" y2="5"/></svg>
+        <div class="mp-play"><svg viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg></div>
+        <svg viewBox="0 0 24 24"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19"/></svg>
+      </div>
+    </div>
+    <div class="mp-prog">
+      <span class="mp-t">1:12</span>
+      <div class="mp-bar"><div class="mp-fill"></div></div>
+      <span class="mp-t">3:42</span>
+    </div>
+  </div>
+
+  <!-- BOTTOM NAV -->
+  <div class="bnav">
+    <div class="ni on"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><div class="nl">Home</div></div>
+    <div class="ni"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><div class="nl">Explore</div></div>
+    <div class="ni"><svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg><div class="nl">Library</div></div>
+    <div class="ni"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><div class="nl">Favourites</div></div>
+    <div class="ni"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><div class="nl">Profile</div></div>
+  </div>
+</div>
+
+<script>
+// Clock
+function tick() {
+  var n = new Date();
+  document.getElementById('clk').textContent =
+    String(n.getHours()).padStart(2,'0') + ':' + String(n.getMinutes()).padStart(2,'0');
+}
+tick();
+setInterval(tick, 30000);
+
+// ─────────────────────────────────────────────────────────
+// STATIC DATA — 20 artists, 2 pages of 10
+// Laravel: var ALL_ARTISTS = {!! json_encode($artists) !!};
+// Each object maps to an Artist model field.
+// ─────────────────────────────────────────────────────────
+var ALL_ARTISTS = [
+  { name:'Uzairu Badamasi',     genre:'Nasheed · Shuhada',  grad:'g1', emoji:'🎤', songs:1348, plays:'4.2M', followers:'320K', verified:true,  live:true,  filter:'shuhada',  following:false },
+  { name:'Shamsudden Fudiyya',  genre:'Nasheed · Ashura',   grad:'g2', emoji:'🎙️', songs:612,  plays:'2.8M', followers:'210K', verified:true,  live:false, filter:'nasheed',  following:true  },
+  { name:'Ahmad Isah Katsina',  genre:'Shuhada · Maulud',   grad:'g3', emoji:'🎵', songs:480,  plays:'1.9M', followers:'180K', verified:true,  live:true,  filter:'shuhada',  following:false },
+  { name:'Yusuf Badamasi',      genre:'Shurafah · Nasheed', grad:'g4', emoji:'🎶', songs:340,  plays:'1.4M', followers:'145K', verified:false, live:false, filter:'nasheed',  following:false },
+  { name:'Maishurafah',         genre:'Shurafah',           grad:'g5', emoji:'🎸', songs:290,  plays:'1.1M', followers:'98K',  verified:true,  live:true,  filter:'shuhada',  following:true  },
+  { name:'Ibrahim Khali',       genre:'Maulud · Nasheed',   grad:'g6', emoji:'🎼', songs:210,  plays:'870K', followers:'76K',  verified:false, live:false, filter:'maulud',   following:false },
+  { name:'Saidu Arzika',        genre:'Shuhada',            grad:'g7', emoji:'🥁', songs:198,  plays:'740K', followers:'64K',  verified:true,  live:false, filter:'shuhada',  following:false },
+  { name:'Malam Kasim',         genre:'Maulud · Ashura',    grad:'g8', emoji:'🎹', songs:175,  plays:'620K', followers:'54K',  verified:false, live:true,  filter:'maulud',   following:false },
+  { name:'Abdullahi Dan Maraya',genre:'Nasheed',             grad:'g1', emoji:'🎤', songs:160,  plays:'510K', followers:'44K',  verified:true,  live:false, filter:'nasheed',  following:true  },
+  { name:'Hafiz Abdullahi',     genre:'Shuhada · Maulud',   grad:'g2', emoji:'🎵', songs:144,  plays:'440K', followers:'38K',  verified:true,  live:false, filter:'shuhada',  following:false },
+
+  { name:'Amara Soul',          genre:'Gospel · Nasheed',   grad:'g3', emoji:'🎶', songs:120,  plays:'380K', followers:'32K',  verified:true,  live:false, filter:'nasheed',  following:true  },
+  { name:'Bello Maiangwa',      genre:'Maulud',             grad:'g4', emoji:'🎸', songs:108,  plays:'310K', followers:'27K',  verified:false, live:true,  filter:'maulud',   following:false },
+  { name:'Sani Aliyu',          genre:'Shuhada · Ashura',   grad:'g5', emoji:'🎙️', songs:96,   plays:'270K', followers:'23K',  verified:true,  live:false, filter:'shuhada',  following:false },
+  { name:'Kabiru Gombe',        genre:'Nasheed',            grad:'g6', emoji:'🎼', songs:88,   plays:'240K', followers:'20K',  verified:false, live:false, filter:'nasheed',  following:false },
+  { name:'Hussaini Danko',      genre:'Shuhada',            grad:'g7', emoji:'🥁', songs:80,   plays:'210K', followers:'18K',  verified:true,  live:true,  filter:'shuhada',  following:true  },
+  { name:'Abubakar Rijiyar',    genre:'Maulud · Shurafah',  grad:'g8', emoji:'🎹', songs:72,   plays:'190K', followers:'16K',  verified:false, live:false, filter:'maulud',   following:false },
+  { name:'Muhammad Lawal',      genre:'Nasheed · Maulud',   grad:'g1', emoji:'🎤', songs:66,   plays:'170K', followers:'14K',  verified:false, live:false, filter:'nasheed',  following:false },
+  { name:'Ismail Dankwairo',    genre:'Shuhada',            grad:'g2', emoji:'🎵', songs:58,   plays:'150K', followers:'12K',  verified:true,  live:false, filter:'shuhada',  following:false },
+  { name:'Zahrau Maidabino',    genre:'Maulud',             grad:'g3', emoji:'🎶', songs:50,   plays:'130K', followers:'11K',  verified:false, live:false, filter:'maulud',   following:true  },
+  { name:'Alhaji Maikasuwa',    genre:'Nasheed · Shuhada',  grad:'g4', emoji:'🎸', songs:44,   plays:'110K', followers:'9K',   verified:true,  live:false, filter:'nasheed',  following:false }
+];
+
+var PER_PAGE      = 10;
+var currentPage   = 1;
+var currentFilter = 'all';
+var currentView   = 'grid';
+var searchQuery   = '';
+var sortIdx       = 0;
+var SORT_LABELS   = ['Most Played', 'Most Followers', 'Most Songs'];
+
+function getFiltered() {
+  var list = ALL_ARTISTS.slice();
+  if (searchQuery) {
+    var q = searchQuery.toLowerCase();
+    list = list.filter(function(a) {
+      return a.name.toLowerCase().indexOf(q) !== -1 || a.genre.toLowerCase().indexOf(q) !== -1;
+    });
+  }
+  if (currentFilter === 'verified') list = list.filter(function(a){ return a.verified; });
+  if (currentFilter === 'live')     list = list.filter(function(a){ return a.live; });
+  if (currentFilter === 'nasheed')  list = list.filter(function(a){ return a.filter === 'nasheed'; });
+  if (currentFilter === 'shuhada')  list = list.filter(function(a){ return a.filter === 'shuhada'; });
+  if (currentFilter === 'maulud')   list = list.filter(function(a){ return a.filter === 'maulud'; });
+  return list;
+}
+
+function getTotalPages(filtered) {
+  return Math.max(1, Math.ceil(filtered.length / PER_PAGE));
+}
+
+function getRankClass(rank) {
+  if (rank === 1) return 'rank-gold';
+  if (rank === 2) return 'rank-silver';
+  if (rank === 3) return 'rank-bronze';
+  return 'rank-normal';
+}
+
+function setView(v) {
+  currentView = v;
+  document.getElementById('gridViewBtn').classList.toggle('active', v === 'grid');
+  document.getElementById('listViewBtn').classList.toggle('active', v === 'list');
+  renderArtists();
+}
+
+function renderArtists() {
+  var filtered = getFiltered();
+  var tp    = getTotalPages(filtered);
+  if (currentPage > tp) { currentPage = 1; }
+
+  var start = (currentPage - 1) * PER_PAGE;
+  var end   = Math.min(start + PER_PAGE, filtered.length);
+  var page  = filtered.slice(start, end);
+
+  document.getElementById('rangeLabel').textContent   = filtered.length === 0 ? '0' : (start + 1) + '–' + end;
+  document.getElementById('totalLabel').textContent   = filtered.length;
+  document.getElementById('curPage').textContent      = currentPage;
+  document.getElementById('totalPages').textContent   = tp;
+  document.getElementById('progressFill').style.width = (currentPage / tp * 100) + '%';
+  document.getElementById('endMsg').style.display     = (currentPage === tp) ? 'block' : 'none';
+  document.getElementById('paginationWrap').style.display = (tp <= 1) ? 'none' : 'block';
+  document.getElementById('prevBtn').classList.toggle('disabled', currentPage === 1);
+  document.getElementById('nextBtn').classList.toggle('disabled', currentPage === tp);
+
+  // Page dots
+  var dotsEl = document.getElementById('pageDots');
+  dotsEl.innerHTML = '';
+  for (var p = Math.max(1, currentPage - 2); p <= Math.min(tp, currentPage + 2); p++) {
+    var d = document.createElement('div');
+    d.className = 'pdot' + (p === currentPage ? ' active' : '');
+    (function(pp) { d.onclick = function() { goToPage(pp); }; }(p));
+    dotsEl.appendChild(d);
+  }
+
+  var container = document.getElementById('artistsContainer');
+  container.innerHTML = '';
+
+  if (page.length === 0) {
+    container.innerHTML = '<div style="text-align:center;padding:32px 14px;color:var(--text3);font-size:12px;">No artists found.</div>';
+    return;
+  }
+
+  if (currentView === 'grid') {
+    var grid = document.createElement('div');
+    grid.className = 'artists-grid';
+
+    for (var i = 0; i < page.length; i++) {
+      var a    = page[i];
+      var rank = start + i + 1;
+      var rkCls = getRankClass(rank);
+
+      var card = document.createElement('div');
+      card.className = 'artist-card';
+      card.style.animation = 'fadeUp 0.3s ease both';
+      card.style.animationDelay = (i * 0.05) + 's';
+
+      var verifiedHtml = a.verified
+        ? '<div class="ac-verified"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>'
+        : '';
+      var liveHtml = a.live
+        ? '<div class="ac-live"><div class="live-dot"></div>LIVE</div>'
+        : '';
+
+      card.innerHTML =
+        '<div class="ac-rank ' + rkCls + '">' + rank + '</div>' +
+        verifiedHtml +
+        liveHtml +
+        '<div class="ac-avatar ' + a.grad + '">' + a.emoji + '</div>' +
+        '<div class="ac-name">' + a.name + '</div>' +
+        '<div class="ac-genre">' + a.genre + '</div>' +
+        '<div class="ac-stats">' +
+          '<div><div class="ac-stat-n" style="color:var(--accent);">' + a.songs + '</div><div class="ac-stat-l">Songs</div></div>' +
+          '<div><div class="ac-stat-n" style="color:var(--blue);">' + a.followers + '</div><div class="ac-stat-l">Followers</div></div>' +
+        '</div>' +
+        '<div class="follow-btn' + (a.following ? ' following' : '') + '" data-idx="' + (start + i) + '">' +
+          (a.following ? '✓ Following' : '+ Follow') +
+        '</div>';
+
+      grid.appendChild(card);
+    }
+    container.appendChild(grid);
+
+  } else {
+    var list = document.createElement('div');
+    list.className = 'artists-list';
+
+    for (var j = 0; j < page.length; j++) {
+      var ar   = page[j];
+      var rnk  = start + j + 1;
+      var rnkCls = rnk === 1 ? 'ar-rank-num rg' : rnk === 2 ? 'ar-rank-num rs' : rnk === 3 ? 'ar-rank-num rb' : 'ar-rank-num';
+
+      var row = document.createElement('div');
+      row.className = 'artist-row';
+      row.style.animation = 'fadeUp 0.3s ease both';
+      row.style.animationDelay = (j * 0.04) + 's';
+
+      var badgeHtml = ar.live
+        ? '<div class="ar-live-dot"></div>'
+        : (ar.verified ? '<div class="ar-verified"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>' : '');
+
+      row.innerHTML =
+        '<div class="ar-rank"><div class="' + rnkCls + '">' + rnk + '</div></div>' +
+        '<div class="ar-avatar ' + ar.grad + '">' + ar.emoji + badgeHtml + '</div>' +
+        '<div class="ar-info">' +
+          '<div class="ar-name">' + ar.name + '</div>' +
+          '<div class="ar-meta">' + ar.genre + ' · ' + ar.songs + ' songs</div>' +
+          '<div class="ar-stats">' +
+            '<div class="ar-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>' + ar.plays + '</div>' +
+            '<div class="ar-stat" style="color:var(--blue);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>' + ar.followers + '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="ar-right">' +
+          '<div class="ar-follow' + (ar.following ? ' following' : '') + '" data-idx="' + (start + j) + '">' +
+            (ar.following ? 'Following' : 'Follow') +
+          '</div>' +
+          '<div class="ar-plays">' + ar.plays + ' plays</div>' +
+        '</div>';
+
+      list.appendChild(row);
+    }
+    container.appendChild(list);
+  }
+
+  // Follow toggles
+  var btns = container.querySelectorAll('[data-idx]');
+  for (var bi = 0; bi < btns.length; bi++) {
+    (function(btn, idx) {
+      btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        ALL_ARTISTS[idx].following = !ALL_ARTISTS[idx].following;
+        renderArtists();
+      });
+    }(btns[bi], parseInt(btns[bi].getAttribute('data-idx'))));
+  }
+
+  document.querySelector('.scroll').scrollTop = 0;
+}
+
+function changePage(dir) {
+  var tp = getTotalPages(getFiltered());
+  var next = currentPage + dir;
+  if (next >= 1 && next <= tp) {
+    currentPage = next;
+    renderArtists();
+  }
+}
+
+function goToPage(p) {
+  currentPage = p;
+  renderArtists();
+}
+
+// Filter pills
+document.getElementById('filterRow').addEventListener('click', function(e) {
+  var pill = e.target.closest('.fpill');
+  if (!pill) return;
+  var pills = document.querySelectorAll('.fpill');
+  for (var i = 0; i < pills.length; i++) { pills[i].className = 'fpill off'; }
+  pill.className = 'fpill on';
+  currentFilter = pill.getAttribute('data-filter');
+  currentPage   = 1;
+  renderArtists();
+});
+
+// Search — debounced
+var searchTimer = null;
+document.getElementById('searchInput').addEventListener('input', function() {
+  clearTimeout(searchTimer);
+  var val = this.value;
+  searchTimer = setTimeout(function() {
+    searchQuery = val.trim();
+    currentPage = 1;
+    renderArtists();
+  }, 250);
+});
+
+// Theme
+var _t = document.getElementById('themeToggle');
+var _i = document.getElementById('ttIcon');
+var _l = document.getElementById('ttLabel');
+function applyTheme(isLight) {
+  document.body.classList.toggle('light', isLight);
+  _i.textContent = isLight ? '☀️' : '🌙';
+  _l.textContent = isLight ? 'Light' : 'Dark';
+}
+applyTheme(localStorage.getItem('shurafah-theme') === 'light');
+_t.addEventListener('click', function() {
+  var n = !document.body.classList.contains('light');
+  applyTheme(n);
+  localStorage.setItem('shurafah-theme', n ? 'light' : 'dark');
+});
+
+// Init
+renderArtists();
+
+// Initialize Ads System
+ADS.setUserType('guest');
+ADS.init({
+  enabled: true,
+  placements: {
+    headerBanner: { enabled: true },
+    inFeed: { enabled: true, frequency: 5 },
+    downloadModal: { enabled: true, timer: 5 }
+  }
+});
+</script>
+<script src="ads.js"></script>
+</body>
+</html>

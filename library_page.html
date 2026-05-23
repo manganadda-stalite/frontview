@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shurafah — Favourites & Library</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#080B12;--surface:#0F1420;--surface2:#161C2E;--surface3:#1E2740;
+  --accent:#FF6B35;--accent2:#FFB347;--blue:#4D9FFF;--green:#2ECC8F;
+  --purple:#9B6BFF;--pink:#FF4D8F;--yellow:#FFD166;
+  --text:#F0F4FF;--text2:#8A94B0;--text3:#4A5270;
+  --border:rgba(255,255,255,0.06);
+}
+
+  /* ── LIGHT MODE ── */
+  body.light {
+    --bg:#F4F6FC; --surface:#FFFFFF; --surface2:#E8ECF7; --surface3:#D8DEEF;
+    --text:#12172E; --text2:#5A6380; --text3:#9AA0BA;
+    --border:rgba(0,0,0,0.07);
+  }
+  body.light .phone        { background:var(--bg); }
+  body.light .hero         { background:linear-gradient(135deg,#EEE8FA 0%,#E4EEF8 40%,#E4F2EE 100%) !important; }
+  body.light .hero::before { opacity:0.4; }
+  body.light .hero::after  { opacity:0.4; }
+  body.light .fav-banner   { background:linear-gradient(135deg,#F5E8F0,#EDE8F8) !important; }
+  body.light .fav-player   { background:linear-gradient(135deg,#F5E8F0,#EDE8F8) !important; border-color:rgba(255,77,143,0.15) !important; }
+  body.light .lib-player   { background:linear-gradient(135deg,#EEF0FA,#E4E8F5) !important; }
+  body.light .player-card  { background:linear-gradient(135deg,#EEF0FA,#E4E8F5) !important; border-color:rgba(255,107,53,0.1) !important; }
+  body.light .artist-card  { background:linear-gradient(135deg,#EDE8FA,#E8EEF8) !important; border-color:rgba(155,107,255,0.15) !important; }
+  body.light .pc1          { background:linear-gradient(135deg,#E8F0FA,#E8F4EE) !important; }
+  body.light .pc2          { background:linear-gradient(135deg,#FAF0E8,#FAF0DC) !important; }
+  body.light .pc3          { background:linear-gradient(135deg,#EFE8FA,#E8E8FA) !important; }
+  body.light .pc4          { background:linear-gradient(135deg,#E8FAF0,#E8F0FA) !important; }
+  body.light .pc5          { background:linear-gradient(135deg,#FAE8F0,#F0E8FA) !important; }
+  body.light .pc6          { background:linear-gradient(135deg,#FAFAE8,#FAF0E8) !important; }
+  body.light .bnav         { background:var(--surface); }
+  body.light .lib-header   { background:linear-gradient(180deg,rgba(244,246,252,1) 0%,rgba(244,246,252,0) 100%) !important; }
+
+  /* ── THEME TOGGLE PILL ── */
+  .theme-toggle {
+    display:inline-flex; align-items:center; gap:6px; cursor:pointer;
+    background:var(--surface2); border-radius:50px;
+    padding:5px 11px 5px 9px;
+    border:1.5px solid var(--accent);
+    flex-shrink:0; user-select:none;
+  }
+  .theme-toggle .tt-icon  { font-size:14px; line-height:1; }
+  .theme-toggle .tt-label {
+    font-family:sans-serif; font-size:10px; font-weight:700;
+    color:var(--accent); letter-spacing:0.3px; white-space:nowrap;
+  }
+
+  /* ── SMOOTH TRANSITIONS ── */
+  body, .phone, .scroll, .hero, .fav-player, .lib-player, .player-card,
+  .bnav, .fav-banner, .artist-card, .pl-card, .arow, .frow, .drow, .hrow,
+  .srow, .rrow, .star-section, .quality-section, .share-section,
+  .meta-card, .desc-card, .dl-progress {
+    transition: background 0.3s ease, background-color 0.3s ease,
+                border-color 0.3s ease, color 0.3s ease;
+  }
+
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  background:var(--bg);
+  font-family:'DM Sans',sans-serif;color:var(--text);
+  min-height:100vh;display:flex;flex-direction:column;
+}
+
+/* PAGE LABEL */
+.page-label{
+  text-align:center;margin-bottom:12px;
+  font-family:sans-serif;font-size:13px;font-weight:700;
+  color:var(--text3);letter-spacing:1px;text-transform:uppercase;
+}
+
+.phone-col{display:flex;flex-direction:column;align-items:center;width:100%;}
+
+/* PHONE */
+.phone{
+  width:100%;background:var(--bg);
+  display:flex;flex-direction:column;min-height:100vh;position:relative;
+}
+.notch{display:none;}
+
+/* SCROLL */
+.scroll{flex:1;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;}
+.scroll::-webkit-scrollbar{display:none;}
+
+/* STATUS */
+.status{display:flex;justify-content:space-between;align-items:center;padding:14px 22px 0;font-size:11px;font-weight:700;font-family:sans-serif;}
+.si{display:flex;gap:5px;align-items:center;}
+.si svg{width:12px;height:12px;fill:var(--text);}
+
+/* ══════════════════════════════════════
+   ❤ FAVOURITES PAGE
+══════════════════════════════════════ */
+
+/* Favourites header */
+.fav-header{padding:10px 18px 0;}
+.fav-title-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
+.fav-title{font-family:sans-serif;font-size:24px;font-weight:800;letter-spacing:-0.5px;
+  background:linear-gradient(135deg,var(--pink),var(--accent));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.fav-count{font-size:11px;color:var(--text3);font-family:sans-serif;font-weight:600;padding-bottom:3px;}
+
+/* Summary banner */
+.fav-banner{
+  margin:0 18px;border-radius:16px;padding:14px 16px;
+  background:linear-gradient(135deg,#2A0A1A,#1A0A2E);
+  border:1px solid rgba(255,77,143,0.15);position:relative;overflow:hidden;
+  display:flex;align-items:center;gap:14px;
+}
+.fav-banner::before{content:'';position:absolute;top:-20px;right:-20px;width:110px;height:110px;background:radial-gradient(circle,rgba(255,77,143,0.2) 0%,transparent 70%);}
+.fb-icon{font-size:32px;flex-shrink:0;}
+.fb-info{flex:1;}
+.fb-label{font-size:10px;color:var(--text2);margin-bottom:3px;}
+.fb-val{font-family:sans-serif;font-size:16px;font-weight:800;margin-bottom:2px;}
+.fb-sub{font-size:10px;color:var(--text3);}
+.fb-play-all{
+  width:36px;height:36px;background:var(--pink);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 3px 12px rgba(255,77,143,0.4);cursor:pointer;flex-shrink:0;
+}
+.fb-play-all svg{width:14px;height:14px;fill:white;margin-left:2px;}
+
+/* Filter tabs */
+.filter-tabs{display:flex;gap:7px;padding:14px 18px 0;overflow-x:auto;scrollbar-width:none;}
+.filter-tabs::-webkit-scrollbar{display:none;}
+.ftab{flex-shrink:0;padding:6px 13px;border-radius:50px;font-size:11px;font-weight:700;font-family:sans-serif;cursor:pointer;border:1px solid transparent;white-space:nowrap;}
+.ftab.on{background:var(--pink);color:white;box-shadow:0 3px 12px rgba(255,77,143,0.3);}
+.ftab.off{background:var(--surface);color:var(--text2);border-color:var(--border);}
+
+/* Sort row */
+.sort-row{display:flex;justify-content:space-between;align-items:center;padding:12px 18px 8px;}
+.sort-lbl{font-size:11px;color:var(--text3);}
+.sort-btn{display:flex;align-items:center;gap:4px;font-size:11px;font-family:sans-serif;font-weight:700;color:var(--accent);cursor:pointer;}
+.sort-btn svg{width:12px;height:12px;fill:none;stroke:var(--accent);stroke-width:2;}
+
+/* Section label */
+.sec-row{display:flex;justify-content:space-between;align-items:center;padding:8px 18px 8px;}
+.sec-t{font-family:sans-serif;font-size:13px;font-weight:700;}
+.sec-a{font-size:10px;color:var(--pink);font-weight:600;cursor:pointer;}
+
+/* Favourite song rows */
+.fav-list{padding:0 14px;display:flex;flex-direction:column;gap:3px;}
+.frow{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:13px;cursor:pointer;transition:background 0.15s;position:relative;}
+.frow:hover{background:var(--surface);}
+.frow.playing{background:rgba(255,77,143,0.06);}
+.frow-num{width:18px;text-align:center;font-family:sans-serif;font-size:12px;font-weight:700;color:var(--text3);flex-shrink:0;}
+.frow-thumb{width:46px;height:46px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;position:relative;overflow:hidden;}
+.frow-eq{position:absolute;inset:0;background:rgba(0,0,0,0.44);display:flex;align-items:center;justify-content:center;}
+.frow-info{flex:1;min-width:0;}
+.frow-title{font-family:sans-serif;font-size:12px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:2px;}
+.frow-title.on{color:var(--pink);}
+.frow-artist{font-size:10px;color:var(--text2);margin-bottom:2px;}
+.frow-stats{display:flex;gap:7px;}
+.frow-stat{font-size:9px;color:var(--text3);display:flex;align-items:center;gap:2px;}
+.frow-stat svg{width:8px;height:8px;fill:none;stroke:currentColor;stroke-width:2;}
+.frow-right{display:flex;flex-direction:column;align-items:flex-end;gap:5px;flex-shrink:0;}
+.frow-dur{font-size:10px;color:var(--text3);font-family:sans-serif;font-weight:600;}
+.frow-heart{width:22px;height:22px;display:flex;align-items:center;justify-content:center;cursor:pointer;}
+.frow-heart svg{width:13px;height:13px;fill:var(--pink);stroke:var(--pink);}
+
+/* Favourite artist rows */
+.art-list{padding:0 14px;display:flex;flex-direction:column;gap:5px;}
+.arow{display:flex;align-items:center;gap:10px;padding:9px 11px;background:var(--surface);border-radius:13px;border:1px solid var(--border);cursor:pointer;}
+.a-img{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;position:relative;}
+.a-live{width:10px;height:10px;background:var(--green);border:2px solid var(--bg);border-radius:50%;position:absolute;bottom:-1px;right:-1px;}
+.a-inf{flex:1;min-width:0;}
+.a-n{font-family:sans-serif;font-size:12px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:2px;}
+.a-m{font-size:10px;color:var(--text2);}
+.a-r{display:flex;flex-direction:column;align-items:flex-end;gap:4px;}
+.unfollow-btn{background:rgba(255,77,143,0.1);border:1px solid rgba(255,77,143,0.3);border-radius:50px;padding:3px 10px;font-size:9px;font-weight:700;color:var(--pink);font-family:sans-serif;cursor:pointer;}
+.a-plays{font-size:9px;color:var(--text3);}
+
+/* Equalizer */
+.eq{display:flex;gap:2px;align-items:flex-end;height:13px;}
+.eq-b{width:3px;background:var(--pink);border-radius:2px;animation:eqa 0.75s ease-in-out infinite alternate;}
+.eq-b:nth-child(1){height:5px;animation-delay:0s;}
+.eq-b:nth-child(2){height:11px;animation-delay:0.18s;}
+.eq-b:nth-child(3){height:8px;animation-delay:0.09s;}
+.eq-b:nth-child(4){height:13px;animation-delay:0.27s;}
+@keyframes eqa{from{transform:scaleY(0.35)}to{transform:scaleY(1)}}
+
+/* Mini player (Favourites) */
+.fav-player{
+  margin:6px 12px 6px;
+  background:linear-gradient(135deg,#2A0A1A,#1A0A2E);
+  border-radius:15px;padding:10px 12px;
+  border:1px solid rgba(255,77,143,0.18);
+  box-shadow:0 6px 22px rgba(0,0,0,0.4);
+  flex-shrink:0;
+}
+.fp-top{display:flex;align-items:center;gap:10px;}
+.fp-art{width:38px;height:38px;border-radius:9px;background:linear-gradient(135deg,var(--pink),var(--accent));display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;box-shadow:0 3px 10px rgba(255,77,143,0.35);}
+.fp-inf{flex:1;min-width:0;}
+.fp-title{font-family:sans-serif;font-size:12px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:1px;}
+.fp-artist{font-size:10px;color:var(--text2);}
+.fp-ctrl{display:flex;align-items:center;gap:6px;}
+.fp-ctrl svg{width:17px;height:17px;fill:none;stroke:var(--text2);stroke-width:2;cursor:pointer;}
+.fp-play{width:32px;height:32px;background:var(--pink);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 10px rgba(255,77,143,0.4);cursor:pointer;}
+.fp-play svg{width:13px;height:13px;fill:white;}
+.fp-heart svg{width:15px;height:15px;fill:var(--pink);stroke:var(--pink);}
+.fp-prog{display:flex;align-items:center;gap:7px;margin-top:7px;}
+.fp-bar{flex:1;height:3px;background:var(--surface3);border-radius:2px;overflow:hidden;}
+.fp-fill{width:42%;height:100%;background:linear-gradient(90deg,var(--pink),var(--accent));border-radius:2px;}
+.fp-t{font-size:9px;color:var(--text3);font-family:sans-serif;}
+
+/* ══════════════════════════════════════
+   📚 LIBRARY PAGE
+══════════════════════════════════════ */
+
+/* Library header */
+.lib-header{
+  padding:10px 18px 0;
+  background:linear-gradient(180deg,rgba(8,11,18,1) 0%,rgba(8,11,18,0) 100%);
+}
+.lib-title-row{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:14px;}
+.lib-title{
+  font-family:sans-serif;font-size:24px;font-weight:800;letter-spacing:-0.5px;
+  background:linear-gradient(135deg,var(--blue),var(--purple));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.lib-add{width:32px;height:32px;background:var(--surface);border-radius:50%;display:flex;align-items:center;justify-content:center;border:1px solid var(--border);cursor:pointer;}
+.lib-add svg{width:15px;height:15px;fill:none;stroke:var(--text2);stroke-width:2;}
+
+/* Stats strip */
+.lib-stats{display:flex;gap:8px;margin-bottom:14px;}
+.lstat{flex:1;background:var(--surface);border-radius:12px;padding:10px 10px;border:1px solid var(--border);text-align:center;}
+.lstat-n{font-family:sans-serif;font-size:16px;font-weight:800;}
+.lstat-l{font-size:9px;color:var(--text3);margin-top:2px;}
+.lstat.s1 .lstat-n{color:var(--blue);}
+.lstat.s2 .lstat-n{color:var(--green);}
+.lstat.s3 .lstat-n{color:var(--accent);}
+.lstat.s4 .lstat-n{color:var(--purple);}
+
+/* Library tabs */
+.lib-tabs{display:flex;background:var(--surface);border-radius:12px;padding:3px;margin-bottom:14px;}
+.ltab{flex:1;padding:7px 5px;text-align:center;font-family:sans-serif;font-size:10px;font-weight:700;color:var(--text3);border-radius:10px;cursor:pointer;transition:all 0.2s;}
+.ltab.on{background:var(--surface3);color:var(--text);}
+
+/* Playlist grid */
+.playlist-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:4px;}
+.pl-card{border-radius:14px;padding:12px;cursor:pointer;position:relative;overflow:hidden;border:1px solid var(--border);background:var(--surface);}
+.pl-card::before{content:'';position:absolute;top:0;right:0;width:80px;height:80px;border-radius:0 14px 0 80px;opacity:0.15;}
+.pl-art{font-size:26px;margin-bottom:8px;}
+.pl-name{font-family:sans-serif;font-size:12px;font-weight:700;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.pl-count{font-size:9px;color:var(--text3);}
+.pl-dur{font-size:9px;color:var(--text3);margin-top:1px;}
+.pl-play{position:absolute;bottom:10px;right:10px;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;}
+.pl-play svg{width:10px;height:10px;fill:white;}
+.pc1{background:linear-gradient(135deg,#0E1A30,#0E2A1A);}.pc1::before{background:var(--blue);}
+.pc2{background:linear-gradient(135deg,#2A0E0E,#2A1A0E);}.pc2::before{background:var(--accent);}
+.pc3{background:linear-gradient(135deg,#1A0E2A,#0E0E2A);}.pc3::before{background:var(--purple);}
+.pc4{background:linear-gradient(135deg,#0E2A0E,#0E1A2A);}.pc4::before{background:var(--green);}
+.pc5{background:linear-gradient(135deg,#2A0A1A,#1A0A2A);}.pc5::before{background:var(--pink);}
+.pc6{background:linear-gradient(135deg,#1A1A0E,#2A1A0E);}.pc6::before{background:var(--yellow);}
+
+/* Downloaded songs section */
+.lib-sh{display:flex;justify-content:space-between;align-items:center;padding:10px 0 8px;}
+.lib-sh-t{font-family:sans-serif;font-size:13px;font-weight:700;}
+.lib-sh-a{font-size:10px;color:var(--blue);font-weight:600;cursor:pointer;}
+
+.dl-list{display:flex;flex-direction:column;gap:3px;}
+.drow{display:flex;align-items:center;gap:10px;padding:7px 10px;border-radius:12px;cursor:pointer;transition:background 0.15s;}
+.drow:hover{background:var(--surface);}
+.dr-thumb{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;position:relative;}
+.offline-dot{position:absolute;bottom:-2px;right:-2px;width:13px;height:13px;background:var(--blue);border:2px solid var(--bg);border-radius:50%;display:flex;align-items:center;justify-content:center;}
+.offline-dot svg{width:7px;height:7px;fill:white;}
+.dr-info{flex:1;min-width:0;}
+.dr-title{font-family:sans-serif;font-size:12px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:2px;}
+.dr-artist{font-size:10px;color:var(--text2);margin-bottom:2px;}
+.dr-meta{display:flex;gap:7px;align-items:center;}
+.dr-size{font-size:9px;color:var(--text3);display:flex;align-items:center;gap:2px;}
+.dr-size svg{width:8px;height:8px;fill:none;stroke:var(--blue);stroke-width:2;}
+.dr-quality{font-size:8px;background:rgba(77,159,255,0.12);color:var(--blue);border:1px solid rgba(77,159,255,0.25);border-radius:4px;padding:1px 5px;font-family:sans-serif;font-weight:700;}
+.dr-right{display:flex;flex-direction:column;align-items:flex-end;gap:5px;flex-shrink:0;}
+.dr-dur{font-size:10px;color:var(--text3);font-family:sans-serif;font-weight:600;}
+.dr-more svg{width:13px;height:13px;fill:none;stroke:var(--text3);stroke-width:2;}
+
+/* History section */
+.hist-list{display:flex;flex-direction:column;gap:3px;}
+.hrow{display:flex;align-items:center;gap:10px;padding:7px 10px;border-radius:12px;cursor:pointer;transition:background 0.15s;}
+.hrow:hover{background:var(--surface);}
+.hr-thumb{width:42px;height:42px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.hr-info{flex:1;min-width:0;}
+.hr-title{font-family:sans-serif;font-size:12px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:2px;}
+.hr-artist{font-size:10px;color:var(--text2);}
+.hr-right{flex-shrink:0;text-align:right;}
+.hr-when{font-size:9px;color:var(--text3);margin-bottom:4px;}
+.hr-dur{font-size:10px;color:var(--text3);font-family:sans-serif;font-weight:600;}
+
+/* Mini player (Library) */
+.lib-player{
+  margin:6px 12px 6px;
+  background:linear-gradient(135deg,var(--surface2),var(--surface3));
+  border-radius:15px;padding:10px 12px;
+  border:1px solid rgba(77,159,255,0.15);
+  box-shadow:0 6px 22px rgba(0,0,0,0.4);flex-shrink:0;
+}
+.lp-top{display:flex;align-items:center;gap:10px;}
+.lp-art{width:38px;height:38px;border-radius:9px;background:linear-gradient(135deg,var(--blue),var(--purple));display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;box-shadow:0 3px 10px rgba(77,159,255,0.3);}
+.lp-inf{flex:1;min-width:0;}
+.lp-title{font-family:sans-serif;font-size:12px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:1px;}
+.lp-artist{font-size:10px;color:var(--text2);}
+.lp-ctrl{display:flex;align-items:center;gap:6px;}
+.lp-ctrl svg{width:17px;height:17px;fill:none;stroke:var(--text2);stroke-width:2;cursor:pointer;}
+.lp-play{width:32px;height:32px;background:var(--blue);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 10px rgba(77,159,255,0.4);cursor:pointer;}
+.lp-play svg{width:13px;height:13px;fill:white;}
+.lp-heart svg{width:15px;height:15px;fill:none;stroke:var(--text2);}
+.lp-prog{display:flex;align-items:center;gap:7px;margin-top:7px;}
+.lp-bar{flex:1;height:3px;background:var(--surface3);border-radius:2px;overflow:hidden;}
+.lp-fill{width:28%;height:100%;background:linear-gradient(90deg,var(--blue),var(--purple));border-radius:2px;}
+.lp-t{font-size:9px;color:var(--text3);font-family:sans-serif;}
+
+/* Shared bottom nav */
+.bnav{display:flex;justify-content:space-around;align-items:center;padding:10px 8px 14px;background:var(--surface);border-top:1px solid var(--border);flex-shrink:0;position:sticky;bottom:0;z-index:10;}
+.ni{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:5px 10px;border-radius:10px;}
+.ni.fav-on{background:rgba(255,77,143,0.1);}
+.ni.fav-on svg{stroke:var(--pink)!important;}
+.ni.fav-on .nl{color:var(--pink)!important;}
+.ni.lib-on{background:rgba(77,159,255,0.1);}
+.ni.lib-on svg{stroke:var(--blue)!important;}
+.ni.lib-on .nl{color:var(--blue)!important;}
+.ni svg{width:18px;height:18px;fill:none;stroke:var(--text3);stroke-width:2;}
+.nl{font-size:9px;font-family:sans-serif;font-weight:700;color:var(--text3);}
+
+/* AD */
+.ad{margin:10px 0 0;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:8px 12px;display:flex;align-items:center;gap:8px;}
+.ad-tag{font-size:8px;font-family:sans-serif;color:var(--text3);background:var(--surface2);border-radius:4px;padding:2px 5px;text-transform:uppercase;letter-spacing:0.4px;flex-shrink:0;}
+.ad-txt{font-size:11px;color:var(--text2);flex:1;}
+.ad-cta{font-size:11px;color:var(--accent);font-weight:700;font-family:sans-serif;flex-shrink:0;cursor:pointer;}
+.ad-x{font-size:12px;color:var(--text3);flex-shrink:0;cursor:pointer;margin-left:2px;}
+
+/* Gradients */
+.g1{background:linear-gradient(135deg,#9B6BFF,#4D9FFF);}
+.g2{background:linear-gradient(135deg,#FF6B35,#FFB347);}
+.g3{background:linear-gradient(135deg,#FF4D8F,#FF6B35);}
+.g4{background:linear-gradient(135deg,#2ECC8F,#4D9FFF);}
+.g5{background:linear-gradient(135deg,#FFB347,#FF4D8F);}
+.g6{background:linear-gradient(135deg,#4D9FFF,#9B6BFF);}
+.g7{background:linear-gradient(135deg,#FF6B35,#FF4D8F);}
+.g8{background:linear-gradient(135deg,#2ECC8F,#9B6BFF);}
+
+.spacer{height:10px;}
+.divider{height:1px;background:var(--border);margin:6px 0;}
+
+@keyframes fup{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.phone>*{animation:fup 0.4s ease forwards;}
+
+/* RESPONSIVE DESIGN */
+@media (min-width:768px) {
+  .phone { max-width:768px; margin:0 auto; }
+  .fav-banner { margin:14px 20px 0; }
+  .lib-header { padding:16px 20px 0; }
+  .lib-sh { padding:0 20px; }
+  .fav-list { padding:0 20px; }
+  .pl-list { padding:0 20px; }
+  .dl-list { padding:0 20px; }
+  .hist-list { padding:0 20px; }
+  .lib-player { margin:8px 20px 6px; }
+  .ad { margin:12px 20px 0; }
+  .divider { margin:6px 20px; }
+}
+
+@media (min-width:1024px) {
+  .phone { max-width:1000px; }
+  .fav-banner { margin:18px 28px 0; }
+  .lib-header { padding:20px 28px 0; }
+  .lib-sh { padding:0 28px; }
+  .fav-list { padding:0 28px; }
+  .pl-list { padding:0 28px; }
+  .dl-list { padding:0 28px; }
+  .hist-list { padding:0 28px; }
+  .lib-player { margin:10px 28px 6px; }
+  .ad { margin:14px 28px 0; }
+  .divider { margin:6px 28px; }
+}
+
+@media (max-width:480px) {
+  .fav-banner { margin:10px 16px 0; }
+  .lib-header { padding:12px 16px 0; }
+  .lib-sh { padding:0 16px; }
+  .fav-list { padding:0 16px; }
+  .pl-list { padding:0 16px; }
+  .dl-list { padding:0 16px; }
+  .hist-list { padding:0 16px; }
+  .lib-player { margin:6px 14px 6px; }
+  .ad { margin:8px 16px 0; }
+  .divider { margin:6px 16px; }
+}
+</style>
+</head>
+<body>
+<!-- ════════════════════════════════════════
+     📚  LIBRARY  PHONE
+════════════════════════════════════════ -->
+<div class="phone-col">
+  <div class="phone">
+    <div class="notch"></div>
+    <div class="scroll">
+      <!-- AD CONTAINER: Header Banner -->
+      <div id="ad-header-banner"></div>
+
+
+      <div class="lib-header">
+        <div class="lib-title-row">
+          <div class="lib-title">My Library</div>
+          <div style="display:flex;align-items:center;gap:8px;">
+      <div class="theme-toggle" id="themeToggle">
+        <span class="tt-icon" id="ttIcon">🌙</span>
+        <span class="tt-label" id="ttLabel">Dark</span>
+      </div>
+            <div class="lib-add"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+          </div>
+        </div>
+
+        <!-- Stats strip -->
+        <div class="lib-stats">
+          <div class="lstat s1"><div class="lstat-n">24</div><div class="lstat-l">Downloaded</div></div>
+          <div class="lstat s2"><div class="lstat-n">6</div><div class="lstat-l">Playlists</div></div>
+          <div class="lstat s3"><div class="lstat-n">42</div><div class="lstat-l">Favourites</div></div>
+          <div class="lstat s4"><div class="lstat-n">16</div><div class="lstat-l">Artists</div></div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="lib-tabs">
+          <div class="ltab on">Playlists</div>
+          <div class="ltab">Downloads</div>
+          <div class="ltab">History</div>
+        </div>
+      </div>
+
+      <!-- Playlists grid -->
+      <div style="padding:0 14px;">
+
+        <div class="lib-sh"><div class="lib-sh-t">My Playlists</div><div class="lib-sh-a">+ New</div></div>
+        <div class="playlist-grid">
+
+          <div class="pl-card pc1">
+            <div class="pl-art">🙏</div>
+            <div class="pl-name">Sunday Praise</div>
+            <div class="pl-count">18 songs</div>
+            <div class="pl-dur">1h 12min</div>
+            <div class="pl-play g4"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+          </div>
+
+          <div class="pl-card pc2">
+            <div class="pl-art">🔥</div>
+            <div class="pl-name">Hot Worship</div>
+            <div class="pl-count">12 songs</div>
+            <div class="pl-dur">54min</div>
+            <div class="pl-play g2"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+          </div>
+
+          <div class="pl-card pc3">
+            <div class="pl-art">🌙</div>
+            <div class="pl-name">Night Prayers</div>
+            <div class="pl-count">9 songs</div>
+            <div class="pl-dur">42min</div>
+            <div class="pl-play g1"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+          </div>
+
+          <div class="pl-card pc4">
+            <div class="pl-art">🎵</div>
+            <div class="pl-name">Gospel Hits</div>
+            <div class="pl-count">24 songs</div>
+            <div class="pl-dur">1h 48min</div>
+            <div class="pl-play g4"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+          </div>
+
+          <div class="pl-card pc5">
+            <div class="pl-art">❤️</div>
+            <div class="pl-name">My Faves</div>
+            <div class="pl-count">42 songs</div>
+            <div class="pl-dur">2h 48min</div>
+            <div class="pl-play g3"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+          </div>
+
+          <div class="pl-card pc6" style="display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;border:1px dashed var(--border);">
+            <div style="font-size:24px;opacity:0.4;">+</div>
+            <div style="font-family:sans-serif;font-size:11px;font-weight:700;color:var(--text3);">New Playlist</div>
+          </div>
+
+        </div>
+
+        <!-- Downloaded songs -->
+        <div class="lib-sh" style="margin-top:6px;"><div class="lib-sh-t">Downloaded Songs</div><div class="lib-sh-a">Manage</div></div>
+        <div class="dl-list">
+
+          <div class="drow">
+            <div class="dr-thumb g1">🎵
+              <div class="offline-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            </div>
+            <div class="dr-info">
+              <div class="dr-title">Way Maker</div>
+              <div class="dr-artist">Sinach</div>
+              <div class="dr-meta">
+                <div class="dr-size"><svg viewBox="0 0 24 24"><path d="M12 3v10M8 9l4 4 4-4"/><path d="M5 19h14"/></svg>8.4 MB</div>
+                <div class="dr-quality">320 kbps</div>
+              </div>
+            </div>
+            <div class="dr-right">
+              <div class="dr-dur">5:33</div>
+              <div class="dr-more"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg></div>
+            </div>
+          </div>
+
+          <div class="drow">
+            <div class="dr-thumb g3">🎶
+              <div class="offline-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            </div>
+            <div class="dr-info">
+              <div class="dr-title">Fallen Stars</div>
+              <div class="dr-artist">Amara Soul</div>
+              <div class="dr-meta">
+                <div class="dr-size"><svg viewBox="0 0 24 24"><path d="M12 3v10M8 9l4 4 4-4"/><path d="M5 19h14"/></svg>4.2 MB</div>
+                <div class="dr-quality">128 kbps</div>
+              </div>
+            </div>
+            <div class="dr-right">
+              <div class="dr-dur">3:42</div>
+              <div class="dr-more"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg></div>
+            </div>
+          </div>
+
+          <div class="drow">
+            <div class="dr-thumb g4">🎸
+              <div class="offline-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            </div>
+            <div class="dr-info">
+              <div class="dr-title">Holy Ground</div>
+              <div class="dr-artist">Nathaniel Bassey</div>
+              <div class="dr-meta">
+                <div class="dr-size"><svg viewBox="0 0 24 24"><path d="M12 3v10M8 9l4 4 4-4"/><path d="M5 19h14"/></svg>6.1 MB</div>
+                <div class="dr-quality">320 kbps</div>
+              </div>
+            </div>
+            <div class="dr-right">
+              <div class="dr-dur">4:48</div>
+              <div class="dr-more"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg></div>
+            </div>
+          </div>
+
+          <div class="drow">
+            <div class="dr-thumb g5">🎼
+              <div class="offline-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            </div>
+            <div class="dr-info">
+              <div class="dr-title">Higher Ground</div>
+              <div class="dr-artist">Frank Edwards</div>
+              <div class="dr-meta">
+                <div class="dr-size"><svg viewBox="0 0 24 24"><path d="M12 3v10M8 9l4 4 4-4"/><path d="M5 19h14"/></svg>5.7 MB</div>
+                <div class="dr-quality">128 kbps</div>
+              </div>
+            </div>
+            <div class="dr-right">
+              <div class="dr-dur">5:01</div>
+              <div class="dr-more"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg></div>
+            </div>
+          </div>
+
+        </div><!-- /dl-list -->
+
+        <!-- Recently Played History -->
+        <div class="lib-sh" style="margin-top:6px;"><div class="lib-sh-t">Recently Played</div><div class="lib-sh-a">Clear all</div></div>
+        <div class="hist-list">
+
+          <div class="hrow">
+            <div class="hr-thumb g3">🎵</div>
+            <div class="hr-info">
+              <div class="hr-title">Fallen Stars</div>
+              <div class="hr-artist">Amara Soul</div>
+            </div>
+            <div class="hr-right">
+              <div class="hr-when">Just now</div>
+              <div class="hr-dur">3:42</div>
+            </div>
+          </div>
+
+          <div class="hrow">
+            <div class="hr-thumb g1">🎶</div>
+            <div class="hr-info">
+              <div class="hr-title">Way Maker</div>
+              <div class="hr-artist">Sinach</div>
+            </div>
+            <div class="hr-right">
+              <div class="hr-when">2 hrs ago</div>
+              <div class="hr-dur">5:33</div>
+            </div>
+          </div>
+
+          <div class="hrow">
+            <div class="hr-thumb g4">🎼</div>
+            <div class="hr-info">
+              <div class="hr-title">Open Heaven</div>
+              <div class="hr-artist">Nathaniel Bassey</div>
+            </div>
+            <div class="hr-right">
+              <div class="hr-when">Yesterday</div>
+              <div class="hr-dur">4:55</div>
+            </div>
+          </div>
+
+          <div class="hrow">
+            <div class="hr-thumb g2">🎸</div>
+            <div class="hr-info">
+              <div class="hr-title">Higher Ground</div>
+              <div class="hr-artist">Frank Edwards</div>
+            </div>
+            <div class="hr-right">
+              <div class="hr-when">Yesterday</div>
+              <div class="hr-dur">5:01</div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Ad -->
+        <div class="ad" style="margin-bottom:6px;">
+          <div class="ad-tag">Ad</div>
+          <div class="ad-txt">Get Premium — Unlimited downloads, no ads</div>
+          <div class="ad-cta">Try Free</div>
+          <div class="ad-x">✕</div>
+        </div>
+
+      </div><!-- /padding -->
+      <div class="spacer"></div>
+    </div><!-- /scroll -->
+
+    <!-- Mini Player (Library) -->
+    <div class="lib-player">
+      <div class="lp-top">
+        <div class="lp-art">🎵</div>
+        <div class="lp-inf">
+          <div class="lp-title">Holy Ground</div>
+          <div class="lp-artist">Nathaniel Bassey</div>
+        </div>
+        <div class="lp-ctrl">
+          <div class="lp-heart"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+          <svg viewBox="0 0 24 24"><polygon points="19 20 9 12 19 4 19 20"/><line x1="5" y1="19" x2="5" y2="5"/></svg>
+          <div class="lp-play"><svg viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg></div>
+          <svg viewBox="0 0 24 24"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19"/></svg>
+        </div>
+      </div>
+      <div class="lp-prog">
+        <span class="lp-t">0:52</span>
+        <div class="lp-bar"><div class="lp-fill"></div></div>
+        <span class="lp-t">4:48</span>
+      </div>
+    </div>
+
+    <!-- Bottom Nav -->
+    <div class="bnav">
+      <div class="ni"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><div class="nl">Home</div></div>
+      <div class="ni"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><div class="nl">Explore</div></div>
+      <div class="lib-on ni"><svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg><div class="nl">Library</div></div>
+      <div class="ni"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><div class="nl">Favourites</div></div>
+      <div class="ni"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><div class="nl">Profile</div></div>
+    </div>
+
+  </div><!-- /phone -->
+</div><!-- /col -->
+<script id="themeScript">
+  const _toggle = document.getElementById('themeToggle');
+  const _icon   = document.getElementById('ttIcon');
+  const _label  = document.getElementById('ttLabel');
+  function applyTheme(isLight) {
+    document.body.classList.toggle('light', isLight);
+    _icon.textContent  = isLight ? '☀️' : '🌙';
+    _label.textContent = isLight ? 'Light' : 'Dark';
+  }
+  applyTheme(localStorage.getItem('shurafah-theme') === 'light');
+  _toggle.addEventListener('click', () => {
+    const nowLight = !document.body.classList.contains('light');
+    applyTheme(nowLight);
+    localStorage.setItem('shurafah-theme', nowLight ? 'light' : 'dark');
+  });
+
+  // Initialize Ads System
+  ADS.setUserType('guest');
+  ADS.init({
+    enabled: true,
+    placements: {
+      headerBanner: { enabled: true },
+      inFeed: { enabled: true, frequency: 5 },
+      downloadModal: { enabled: true, timer: 5 }
+    }
+  });
+</script>
+<script src="ads.js"></script>
+</body>
+</html>

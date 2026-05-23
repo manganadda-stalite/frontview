@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Shurafah — My Profile</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#080B12;--surface:#0F1420;--surface2:#161C2E;--surface3:#1E2740;
+  --accent:#FF6B35;--accent2:#FFB347;--blue:#4D9FFF;--green:#2ECC8F;
+  --purple:#9B6BFF;--pink:#FF4D8F;--yellow:#FFD166;--teal:#00C9B8;
+  --text:#F0F4FF;--text2:#8A94B0;--text3:#4A5270;
+  --border:rgba(255,255,255,0.06);
+}
+
+  /* ── LIGHT MODE ── */
+  body.light {
+    --bg:#F4F6FC; --surface:#FFFFFF; --surface2:#E8ECF7; --surface3:#D8DEEF;
+    --text:#12172E; --text2:#5A6380; --text3:#9AA0BA;
+    --border:rgba(0,0,0,0.07);
+  }
+  body.light .phone   { background:var(--bg); }
+  body.light .hero    { background:linear-gradient(135deg,#EEE8FA 0%,#E4EEF8 40%,#E4F2EE 100%) !important; }
+  body.light .mini-player { background:linear-gradient(135deg,#EEF0FA,#E4E8F5) !important; border-color:rgba(255,107,53,0.12) !important; }
+  body.light .bnav    { background:var(--surface); }
+  body.light .prem-card { background:linear-gradient(135deg,#FFF8E8,#FFF2CC,#FFF8E0) !important; }
+
+  /* ── THEME TOGGLE PILL ── */
+  .theme-toggle {
+    display:inline-flex; align-items:center; gap:6px; cursor:pointer;
+    background:var(--surface2); border-radius:50px;
+    padding:5px 11px 5px 9px;
+    border:1.5px solid var(--accent);
+    flex-shrink:0; user-select:none; z-index:100;
+  }
+  .theme-toggle .tt-icon  { font-size:14px; line-height:1; }
+  .theme-toggle .tt-label {
+    font-family:sans-serif; font-size:10px; font-weight:700;
+    color:var(--accent); letter-spacing:0.3px; white-space:nowrap;
+  }
+
+  /* ── SMOOTH TRANSITIONS ── */
+  body, .phone, .scroll, .hero, .mini-player, .bnav,
+  .surface, .user-stats, .main-tabs, .listen-card,
+  .weekly-chart, .about-card, .settings-group, .si-row,
+  .prem-card, .action-row, .srow, .trow, .hcard-art {
+    transition: background 0.3s ease, background-color 0.3s ease,
+                border-color 0.3s ease, color 0.3s ease;
+  }
+
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);
+  min-height:100vh;display:flex;flex-direction:column;
+}
+
+/* ── WEBSITE WRAPPER ── */
+.phone{
+  width:100%;max-width:480px;margin:0 auto;background:var(--bg);
+  display:flex;flex-direction:column;min-height:100vh;position:relative;
+}
+.notch{display:none;}
+
+/* ── SCROLL ── */
+.scroll{flex:1;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;}
+.scroll::-webkit-scrollbar{display:none;}
+
+/* ══════════════════════════════
+   HERO COVER
+══════════════════════════════ */
+.hero{
+  position:relative;width:100%;height:130px;overflow:visible;flex-shrink:0;
+  background:linear-gradient(135deg,#0A0A1E 0%,#1A0A1A 40%,#0A1A20 100%);
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse at 15% 50%,rgba(255,107,53,0.28) 0%,transparent 55%),
+    radial-gradient(ellipse at 85% 30%,rgba(77,159,255,0.22) 0%,transparent 50%),
+    radial-gradient(ellipse at 50% 100%,rgba(155,107,255,0.2) 0%,transparent 50%);
+  animation:hshift 7s ease-in-out infinite alternate;
+}
+@keyframes hshift{from{opacity:0.7}to{opacity:1}}
+
+/* Cover edit btn */
+.cover-edit{
+  position:absolute;top:14px;right:14px;
+  width:30px;height:30px;background:rgba(0,0,0,0.5);backdrop-filter:blur(8px);
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  border:1px solid rgba(255,255,255,0.15);cursor:pointer;z-index:10;
+}
+.cover-edit svg{width:13px;height:13px;fill:none;stroke:white;stroke-width:2;}
+
+/* settings btn */
+.settings-btn{
+  position:absolute;top:14px;left:14px;
+  width:30px;height:30px;background:rgba(0,0,0,0.5);backdrop-filter:blur(8px);
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  border:1px solid rgba(255,255,255,0.15);cursor:pointer;z-index:10;
+}
+.settings-btn svg{width:13px;height:13px;fill:none;stroke:white;stroke-width:2;}
+
+/* Avatar */
+.avatar-wrap{
+  position:absolute;bottom:-42px;left:18px;z-index:20;
+}
+.avatar-ring{
+  width:84px;height:84px;border-radius:50%;
+  background:linear-gradient(135deg,var(--accent),var(--accent2),var(--pink));
+  padding:3px;box-shadow:0 6px 22px rgba(255,107,53,0.4);
+}
+.avatar-inner{
+  width:100%;height:100%;border-radius:50%;
+  background:linear-gradient(135deg,#2A100A,#1A0A20);
+  display:flex;align-items:center;justify-content:center;
+  font-size:32px;border:3px solid var(--bg);
+}
+.avatar-edit{
+  position:absolute;bottom:2px;right:2px;
+  width:22px;height:22px;background:var(--accent);border-radius:50%;
+  border:2px solid var(--bg);display:flex;align-items:center;justify-content:center;cursor:pointer;
+}
+.avatar-edit svg{width:10px;height:10px;fill:none;stroke:white;stroke-width:2;}
+
+/* ── USER INFO BLOCK ── */
+.user-info{padding:52px 18px 0;}
+.user-name-row{display:flex;align-items:center;gap:8px;margin-bottom:3px;}
+.user-name{font-family:sans-serif;font-size:20px;font-weight:800;letter-spacing:-0.4px;}
+.premium-badge{
+  display:inline-flex;align-items:center;gap:3px;
+  background:linear-gradient(135deg,var(--yellow),var(--accent2));
+  border-radius:50px;padding:2px 8px;
+  font-size:8px;font-weight:800;color:#1A0A00;font-family:sans-serif;
+  text-transform:uppercase;letter-spacing:0.3px;
+}
+.premium-badge svg{width:8px;height:8px;fill:#1A0A00;}
+.user-handle{font-size:12px;color:var(--text3);margin-bottom:6px;}
+.user-bio{font-size:11px;color:var(--text2);line-height:1.6;margin-bottom:10px;max-width:280px;}
+
+/* Stats row */
+.user-stats{display:flex;gap:0;margin-bottom:12px;background:var(--surface);border-radius:14px;border:1px solid var(--border);overflow:hidden;}
+.us{flex:1;padding:10px 6px;text-align:center;position:relative;}
+.us+.us::before{content:'';position:absolute;left:0;top:20%;bottom:20%;width:1px;background:var(--border);}
+.us-n{font-family:sans-serif;font-size:14px;font-weight:800;}
+.us-l{font-size:9px;color:var(--text3);margin-top:2px;}
+.us.s1 .us-n{color:var(--accent);}
+.us.s2 .us-n{color:var(--blue);}
+.us.s3 .us-n{color:var(--green);}
+.us.s4 .us-n{color:var(--pink);}
+
+/* Edit profile btn row */
+.action-row{display:flex;gap:8px;margin-bottom:4px;}
+.edit-btn{
+  flex:1;background:var(--surface);border:1px solid var(--border);
+  border-radius:12px;padding:10px;text-align:center;
+  font-family:sans-serif;font-size:11px;font-weight:700;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px;
+}
+.edit-btn svg{width:13px;height:13px;fill:none;stroke:var(--text2);stroke-width:2;}
+.share-profile{
+  width:42px;height:42px;background:var(--surface);border:1px solid var(--border);
+  border-radius:12px;display:flex;align-items:center;justify-content:center;cursor:pointer;
+}
+.share-profile svg{width:15px;height:15px;fill:none;stroke:var(--text2);stroke-width:2;}
+.notif-btn{
+  width:42px;height:42px;background:var(--surface);border:1px solid var(--border);
+  border-radius:12px;display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;
+}
+.notif-btn svg{width:15px;height:15px;fill:none;stroke:var(--text2);stroke-width:2;}
+.notif-dot{width:7px;height:7px;background:var(--accent);border-radius:50%;position:absolute;top:8px;right:8px;border:2px solid var(--bg);}
+
+/* ══════════════════════════════
+   MAIN TABS
+══════════════════════════════ */
+.main-tabs{
+  display:flex;background:var(--surface);margin:12px 14px 0;
+  border-radius:13px;padding:3px;border:1px solid var(--border);
+}
+.mtab{
+  flex:1;padding:8px 4px;text-align:center;font-family:sans-serif;
+  font-size:10px;font-weight:700;color:var(--text3);border-radius:10px;cursor:pointer;
+  transition:all 0.2s;white-space:nowrap;
+}
+.mtab.on{background:var(--accent);color:white;box-shadow:0 2px 8px rgba(255,107,53,0.35);}
+
+/* Tab panels */
+.tab-panel{display:none;padding:0;}
+.tab-panel.on{display:block;}
+
+/* ══════════════════════════════
+   TAB 1 — OVERVIEW
+══════════════════════════════ */
+
+/* Premium membership card */
+.prem-card{
+  margin:12px 14px 0;border-radius:16px;padding:14px;
+  background:linear-gradient(135deg,#1A0E00,#2A1500,#1A0800);
+  border:1px solid rgba(255,209,102,0.2);position:relative;overflow:hidden;
+}
+.prem-card::before{content:'';position:absolute;top:-30px;right:-30px;width:120px;height:120px;background:radial-gradient(circle,rgba(255,209,102,0.2) 0%,transparent 70%);}
+.prem-top{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.prem-icon{font-size:28px;}
+.prem-info{flex:1;}
+.prem-title{font-family:sans-serif;font-size:14px;font-weight:800;color:var(--yellow);margin-bottom:2px;}
+.prem-sub{font-size:10px;color:rgba(255,209,102,0.6);}
+.prem-expires{font-size:10px;color:rgba(255,209,102,0.5);margin-left:auto;}
+.prem-perks{display:flex;gap:6px;flex-wrap:wrap;}
+.perk{
+  display:flex;align-items:center;gap:4px;padding:4px 9px;
+  background:rgba(255,209,102,0.08);border:1px solid rgba(255,209,102,0.15);
+  border-radius:50px;font-size:9px;font-weight:700;color:var(--yellow);font-family:sans-serif;
+}
+
+/* Listening stats card */
+.listen-card{margin:10px 14px 0;background:var(--surface);border-radius:14px;padding:13px;border:1px solid var(--border);}
+.lc-title{font-family:sans-serif;font-size:12px;font-weight:700;color:var(--text2);margin-bottom:10px;display:flex;align-items:center;gap:5px;}
+.lc-title svg{width:13px;height:13px;fill:none;stroke:var(--accent);stroke-width:2;}
+.lc-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.lc-item{background:var(--surface2);border-radius:10px;padding:9px 10px;border:1px solid var(--border);}
+.lc-n{font-family:sans-serif;font-size:14px;font-weight:800;margin-bottom:2px;}
+.lc-l{font-size:9px;color:var(--text3);}
+.lc-item.i1 .lc-n{color:var(--accent);}
+.lc-item.i2 .lc-n{color:var(--blue);}
+.lc-item.i3 .lc-n{color:var(--green);}
+.lc-item.i4 .lc-n{color:var(--purple);}
+
+/* Weekly chart */
+.weekly-chart{margin:10px 14px 0;background:var(--surface);border-radius:14px;padding:13px;border:1px solid var(--border);}
+.wc-title{font-family:sans-serif;font-size:12px;font-weight:700;color:var(--text2);margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;}
+.wc-sub{font-size:10px;color:var(--text3);}
+.bars-row{display:flex;align-items:flex-end;gap:5px;height:60px;}
+.bar-wrap{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;}
+.bar{border-radius:4px 4px 0 0;width:100%;transition:height 0.3s;}
+.bar-lbl{font-size:8px;color:var(--text3);font-family:sans-serif;}
+.bar-val{font-size:8px;color:var(--text3);font-family:sans-serif;font-weight:700;}
+
+/* Top genre pie-style */
+.genre-row{display:flex;gap:6px;margin:10px 14px 0;flex-wrap:wrap;}
+.genre-pill{
+  display:flex;align-items:center;gap:5px;padding:6px 11px;
+  border-radius:50px;font-size:10px;font-weight:700;font-family:sans-serif;cursor:pointer;
+}
+.gp1{background:rgba(155,107,255,0.12);color:var(--purple);border:1px solid rgba(155,107,255,0.25);}
+.gp2{background:rgba(255,107,53,0.12);color:var(--accent);border:1px solid rgba(255,107,53,0.25);}
+.gp3{background:rgba(46,204,143,0.12);color:var(--green);border:1px solid rgba(46,204,143,0.25);}
+.gp4{background:rgba(77,159,255,0.12);color:var(--blue);border:1px solid rgba(77,159,255,0.25);}
+.gp5{background:rgba(255,77,143,0.12);color:var(--pink);border:1px solid rgba(255,77,143,0.25);}
+.gpct{font-size:9px;opacity:0.6;}
+
+/* Achievements */
+.sh{display:flex;justify-content:space-between;align-items:center;padding:14px 14px 9px;}
+.sh-t{font-family:sans-serif;font-size:13px;font-weight:700;}
+.sh-a{font-size:10px;color:var(--accent);font-weight:600;cursor:pointer;}
+.badges-row{display:flex;gap:8px;padding:0 14px;overflow-x:auto;scrollbar-width:none;}
+.badges-row::-webkit-scrollbar{display:none;}
+.badge-card{
+  flex-shrink:0;width:72px;background:var(--surface);border-radius:14px;
+  padding:10px 6px;border:1px solid var(--border);text-align:center;cursor:pointer;
+}
+.badge-icon{font-size:24px;margin-bottom:5px;}
+.badge-name{font-size:8px;font-family:sans-serif;font-weight:700;color:var(--text2);}
+.badge-card.earned{border-color:rgba(255,209,102,0.3);background:linear-gradient(135deg,#1A1200,#0A0E00);}
+.badge-card.earned .badge-name{color:var(--yellow);}
+
+/* ══════════════════════════════
+   TAB 2 — HISTORY
+══════════════════════════════ */
+.history-filter{display:flex;gap:6px;padding:12px 14px 8px;overflow-x:auto;scrollbar-width:none;}
+.history-filter::-webkit-scrollbar{display:none;}
+.hf{flex-shrink:0;padding:5px 12px;border-radius:50px;font-size:10px;font-weight:700;font-family:sans-serif;cursor:pointer;border:1px solid transparent;}
+.hf.on{background:var(--surface3);color:var(--text);border-color:var(--border);}
+.hf.off{color:var(--text3);}
+
+.hist-section-label{padding:4px 14px 6px;font-size:10px;font-family:sans-serif;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:0.5px;}
+.hist-list{padding:0 14px;display:flex;flex-direction:column;gap:3px;}
+.hrow{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:12px;cursor:pointer;transition:background 0.15s;}
+.hrow:hover{background:var(--surface);}
+.hr-thumb{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;}
+.hr-info{flex:1;min-width:0;}
+.hr-title{font-family:sans-serif;font-size:12px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:2px;}
+.hr-artist{font-size:10px;color:var(--text2);}
+.hr-right{flex-shrink:0;text-align:right;}
+.hr-when{font-size:9px;color:var(--text3);margin-bottom:3px;}
+.hr-dur{font-size:10px;color:var(--text3);font-family:sans-serif;font-weight:600;}
+.hr-plays{font-size:9px;color:var(--accent);}
+
+/* ══════════════════════════════
+   TAB 3 — DOWNLOADS
+══════════════════════════════ */
+.dl-header-stats{display:flex;gap:8px;padding:12px 14px 8px;}
+.dhs{flex:1;background:var(--surface);border-radius:12px;padding:9px 10px;border:1px solid var(--border);text-align:center;}
+.dhs-n{font-family:sans-serif;font-size:14px;font-weight:800;}
+.dhs-l{font-size:9px;color:var(--text3);}
+.dhs.d1 .dhs-n{color:var(--blue);}
+.dhs.d2 .dhs-n{color:var(--green);}
+.dhs.d3 .dhs-n{color:var(--accent);}
+
+.dl-manage-row{display:flex;justify-content:space-between;align-items:center;padding:4px 14px 8px;}
+.dl-sort{display:flex;align-items:center;gap:4px;font-size:10px;color:var(--text3);}
+.dl-sort svg{width:11px;height:11px;fill:none;stroke:var(--text3);stroke-width:2;}
+.dl-manage-btn{font-size:10px;color:var(--accent);font-weight:700;font-family:sans-serif;cursor:pointer;}
+
+.dl-list{padding:0 14px;display:flex;flex-direction:column;gap:3px;}
+.drow{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:12px;cursor:pointer;transition:background 0.15s;}
+.drow:hover{background:var(--surface);}
+.dr-thumb{width:46px;height:46px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;position:relative;}
+.offline-dot{position:absolute;bottom:-2px;right:-2px;width:13px;height:13px;background:var(--blue);border:2px solid var(--bg);border-radius:50%;display:flex;align-items:center;justify-content:center;}
+.offline-dot svg{width:7px;height:7px;fill:white;}
+.dr-info{flex:1;min-width:0;}
+.dr-title{font-family:sans-serif;font-size:12px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:2px;}
+.dr-artist{font-size:10px;color:var(--text2);margin-bottom:3px;}
+.dr-meta{display:flex;gap:6px;align-items:center;}
+.dr-size{font-size:9px;color:var(--text3);display:flex;align-items:center;gap:2px;}
+.dr-size svg{width:8px;height:8px;fill:none;stroke:var(--blue);stroke-width:2;}
+.dr-quality{font-size:8px;background:rgba(77,159,255,0.12);color:var(--blue);border:1px solid rgba(77,159,255,0.25);border-radius:4px;padding:1px 5px;font-family:sans-serif;font-weight:700;}
+.dr-date{font-size:8px;color:var(--text3);}
+.dr-right{display:flex;flex-direction:column;align-items:flex-end;gap:5px;flex-shrink:0;}
+.dr-dur{font-size:10px;color:var(--text3);font-family:sans-serif;font-weight:600;}
+.dr-more svg{width:13px;height:13px;fill:none;stroke:var(--text3);stroke-width:2;}
+
+/* ══════════════════════════════
+   TAB 4 — SETTINGS
+══════════════════════════════ */
+.settings-section{padding:12px 14px 0;}
+.settings-group{margin-bottom:14px;}
+.sg-label{font-size:10px;font-family:sans-serif;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;padding-left:2px;}
+.sg-items{background:var(--surface);border-radius:14px;border:1px solid var(--border);overflow:hidden;}
+.si-row{
+  display:flex;align-items:center;gap:12px;padding:12px 14px;
+  border-bottom:1px solid var(--border);cursor:pointer;transition:background 0.15s;
+}
+.si-row:last-child{border-bottom:none;}
+.si-row:hover{background:var(--surface2);}
+.si-icon{width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.si-icon svg{width:15px;height:15px;fill:none;stroke:white;stroke-width:2;}
+.si-body{flex:1;}
+.si-title{font-family:sans-serif;font-size:12px;font-weight:700;margin-bottom:1px;}
+.si-sub{font-size:10px;color:var(--text3);}
+.si-right{flex-shrink:0;}
+.si-right svg{width:14px;height:14px;fill:none;stroke:var(--text3);stroke-width:2;}
+.si-right.val{font-size:10px;color:var(--text3);font-family:sans-serif;}
+
+/* Toggle switch */
+.toggle{width:36px;height:20px;border-radius:10px;position:relative;cursor:pointer;flex-shrink:0;}
+.toggle.on{background:var(--accent);}
+.toggle.off{background:var(--surface3);}
+.toggle-thumb{position:absolute;top:2px;width:16px;height:16px;background:white;border-radius:50%;transition:left 0.2s;box-shadow:0 1px 4px rgba(0,0,0,0.3);}
+.toggle.on .toggle-thumb{left:18px;}
+.toggle.off .toggle-thumb{left:2px;}
+
+/* Danger zone */
+.danger-row{
+  display:flex;align-items:center;gap:12px;padding:12px 14px;
+  border-bottom:1px solid var(--border);cursor:pointer;
+}
+.danger-row:last-child{border-bottom:none;}
+.si-title.red{color:#FF4444;}
+.si-sub.red{color:rgba(255,68,68,0.6);}
+
+/* ══════════════════════════════
+   TAB 5 — COMMENTS (My Comments)
+══════════════════════════════ */
+.my-comments{padding:0 14px;display:flex;flex-direction:column;gap:8px;padding-top:12px;}
+.mc-card{background:var(--surface);border-radius:14px;padding:12px;border:1px solid var(--border);}
+.mc-song-row{display:flex;align-items:center;gap:8px;margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid var(--border);}
+.mc-thumb{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;}
+.mc-song-info{flex:1;min-width:0;}
+.mc-song-title{font-family:sans-serif;font-size:11px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.mc-song-artist{font-size:9px;color:var(--text3);}
+.mc-song-link{font-size:9px;color:var(--accent);font-weight:600;flex-shrink:0;}
+.mc-text{font-size:11px;color:var(--text2);line-height:1.55;margin-bottom:7px;}
+.mc-footer{display:flex;align-items:center;gap:10px;}
+.mc-time{font-size:9px;color:var(--text3);}
+.mc-likes{display:flex;align-items:center;gap:3px;font-size:10px;color:var(--pink);}
+.mc-likes svg{width:10px;height:10px;fill:var(--pink);}
+.mc-replies{font-size:10px;color:var(--blue);}
+.mc-del{margin-left:auto;font-size:9px;color:#FF4444;cursor:pointer;}
+
+/* Gradients */
+.g1{background:linear-gradient(135deg,#9B6BFF,#4D9FFF);}
+.g2{background:linear-gradient(135deg,#FF6B35,#FFB347);}
+.g3{background:linear-gradient(135deg,#FF4D8F,#FF6B35);}
+.g4{background:linear-gradient(135deg,#2ECC8F,#4D9FFF);}
+.g5{background:linear-gradient(135deg,#FFB347,#FF4D8F);}
+.g6{background:linear-gradient(135deg,#4D9FFF,#9B6BFF);}
+.g7{background:linear-gradient(135deg,#FF6B35,#FF4D8F);}
+.g8{background:linear-gradient(135deg,#2ECC8F,#9B6BFF);}
+
+/* ── AD BANNER ── */
+.ad{margin:10px 14px 0;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:8px 12px;display:flex;align-items:center;gap:8px;}
+.ad-tag{font-size:8px;font-family:sans-serif;color:var(--text3);background:var(--surface2);border-radius:4px;padding:2px 5px;text-transform:uppercase;letter-spacing:0.4px;flex-shrink:0;}
+.ad-txt{font-size:11px;color:var(--text2);flex:1;}
+.ad-cta{font-size:11px;color:var(--accent);font-weight:700;font-family:sans-serif;flex-shrink:0;cursor:pointer;}
+.ad-x{font-size:12px;color:var(--text3);flex-shrink:0;cursor:pointer;margin-left:3px;}
+
+/* ── MINI PLAYER ── */
+.mini-player{
+  margin:7px 12px 6px;
+  background:linear-gradient(135deg,var(--surface2),var(--surface3));
+  border-radius:15px;padding:10px 12px;
+  border:1px solid rgba(255,107,53,0.14);
+  box-shadow:0 6px 22px rgba(0,0,0,0.45);flex-shrink:0;
+}
+.mp-top{display:flex;align-items:center;gap:10px;}
+.mp-art{width:38px;height:38px;border-radius:9px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;box-shadow:0 3px 10px rgba(255,107,53,0.32);}
+.mp-inf{flex:1;min-width:0;}
+.mp-title{font-family:sans-serif;font-size:12px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:1px;}
+.mp-artist{font-size:10px;color:var(--text2);}
+.mp-ctrl{display:flex;align-items:center;gap:6px;}
+.mp-heart{width:26px;height:26px;background:rgba(255,77,143,0.1);border:1px solid rgba(255,77,143,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;}
+.mp-heart svg{width:12px;height:12px;fill:var(--pink);stroke:var(--pink);}
+.mp-ctrl>svg{width:17px;height:17px;fill:none;stroke:var(--text2);stroke-width:2;cursor:pointer;}
+.mp-play{width:32px;height:32px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 10px rgba(255,107,53,0.4);cursor:pointer;}
+.mp-play svg{width:13px;height:13px;fill:white;}
+.mp-prog{display:flex;align-items:center;gap:7px;margin-top:7px;}
+.pbar{flex:1;height:3px;background:var(--surface3);border-radius:2px;overflow:hidden;}
+.pfill{width:45%;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:2px;}
+.pt{font-size:9px;color:var(--text3);font-family:sans-serif;}
+
+/* ── BOTTOM NAV ── */
+.bnav{display:flex;justify-content:space-around;align-items:center;padding:10px 8px 14px;background:var(--surface);border-top:1px solid var(--border);flex-shrink:0;position:sticky;bottom:0;z-index:10;}
+.ni{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:5px 10px;border-radius:10px;}
+.ni.on{background:rgba(255,107,53,0.1);}
+.ni svg{width:18px;height:18px;fill:none;stroke:var(--text3);stroke-width:2;}
+.ni.on svg{stroke:var(--accent);}
+.nl{font-size:9px;font-family:sans-serif;font-weight:700;color:var(--text3);}
+.ni.on .nl{color:var(--accent);}
+
+.spacer{height:12px;}
+
+@keyframes fup{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.phone>*{animation:fup 0.4s ease forwards;}
+</style>
+</head>
+<body>
+<div class="phone">
+  <div class="notch"></div>
+  <div class="scroll">
+    <!-- AD CONTAINER: Header Banner -->
+    <div id="ad-header-banner"></div>
+
+    <!-- ══ HERO ══ -->
+    <div class="hero">
+      <div class="settings-btn"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></div>
+      <div class="cover-edit"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></div>
+      <div class="avatar-wrap">
+        <div class="avatar-ring">
+          <div class="avatar-inner">👤</div>
+        </div>
+        <div class="avatar-edit"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></div>
+      </div>
+    </div>
+
+    <!-- ══ USER INFO ══ -->
+    <div class="user-info">
+      <div class="user-name-row">
+        <div class="user-name">Daniel Nwosu</div>
+        <div class="premium-badge"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>PRO</div>
+      </div>
+      <div class="user-handle">@dan_music · Lagos, Nigeria 🇳🇬</div>
+      <div class="user-bio">Gospel music lover & worship enthusiast. 🙏 Sharing what ministers to my soul. Building community one song at a time.</div>
+
+      <!-- Stats -->
+      <div class="user-stats">
+        <div class="us s1"><div class="us-n">42</div><div class="us-l">Favourites</div></div>
+        <div class="us s2"><div class="us-n">24</div><div class="us-l">Downloads</div></div>
+        <div class="us s3"><div class="us-n">16</div><div class="us-l">Artists</div></div>
+        <div class="us s4"><div class="us-n">6</div><div class="us-l">Playlists</div></div>
+      </div>
+
+      <!-- Action buttons -->
+      <div class="action-row" style="position:relative;">
+                <div class="theme-toggle" id="themeToggle">
+          <span class="tt-icon" id="ttIcon">🌙</span>
+          <span class="tt-label" id="ttLabel">Dark</span>
+        </div>
+        
+        <div class="edit-btn">
+          <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          Edit Profile
+        </div>
+        <div class="share-profile"><svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></div>
+        <div class="notif-btn"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><div class="notif-dot"></div></div>
+      </div>
+    </div>
+
+    <!-- ══ MAIN TABS ══ -->
+    <div class="main-tabs" id="mainTabs">
+      <div class="mtab on" data-tab="overview">Overview</div>
+      <div class="mtab" data-tab="history">History</div>
+      <div class="mtab" data-tab="downloads">Downloads</div>
+      <div class="mtab" data-tab="comments">Comments</div>
+      <div class="mtab" data-tab="settings">Settings</div>
+    </div>
+
+    <!-- ══════════════════════════════
+         TAB 1 — OVERVIEW
+    ══════════════════════════════ -->
+    <div class="tab-panel on" id="tab-overview">
+
+      <!-- Premium card -->
+      <div class="prem-card">
+        <div class="prem-top">
+          <div class="prem-icon">⭐</div>
+          <div class="prem-info">
+            <div class="prem-title">Shurafah Pro</div>
+            <div class="prem-sub">Premium Member · Active</div>
+          </div>
+          <div class="prem-expires">Expires Dec 2025</div>
+        </div>
+        <div class="prem-perks">
+          <div class="perk">✓ No Ads</div>
+          <div class="perk">✓ Unlimited Downloads</div>
+          <div class="perk">✓ 320 kbps</div>
+          <div class="perk">✓ Offline Mode</div>
+        </div>
+      </div>
+
+      <!-- Listening stats -->
+      <div class="listen-card">
+        <div class="lc-title"><svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>My Listening Stats</div>
+        <div class="lc-grid">
+          <div class="lc-item i1"><div class="lc-n">1,248</div><div class="lc-l">Total Songs Played</div></div>
+          <div class="lc-item i2"><div class="lc-n">312h</div><div class="lc-l">Total Listen Time</div></div>
+          <div class="lc-item i3"><div class="lc-n">24</div><div class="lc-l">Songs Downloaded</div></div>
+          <div class="lc-item i4"><div class="lc-n">6</div><div class="lc-l">Playlists Created</div></div>
+        </div>
+      </div>
+
+      <!-- Weekly listening chart -->
+      <div class="weekly-chart">
+        <div class="wc-title">
+          Weekly Listening
+          <div class="wc-sub">This week: 14h 22min</div>
+        </div>
+        <div class="bars-row">
+          <div class="bar-wrap">
+            <div class="bar-val">1.2h</div>
+            <div class="bar" style="height:28px;background:var(--surface3);"></div>
+            <div class="bar-lbl">Mon</div>
+          </div>
+          <div class="bar-wrap">
+            <div class="bar-val">2.4h</div>
+            <div class="bar" style="height:44px;background:linear-gradient(180deg,var(--accent),var(--accent2));"></div>
+            <div class="bar-lbl">Tue</div>
+          </div>
+          <div class="bar-wrap">
+            <div class="bar-val">1.8h</div>
+            <div class="bar" style="height:34px;background:var(--surface3);"></div>
+            <div class="bar-lbl">Wed</div>
+          </div>
+          <div class="bar-wrap">
+            <div class="bar-val">3.1h</div>
+            <div class="bar" style="height:56px;background:linear-gradient(180deg,var(--accent),var(--accent2));"></div>
+            <div class="bar-lbl">Thu</div>
+          </div>
+          <div class="bar-wrap">
+            <div class="bar-val">2.0h</div>
+            <div class="bar" style="height:38px;background:var(--surface3);"></div>
+            <div class="bar-lbl">Fri</div>
+          </div>
+          <div class="bar-wrap">
+            <div class="bar-val">2.6h</div>
+            <div class="bar" style="height:48px;background:linear-gradient(180deg,var(--blue),var(--purple));"></div>
+            <div class="bar-lbl">Sat</div>
+          </div>
+          <div class="bar-wrap">
+            <div class="bar-val">1.3h</div>
+            <div class="bar" style="height:24px;background:var(--surface3);"></div>
+            <div class="bar-lbl">Sun</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Top genres -->
+      <div class="sh"><div class="sh-t">🎵 Top Genres</div></div>
+      <div class="genre-row">
+        <div class="genre-pill gp1">🙏 Gospel <span class="gpct">48%</span></div>
+        <div class="genre-pill gp2">🔥 Praise <span class="gpct">22%</span></div>
+        <div class="genre-pill gp3">💧 Worship <span class="gpct">18%</span></div>
+        <div class="genre-pill gp4">🎸 Afrobeat <span class="gpct">8%</span></div>
+        <div class="genre-pill gp5">🎵 R&amp;B <span class="gpct">4%</span></div>
+      </div>
+
+      <!-- Achievements -->
+      <div class="sh"><div class="sh-t">🏆 Achievements</div><div class="sh-a">See all</div></div>
+      <div class="badges-row">
+        <div class="badge-card earned"><div class="badge-icon">🎵</div><div class="badge-name">1K Plays</div></div>
+        <div class="badge-card earned"><div class="badge-icon">⬇️</div><div class="badge-name">Downloader</div></div>
+        <div class="badge-card earned"><div class="badge-icon">❤️</div><div class="badge-name">Superfan</div></div>
+        <div class="badge-card earned"><div class="badge-icon">⭐</div><div class="badge-name">Pro User</div></div>
+        <div class="badge-card" style="opacity:0.4;"><div class="badge-icon">🏆</div><div class="badge-name">10K Plays</div></div>
+        <div class="badge-card" style="opacity:0.4;"><div class="badge-icon">🌍</div><div class="badge-name">Explorer</div></div>
+      </div>
+
+      <!-- Ad -->
+      <div class="ad">
+        <div class="ad-tag">Ad</div>
+        <div class="ad-txt">Share Shurafah &amp; earn free Premium months</div>
+        <div class="ad-cta">Refer</div>
+        <div class="ad-x">✕</div>
+      </div>
+
+      <div class="spacer"></div>
+    </div>
+
+    <!-- ══════════════════════════════
+         TAB 2 — HISTORY
+    ══════════════════════════════ -->
+    <div class="tab-panel" id="tab-history">
+      <div class="history-filter">
+        <div class="hf on">All Time</div>
+        <div class="hf off">Today</div>
+        <div class="hf off">This Week</div>
+        <div class="hf off">This Month</div>
+      </div>
+
+      <div class="hist-section-label">Today</div>
+      <div class="hist-list">
+        <div class="hrow">
+          <div class="hr-thumb g3">🎵</div>
+          <div class="hr-info"><div class="hr-title">Fallen Stars</div><div class="hr-artist">Amara Soul</div></div>
+          <div class="hr-right"><div class="hr-when">Just now</div><div class="hr-dur">3:42</div></div>
+        </div>
+        <div class="hrow">
+          <div class="hr-thumb g1">🎶</div>
+          <div class="hr-info"><div class="hr-title">Way Maker</div><div class="hr-artist">Sinach</div></div>
+          <div class="hr-right"><div class="hr-when">1 hr ago</div><div class="hr-dur">5:33</div></div>
+        </div>
+        <div class="hrow">
+          <div class="hr-thumb g4">🎸</div>
+          <div class="hr-info"><div class="hr-title">Holy Ground</div><div class="hr-artist">Nathaniel Bassey</div></div>
+          <div class="hr-right"><div class="hr-when">2 hrs ago</div><div class="hr-dur">4:48</div></div>
+        </div>
+      </div>
+
+      <div class="hist-section-label" style="margin-top:8px;">Yesterday</div>
+      <div class="hist-list">
+        <div class="hrow">
+          <div class="hr-thumb g5">🎼</div>
+          <div class="hr-info"><div class="hr-title">Open Heaven</div><div class="hr-artist">Nathaniel Bassey</div></div>
+          <div class="hr-right"><div class="hr-when">Yesterday</div><div class="hr-dur">4:55</div></div>
+        </div>
+        <div class="hrow">
+          <div class="hr-thumb g2">🎤</div>
+          <div class="hr-info"><div class="hr-title">Higher Ground</div><div class="hr-artist">Frank Edwards</div></div>
+          <div class="hr-right"><div class="hr-when">Yesterday</div><div class="hr-dur">5:01</div></div>
+        </div>
+        <div class="hrow">
+          <div class="hr-thumb g7">🎵</div>
+          <div class="hr-info"><div class="hr-title">Grace Overflow</div><div class="hr-artist">Tope Alabi</div></div>
+          <div class="hr-right"><div class="hr-when">Yesterday</div><div class="hr-dur">4:15</div></div>
+        </div>
+        <div class="hrow">
+          <div class="hr-thumb g8">🎶</div>
+          <div class="hr-info"><div class="hr-title">Miracles</div><div class="hr-artist">Dunsin Oyekan</div></div>
+          <div class="hr-right"><div class="hr-when">Yesterday</div><div class="hr-dur">6:20</div></div>
+        </div>
+      </div>
+
+      <div class="hist-section-label" style="margin-top:8px;">This Week</div>
+      <div class="hist-list">
+        <div class="hrow">
+          <div class="hr-thumb g6">🎸</div>
+          <div class="hr-info"><div class="hr-title">River Flow</div><div class="hr-artist">Sinach</div></div>
+          <div class="hr-right"><div class="hr-when">Mon</div><div class="hr-dur">5:10</div></div>
+        </div>
+        <div class="hrow">
+          <div class="hr-thumb g4">🎼</div>
+          <div class="hr-info"><div class="hr-title">Come Alive</div><div class="hr-artist">Lauren Daigle</div></div>
+          <div class="hr-right"><div class="hr-when">Mon</div><div class="hr-dur">4:52</div></div>
+        </div>
+        <div class="hrow">
+          <div class="hr-thumb g1">🎵</div>
+          <div class="hr-info"><div class="hr-title">Deep Calls</div><div class="hr-artist">Amara Soul</div></div>
+          <div class="hr-right"><div class="hr-when">Sun</div><div class="hr-dur">4:28</div></div>
+        </div>
+      </div>
+
+      <div class="spacer"></div>
+    </div>
+
+    <!-- ══════════════════════════════
+         TAB 3 — DOWNLOADS
+    ══════════════════════════════ -->
+    <div class="tab-panel" id="tab-downloads">
+      <div class="dl-header-stats">
+        <div class="dhs d1"><div class="dhs-n">24</div><div class="dhs-l">Songs</div></div>
+        <div class="dhs d2"><div class="dhs-n">142 MB</div><div class="dhs-l">Used</div></div>
+        <div class="dhs d3"><div class="dhs-n">358 MB</div><div class="dhs-l">Free</div></div>
+      </div>
+
+      <div class="dl-manage-row">
+        <div class="dl-sort"><svg viewBox="0 0 24 24"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg> Date Downloaded</div>
+        <div class="dl-manage-btn">Manage Storage</div>
+      </div>
+
+      <div class="dl-list">
+        <div class="drow">
+          <div class="dr-thumb g1">🎵<div class="offline-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div></div>
+          <div class="dr-info">
+            <div class="dr-title">Way Maker</div>
+            <div class="dr-artist">Sinach</div>
+            <div class="dr-meta"><div class="dr-size"><svg viewBox="0 0 24 24"><path d="M12 3v10M8 9l4 4 4-4"/><path d="M5 19h14"/></svg>8.4 MB</div><div class="dr-quality">320 kbps</div><div class="dr-date">Mar 28</div></div>
+          </div>
+          <div class="dr-right"><div class="dr-dur">5:33</div><div class="dr-more"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg></div></div>
+        </div>
+        <div class="drow">
+          <div class="dr-thumb g3">🎶<div class="offline-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div></div>
+          <div class="dr-info">
+            <div class="dr-title">Fallen Stars</div>
+            <div class="dr-artist">Amara Soul</div>
+            <div class="dr-meta"><div class="dr-size"><svg viewBox="0 0 24 24"><path d="M12 3v10M8 9l4 4 4-4"/><path d="M5 19h14"/></svg>4.2 MB</div><div class="dr-quality">128 kbps</div><div class="dr-date">Mar 27</div></div>
+          </div>
+          <div class="dr-right"><div class="dr-dur">3:42</div><div class="dr-more"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg></div></div>
+        </div>
+        <div class="drow">
+          <div class="dr-thumb g4">🎸<div class="offline-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div></div>
+          <div class="dr-info">
+            <div class="dr-title">Holy Ground</div>
+            <div class="dr-artist">Nathaniel Bassey</div>
+            <div class="dr-meta"><div class="dr-size"><svg viewBox="0 0 24 24"><path d="M12 3v10M8 9l4 4 4-4"/><path d="M5 19h14"/></svg>6.1 MB</div><div class="dr-quality">320 kbps</div><div class="dr-date">Mar 25</div></div>
+          </div>
+          <div class="dr-right"><div class="dr-dur">4:48</div><div class="dr-more"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg></div></div>
+        </div>
+        <div class="drow">
+          <div class="dr-thumb g5">🎼<div class="offline-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div></div>
+          <div class="dr-info">
+            <div class="dr-title">Higher Ground</div>
+            <div class="dr-artist">Frank Edwards</div>
+            <div class="dr-meta"><div class="dr-size"><svg viewBox="0 0 24 24"><path d="M12 3v10M8 9l4 4 4-4"/><path d="M5 19h14"/></svg>5.7 MB</div><div class="dr-quality">128 kbps</div><div class="dr-date">Mar 24</div></div>
+          </div>
+          <div class="dr-right"><div class="dr-dur">5:01</div><div class="dr-more"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg></div></div>
+        </div>
+        <div class="drow">
+          <div class="dr-thumb g7">🎤<div class="offline-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div></div>
+          <div class="dr-info">
+            <div class="dr-title">Open Heaven</div>
+            <div class="dr-artist">Nathaniel Bassey</div>
+            <div class="dr-meta"><div class="dr-size"><svg viewBox="0 0 24 24"><path d="M12 3v10M8 9l4 4 4-4"/><path d="M5 19h14"/></svg>7.2 MB</div><div class="dr-quality">320 kbps</div><div class="dr-date">Mar 20</div></div>
+          </div>
+          <div class="dr-right"><div class="dr-dur">4:55</div><div class="dr-more"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg></div></div>
+        </div>
+        <div class="drow">
+          <div class="dr-thumb g8">🎵<div class="offline-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div></div>
+          <div class="dr-info">
+            <div class="dr-title">Miracles</div>
+            <div class="dr-artist">Dunsin Oyekan</div>
+            <div class="dr-meta"><div class="dr-size"><svg viewBox="0 0 24 24"><path d="M12 3v10M8 9l4 4 4-4"/><path d="M5 19h14"/></svg>9.1 MB</div><div class="dr-quality">320 kbps</div><div class="dr-date">Mar 18</div></div>
+          </div>
+          <div class="dr-right"><div class="dr-dur">6:20</div><div class="dr-more"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg></div></div>
+        </div>
+      </div>
+      <div class="spacer"></div>
+    </div>
+
+    <!-- ══════════════════════════════
+         TAB 4 — MY COMMENTS
+    ══════════════════════════════ -->
+    <div class="tab-panel" id="tab-comments">
+      <div class="my-comments">
+
+        <div class="mc-card">
+          <div class="mc-song-row">
+            <div class="mc-thumb g3">🎵</div>
+            <div class="mc-song-info"><div class="mc-song-title">Fallen Stars</div><div class="mc-song-artist">Amara Soul</div></div>
+            <div class="mc-song-link">View →</div>
+          </div>
+          <div class="mc-text">"This song touched my soul deeply. Been on repeat all morning 🙏🔥 Amara Soul is truly anointed!"</div>
+          <div class="mc-footer">
+            <span class="mc-time">2 hrs ago</span>
+            <span class="mc-likes"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>42</span>
+            <span class="mc-replies">💬 3 replies</span>
+            <span class="mc-del">Delete</span>
+          </div>
+        </div>
+
+        <div class="mc-card">
+          <div class="mc-song-row">
+            <div class="mc-thumb g1">🎶</div>
+            <div class="mc-song-info"><div class="mc-song-title">Way Maker</div><div class="mc-song-artist">Sinach</div></div>
+            <div class="mc-song-link">View →</div>
+          </div>
+          <div class="mc-text">"Classic. This song will never get old. Sinach is a gift to the body of Christ 🎶❤️"</div>
+          <div class="mc-footer">
+            <span class="mc-time">Yesterday</span>
+            <span class="mc-likes"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>18</span>
+            <span class="mc-replies">💬 1 reply</span>
+            <span class="mc-del">Delete</span>
+          </div>
+        </div>
+
+        <div class="mc-card">
+          <div class="mc-song-row">
+            <div class="mc-thumb g4">🎸</div>
+            <div class="mc-song-info"><div class="mc-song-title">Holy Ground</div><div class="mc-song-artist">Nathaniel Bassey</div></div>
+            <div class="mc-song-link">View →</div>
+          </div>
+          <div class="mc-text">"Downloaded immediately and shared with my whole church group. We played it during Sunday service!"</div>
+          <div class="mc-footer">
+            <span class="mc-time">3 days ago</span>
+            <span class="mc-likes"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>9</span>
+            <span class="mc-replies">💬 0 replies</span>
+            <span class="mc-del">Delete</span>
+          </div>
+        </div>
+
+        <div class="mc-card">
+          <div class="mc-song-row">
+            <div class="mc-thumb g5">🎼</div>
+            <div class="mc-song-info"><div class="mc-song-title">Miracles</div><div class="mc-song-artist">Dunsin Oyekan</div></div>
+            <div class="mc-song-link">View →</div>
+          </div>
+          <div class="mc-text">"The way this song builds up to the bridge is just INCREDIBLE. 6 minutes of pure worship 🙌"</div>
+          <div class="mc-footer">
+            <span class="mc-time">1 week ago</span>
+            <span class="mc-likes"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>31</span>
+            <span class="mc-replies">💬 5 replies</span>
+            <span class="mc-del">Delete</span>
+          </div>
+        </div>
+
+      </div>
+      <div class="spacer"></div>
+    </div>
+
+    <!-- ══════════════════════════════
+         TAB 5 — SETTINGS
+    ══════════════════════════════ -->
+    <div class="tab-panel" id="tab-settings">
+      <div class="settings-section">
+
+        <!-- Account -->
+        <div class="settings-group">
+          <div class="sg-label">Account</div>
+          <div class="sg-items">
+            <div class="si-row">
+              <div class="si-icon" style="background:rgba(255,107,53,0.15)"><svg viewBox="0 0 24 24" style="stroke:var(--accent)"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+              <div class="si-body"><div class="si-title">Edit Profile</div><div class="si-sub">Name, bio, photo, handle</div></div>
+              <div class="si-right"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+            </div>
+            <div class="si-row">
+              <div class="si-icon" style="background:rgba(77,159,255,0.15)"><svg viewBox="0 0 24 24" style="stroke:var(--blue)"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+              <div class="si-body"><div class="si-title">Change Password</div><div class="si-sub">Last changed 3 months ago</div></div>
+              <div class="si-right"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+            </div>
+            <div class="si-row">
+              <div class="si-icon" style="background:rgba(46,204,143,0.15)"><svg viewBox="0 0 24 24" style="stroke:var(--green)"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+              <div class="si-body"><div class="si-title">Email Address</div><div class="si-sub">dan***@gmail.com</div></div>
+              <div class="si-right"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+            </div>
+            <div class="si-row">
+              <div class="si-icon" style="background:rgba(255,209,102,0.12)"><svg viewBox="0 0 24 24" style="stroke:var(--yellow)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+              <div class="si-body"><div class="si-title">Manage Subscription</div><div class="si-sub">Shurafah Pro · Active</div></div>
+              <div class="si-right"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Playback -->
+        <div class="settings-group">
+          <div class="sg-label">Playback</div>
+          <div class="sg-items">
+            <div class="si-row">
+              <div class="si-icon" style="background:rgba(155,107,255,0.15)"><svg viewBox="0 0 24 24" style="stroke:var(--purple)"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div>
+              <div class="si-body"><div class="si-title">Stream Quality</div><div class="si-sub">High quality audio</div></div>
+              <div class="si-right val">320 kbps</div>
+            </div>
+            <div class="si-row">
+              <div class="si-icon" style="background:rgba(77,159,255,0.15)"><svg viewBox="0 0 24 24" style="stroke:var(--blue)"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></div>
+              <div class="si-body"><div class="si-title">Download Quality</div><div class="si-sub">Offline songs quality</div></div>
+              <div class="si-right val">128 kbps</div>
+            </div>
+            <div class="si-row">
+              <div class="si-icon" style="background:rgba(46,204,143,0.15)"><svg viewBox="0 0 24 24" style="stroke:var(--green)"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div>
+              <div class="si-body"><div class="si-title">Autoplay</div><div class="si-sub">Play similar songs after queue</div></div>
+              <div class="toggle on" onclick="this.classList.toggle('on');this.classList.toggle('off');"><div class="toggle-thumb"></div></div>
+            </div>
+            <div class="si-row">
+              <div class="si-icon" style="background:rgba(255,107,53,0.15)"><svg viewBox="0 0 24 24" style="stroke:var(--accent)"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="4" y1="4" x2="9" y2="9"/></svg></div>
+              <div class="si-body"><div class="si-title">Crossfade</div><div class="si-sub">Smooth transitions between songs</div></div>
+              <div class="toggle off" onclick="this.classList.toggle('on');this.classList.toggle('off');"><div class="toggle-thumb"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Notifications -->
+        <div class="settings-group">
+          <div class="sg-label">Notifications</div>
+          <div class="sg-items">
+            <div class="si-row">
+              <div class="si-icon" style="background:rgba(255,209,102,0.12)"><svg viewBox="0 0 24 24" style="stroke:var(--yellow)"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
+              <div class="si-body"><div class="si-title">New Songs</div><div class="si-sub">Alert when artists release new songs</div></div>
+              <div class="toggle on" onclick="this.classList.toggle('on');this.classList.toggle('off');"><div class="toggle-thumb"></div></div>
+            </div>
+            <div class="si-row">
+              <div class="si-icon" style="background:rgba(255,77,143,0.12)"><svg viewBox="0 0 24 24" style="stroke:var(--pink)"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+              <div class="si-body"><div class="si-title">Comment Replies</div><div class="si-sub">When someone replies to your comments</div></div>
+              <div class="toggle on" onclick="this.classList.toggle('on');this.classList.toggle('off');"><div class="toggle-thumb"></div></div>
+            </div>
+            <div class="si-row">
+              <div class="si-icon" style="background:rgba(77,159,255,0.15)"><svg viewBox="0 0 24 24" style="stroke:var(--blue)"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+              <div class="si-body"><div class="si-title">Trending Alerts</div><div class="si-sub">When songs go viral in your genre</div></div>
+              <div class="toggle off" onclick="this.classList.toggle('on');this.classList.toggle('off');"><div class="toggle-thumb"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Privacy -->
+        <div class="settings-group">
+          <div class="sg-label">Privacy & Security</div>
+          <div class="sg-items">
+            <div class="si-row">
+              <div class="si-icon" style="background:rgba(46,204,143,0.15)"><svg viewBox="0 0 24 24" style="stroke:var(--green)"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+              <div class="si-body"><div class="si-title">Private Profile</div><div class="si-sub">Hide your listening activity</div></div>
+              <div class="toggle off" onclick="this.classList.toggle('on');this.classList.toggle('off');"><div class="toggle-thumb"></div></div>
+            </div>
+            <div class="si-row">
+              <div class="si-icon" style="background:rgba(155,107,255,0.15)"><svg viewBox="0 0 24 24" style="stroke:var(--purple)"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6M9 12h6M9 15h4"/></svg></div>
+              <div class="si-body"><div class="si-title">Data & Privacy Policy</div><div class="si-sub">How we use your data</div></div>
+              <div class="si-right"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Appearance -->
+        <div class="settings-group">
+          <div class="sg-label">Appearance</div>
+          <div class="sg-items">
+            <div class="si-row">
+              <div class="si-icon" style="background:rgba(255,209,102,0.12)"><svg viewBox="0 0 24 24" style="stroke:var(--yellow)"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg></div>
+              <div class="si-body"><div class="si-title">Theme</div><div class="si-sub">App colour scheme</div></div>
+              <div class="si-right val">Dark</div>
+            </div>
+            <div class="si-row">
+              <div class="si-icon" style="background:rgba(77,159,255,0.15)"><svg viewBox="0 0 24 24" style="stroke:var(--blue)"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+              <div class="si-body"><div class="si-title">Language</div><div class="si-sub">App display language</div></div>
+              <div class="si-right val">English</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Danger Zone -->
+        <div class="settings-group">
+          <div class="sg-label">Account Actions</div>
+          <div class="sg-items">
+            <div class="danger-row si-row">
+              <div class="si-icon" style="background:rgba(255,68,68,0.1)"><svg viewBox="0 0 24 24" style="stroke:#FF4444"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></div>
+              <div class="si-body"><div class="si-title red">Log Out</div><div class="si-sub red">Sign out of your account</div></div>
+              <div class="si-right"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+            </div>
+            <div class="danger-row si-row">
+              <div class="si-icon" style="background:rgba(255,68,68,0.1)"><svg viewBox="0 0 24 24" style="stroke:#FF4444"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg></div>
+              <div class="si-body"><div class="si-title red">Delete Account</div><div class="si-sub red">Permanently remove your account</div></div>
+              <div class="si-right"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- App version -->
+        <div style="text-align:center;padding:8px 0 4px;">
+          <div style="font-size:10px;color:var(--text3);font-family:sans-serif;">Shurafah v2.4.1 · Built with ❤️</div>
+        </div>
+
+        <div class="ad" style="margin-top:10px;">
+          <div class="ad-tag">Ad</div>
+          <div class="ad-txt">Refer a friend — get 1 month Premium free</div>
+          <div class="ad-cta">Refer Now</div>
+          <div class="ad-x">✕</div>
+        </div>
+        <div class="spacer"></div>
+      </div>
+    </div>
+
+  </div><!-- /scroll -->
+
+  <!-- ══ MINI PLAYER ══ -->
+  <div class="mini-player">
+    <div class="mp-top">
+      <div class="mp-art">🎵</div>
+      <div class="mp-inf">
+        <div class="mp-title">Fallen Stars</div>
+        <div class="mp-artist">Amara Soul</div>
+      </div>
+      <div class="mp-ctrl">
+        <div class="mp-heart"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+        <svg viewBox="0 0 24 24"><polygon points="19 20 9 12 19 4 19 20"/><line x1="5" y1="19" x2="5" y2="5"/></svg>
+        <div class="mp-play"><svg viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg></div>
+        <svg viewBox="0 0 24 24"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19"/></svg>
+      </div>
+    </div>
+    <div class="mp-prog">
+      <span class="pt">1:44</span>
+      <div class="pbar"><div class="pfill"></div></div>
+      <span class="pt">3:42</span>
+    </div>
+  </div>
+
+  <!-- ══ BOTTOM NAV ══ -->
+  <div class="bnav">
+    <div class="ni"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><div class="nl">Home</div></div>
+    <div class="ni"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><div class="nl">Explore</div></div>
+    <div class="ni"><svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg><div class="nl">Library</div></div>
+    <div class="ni"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><div class="nl">Favourites</div></div>
+    <div class="ni on"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><div class="nl">Profile</div></div>
+  </div>
+
+</div>
+
+<script>
+// Tab switching
+const tabs = document.querySelectorAll('.mtab');
+const panels = document.querySelectorAll('.tab-panel');
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    tabs.forEach(t => t.classList.remove('on'));
+    panels.forEach(p => p.classList.remove('on'));
+    tab.classList.add('on');
+    document.getElementById('tab-' + tab.dataset.tab).classList.add('on');
+    // scroll back to top of content
+    document.querySelector('.scroll').scrollTop = document.querySelector('.user-info').offsetTop - 10;
+  });
+});
+
+// History filter tabs
+document.querySelectorAll('.hf').forEach(hf => {
+  hf.addEventListener('click', () => {
+    document.querySelectorAll('.hf').forEach(h => {h.classList.remove('on');h.classList.add('off');});
+    hf.classList.add('on'); hf.classList.remove('off');
+  });
+});
+
+// Toggle switches — already handled inline
+// Heart toggle on mini player
+document.querySelector('.mp-heart').addEventListener('click', function(){
+  const svg = this.querySelector('svg path');
+  const filled = svg.getAttribute('fill') === 'var(--pink)';
+  this.style.background = filled ? 'transparent' : 'rgba(255,77,143,0.1)';
+  svg.setAttribute('fill', filled ? 'none' : 'var(--pink)');
+  svg.setAttribute('stroke', filled ? 'var(--text2)' : 'var(--pink)');
+});
+</script>
+
+<script id="themeScript">
+  const _toggle = document.getElementById('themeToggle');
+  const _icon   = document.getElementById('ttIcon');
+  const _label  = document.getElementById('ttLabel');
+
+  function applyTheme(isLight) {
+    document.body.classList.toggle('light', isLight);
+    _icon.textContent  = isLight ? '☀️' : '🌙';
+    _label.textContent = isLight ? 'Light' : 'Dark';
+  }
+
+  applyTheme(localStorage.getItem('shurafah-theme') === 'light');
+
+  _toggle.addEventListener('click', () => {
+    const nowLight = !document.body.classList.contains('light');
+    applyTheme(nowLight);
+    localStorage.setItem('shurafah-theme', nowLight ? 'light' : 'dark');
+  });
+
+  // Initialize Ads System
+  ADS.setUserType('guest');
+  ADS.init({
+    enabled: true,
+    placements: {
+      headerBanner: { enabled: true }
+    }
+  });
+</script>
+<script src="ads.js"></script>
+
+</body>
+</html>
