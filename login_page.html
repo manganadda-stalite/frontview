@@ -129,6 +129,35 @@ body{
 .flag-code{font-family:sans-serif;font-size:11px;font-weight:700;color:var(--text2);}
 .phone-input-wrap{flex:1;position:relative;}
 
+/* Show/hide password toggle */
+.pwd-toggle{
+  position:absolute;right:13px;top:50%;transform:translateY(-50%);
+  cursor:pointer;font-size:14px;opacity:0.7;user-select:none;
+  transition:opacity .15s;
+}
+.pwd-toggle:hover{opacity:1;}
+.field-input.has-toggle{padding-right:38px;}
+
+/* Forgot password link */
+.forgot-row{display:flex;justify-content:flex-end;margin:-4px 0 8px;}
+.forgot-link{font-size:11px;font-family:sans-serif;font-weight:700;color:var(--accent);cursor:pointer;text-decoration:none;}
+.forgot-link:hover{text-decoration:underline;}
+
+/* Reset password view */
+.reset-view{
+  margin:24px 16px 0;background:var(--surface);
+  border-radius:20px;padding:22px;border:1px solid var(--border);
+  display:none;
+}
+.reset-view.show{display:block;animation:fadeUp .25s ease;}
+.reset-head{text-align:center;margin-bottom:18px;}
+.reset-icon{font-size:42px;margin-bottom:10px;}
+.reset-title{font-family:sans-serif;font-size:16px;font-weight:800;margin-bottom:4px;}
+.reset-sub{font-size:12px;color:var(--text2);line-height:1.6;}
+.reset-sub strong{color:var(--accent);}
+.reset-step{display:none;}
+.reset-step.active{display:block;}
+
 /* LOGIN BUTTON */
 .login-btn{
   width:100%;background:linear-gradient(135deg,var(--accent),var(--accent2));
@@ -284,7 +313,7 @@ body{
     <div class="login-hero">
       <div class="app-logo">🎵</div>
       <div class="login-title">Welcome back to<br><span class="brand">Shurafah</span></div>
-      <div class="login-sub">Enter your name &amp; phone number<br>to continue listening.</div>
+      <div class="login-sub">Enter your name, phone &amp; password<br>to continue listening.</div>
     </div>
 
     <!-- LOGIN FORM -->
@@ -306,7 +335,7 @@ body{
       </div>
 
       <!-- Phone Number -->
-      <div class="field" style="margin-bottom:8px;">
+      <div class="field" style="margin-bottom:14px;">
         <div class="field-label">Phone Number <span class="req">*</span></div>
         <div class="phone-wrap">
           <div class="country-flag">
@@ -319,6 +348,21 @@ body{
           </div>
         </div>
         <div class="field-error" id="phoneErr">Enter your registered phone number</div>
+      </div>
+
+      <!-- Password -->
+      <div class="field" style="margin-bottom:6px;">
+        <div class="field-label">Password <span class="req">*</span></div>
+        <div class="field-input-wrap">
+          <svg class="field-icon" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <input class="field-input has-toggle" id="loginPassword" type="password" placeholder="Your password" autocomplete="current-password">
+          <span class="pwd-toggle" id="loginPwdToggle" onclick="togglePwd('loginPassword','loginPwdToggle')">👁️</span>
+        </div>
+        <div class="field-error" id="pwdErr">Enter your password (at least 6 characters)</div>
+      </div>
+
+      <div class="forgot-row">
+        <a class="forgot-link" onclick="openReset()">Forgot password?</a>
       </div>
 
       <!-- Login Button -->
@@ -353,20 +397,93 @@ body{
       <div class="back-to-login"><a onclick="backToLogin()">← Back to Login</a></div>
     </div>
 
+    <!-- RESET PASSWORD VIEW -->
+    <div class="reset-view" id="resetView">
+      <div class="reset-head">
+        <div class="reset-icon">🔑</div>
+        <div class="reset-title">Reset Your Password</div>
+        <div class="reset-sub" id="resetSub">We'll send a 4-digit code to your phone to verify it's you.</div>
+      </div>
+
+      <!-- Step 1: phone -->
+      <div class="reset-step active" id="resetStep1">
+        <div class="field">
+          <div class="field-label">Phone Number <span class="req">*</span></div>
+          <div class="phone-wrap">
+            <div class="country-flag">
+              <span style="font-size:18px;">🇳🇬</span>
+              <span class="flag-code">+234</span>
+            </div>
+            <div class="phone-input-wrap">
+              <input class="field-input" id="resetPhone" type="tel" placeholder="0812 345 6789" autocomplete="tel" style="padding-left:14px;">
+            </div>
+          </div>
+          <div class="field-error" id="resetPhoneErr">Enter a valid phone number</div>
+        </div>
+        <div class="login-btn" onclick="sendResetOtp()">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          Send OTP
+        </div>
+      </div>
+
+      <!-- Step 2: OTP -->
+      <div class="reset-step" id="resetStep2">
+        <div class="otp-boxes">
+          <input class="otp-box" id="rotp1" type="text" maxlength="1" inputmode="numeric">
+          <input class="otp-box" id="rotp2" type="text" maxlength="1" inputmode="numeric">
+          <input class="otp-box" id="rotp3" type="text" maxlength="1" inputmode="numeric">
+          <input class="otp-box" id="rotp4" type="text" maxlength="1" inputmode="numeric">
+        </div>
+        <div class="login-btn" onclick="verifyResetOtp()">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          Verify Code
+        </div>
+        <div class="resend-txt" style="text-align:center;margin-top:12px;">Didn't get a code? <a onclick="resendResetOtp()">Resend in <span id="resetCountdown">30</span>s</a></div>
+      </div>
+
+      <!-- Step 3: new password -->
+      <div class="reset-step" id="resetStep3">
+        <div class="field">
+          <div class="field-label">New Password <span class="req">*</span></div>
+          <div class="field-input-wrap">
+            <svg class="field-icon" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <input class="field-input has-toggle" id="newPwd" type="password" placeholder="At least 6 characters" autocomplete="new-password">
+            <span class="pwd-toggle" id="newPwdToggle" onclick="togglePwd('newPwd','newPwdToggle')">👁️</span>
+          </div>
+          <div class="field-error" id="newPwdErr">Password must be at least 6 characters</div>
+        </div>
+        <div class="field">
+          <div class="field-label">Confirm New Password <span class="req">*</span></div>
+          <div class="field-input-wrap">
+            <svg class="field-icon" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <input class="field-input has-toggle" id="newPwd2" type="password" placeholder="Re-enter password" autocomplete="new-password">
+            <span class="pwd-toggle" id="newPwd2Toggle" onclick="togglePwd('newPwd2','newPwd2Toggle')">👁️</span>
+          </div>
+          <div class="field-error" id="newPwd2Err">Passwords do not match</div>
+        </div>
+        <div class="login-btn" onclick="saveNewPassword()">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          Save New Password
+        </div>
+      </div>
+
+      <div class="back-to-login" style="text-align:center;margin-top:14px;"><a onclick="closeReset()">← Back to Login</a></div>
+    </div>
+
     <!-- How it works -->
     <div class="how-card" id="howCard">
       <div class="how-title">🔐 How Login Works</div>
       <div class="how-step">
         <div class="how-num hn1">1</div>
-        <div class="how-text">Enter your <strong>registered name &amp; phone number</strong></div>
+        <div class="how-text">Enter your <strong>registered name, phone &amp; password</strong></div>
       </div>
       <div class="how-step">
         <div class="how-num hn2">2</div>
-        <div class="how-text">We send a <strong>4-digit OTP</strong> to verify your number</div>
+        <div class="how-text">We verify your <strong>4-digit OTP</strong> sent to your phone</div>
       </div>
       <div class="how-step">
         <div class="how-num hn3">3</div>
-        <div class="how-text">Enter the code and you're <strong>instantly logged in!</strong></div>
+        <div class="how-text">Forgot your password? <strong>Reset via phone OTP</strong> any time.</div>
       </div>
     </div>
 
@@ -403,17 +520,34 @@ function validatePhone(){
   if(!/^(0\d{10}|[789]\d{9})$/.test(v)){inp.className='field-input invalid';err.classList.add('show');return false;}
   inp.className='field-input valid';err.classList.remove('show');return true;
 }
+function validateLoginPassword(){
+  const v=document.getElementById('loginPassword').value;
+  const inp=document.getElementById('loginPassword');
+  const err=document.getElementById('pwdErr');
+  if(v.length<6){inp.className='field-input invalid';err.classList.add('show');return false;}
+  inp.className='field-input valid';err.classList.remove('show');return true;
+}
+function togglePwd(inputId, toggleId){
+  const inp=document.getElementById(inputId);
+  const tog=document.getElementById(toggleId);
+  if(inp.type==='password'){inp.type='text';tog.textContent='🙈';}
+  else{inp.type='password';tog.textContent='👁️';}
+}
 
 document.getElementById('loginName').addEventListener('blur',validateName);
 document.getElementById('loginPhone').addEventListener('blur',validatePhone);
+document.getElementById('loginPassword').addEventListener('blur',validateLoginPassword);
 
 /* LOGIN */
 function doLogin(){
-  if(!validateName()|!validatePhone())return;
+  const okName=validateName();
+  const okPhone=validatePhone();
+  const okPwd=validateLoginPassword();
+  if(!(okName && okPhone && okPwd))return;
 
   const btn=document.getElementById('loginBtn');
   btn.classList.add('loading');
-  btn.innerHTML='<span>Sending OTP…</span>';
+  btn.innerHTML='<span>Signing in…</span>';
 
   const raw=document.getElementById('loginPhone').value.replace(/\s/g,'');
   const fmt='+234 '+raw.replace(/^0/,'').replace(/(\d{3})(\d{4})(\d{4})/,'$1 $2 $3');
@@ -422,7 +556,7 @@ function doLogin(){
     btn.classList.remove('loading');
     btn.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>Sign In';
 
-    // Show OTP view
+    // Show OTP confirmation step (kept as an extra security check)
     document.getElementById('loginForm').style.display='none';
     document.getElementById('howCard').style.display='none';
     document.getElementById('otpPhone').textContent=fmt;
@@ -430,8 +564,106 @@ function doLogin(){
     document.getElementById('otp1').focus();
     startCountdown();
     showToast('OTP sent to '+fmt,'ok');
-  },1400);
+  },1200);
 }
+
+/* ===== Forgot / Reset password flow ===== */
+let resetCountTimer=null;
+function openReset(){
+  document.getElementById('loginForm').style.display='none';
+  document.getElementById('howCard').style.display='none';
+  document.getElementById('resetView').classList.add('show');
+  showResetStep(1);
+  // Prefill phone if user already typed it
+  const p=document.getElementById('loginPhone').value;
+  if(p) document.getElementById('resetPhone').value=p;
+}
+function closeReset(){
+  document.getElementById('resetView').classList.remove('show');
+  document.getElementById('loginForm').style.display='block';
+  document.getElementById('howCard').style.display='block';
+  clearInterval(resetCountTimer);
+}
+function showResetStep(n){
+  [1,2,3].forEach(i=>{
+    document.getElementById('resetStep'+i).classList.toggle('active', i===n);
+  });
+  const sub=document.getElementById('resetSub');
+  if(n===1) sub.textContent="We'll send a 4-digit code to your phone to verify it's you.";
+  if(n===2) sub.innerHTML='Enter the 4-digit code we sent to <strong id="resetPhoneFmt">your phone</strong>.';
+  if(n===3) sub.textContent='Choose a new password. Use at least 6 characters.';
+}
+function sendResetOtp(){
+  const v=document.getElementById('resetPhone').value.replace(/\s/g,'');
+  const inp=document.getElementById('resetPhone');
+  const err=document.getElementById('resetPhoneErr');
+  if(!/^(0\d{10}|[789]\d{9})$/.test(v)){inp.className='field-input invalid';err.classList.add('show');return;}
+  inp.className='field-input valid';err.classList.remove('show');
+  const fmt='+234 '+v.replace(/^0/,'').replace(/(\d{3})(\d{4})(\d{4})/,'$1 $2 $3');
+  showResetStep(2);
+  setTimeout(()=>{const el=document.getElementById('resetPhoneFmt'); if(el) el.textContent=fmt;},10);
+  document.getElementById('rotp1').focus();
+  startResetCountdown();
+  showToast('Reset OTP sent to '+fmt,'ok');
+}
+function verifyResetOtp(){
+  const code=['rotp1','rotp2','rotp3','rotp4'].map(id=>document.getElementById(id).value).join('');
+  if(code.length<4){showToast('Enter all 4 digits','err');return;}
+  showResetStep(3);
+}
+function saveNewPassword(){
+  const a=document.getElementById('newPwd').value;
+  const b=document.getElementById('newPwd2').value;
+  const errA=document.getElementById('newPwdErr');
+  const errB=document.getElementById('newPwd2Err');
+  let ok=true;
+  if(a.length<6){document.getElementById('newPwd').className='field-input invalid';errA.classList.add('show');ok=false;}
+  else{document.getElementById('newPwd').className='field-input valid';errA.classList.remove('show');}
+  if(a!==b||b.length<1){document.getElementById('newPwd2').className='field-input invalid';errB.classList.add('show');ok=false;}
+  else{document.getElementById('newPwd2').className='field-input valid';errB.classList.remove('show');}
+  if(!ok)return;
+  showToast('Password updated! Please sign in.','ok');
+  closeReset();
+  // Clear reset form for next time
+  document.getElementById('newPwd').value='';
+  document.getElementById('newPwd2').value='';
+  ['rotp1','rotp2','rotp3','rotp4'].forEach(id=>{const el=document.getElementById(id);el.value='';el.classList.remove('filled');});
+}
+function startResetCountdown(){
+  let secs=30;
+  const cd=document.getElementById('resetCountdown');
+  cd.textContent=secs;
+  clearInterval(resetCountTimer);
+  resetCountTimer=setInterval(()=>{
+    secs--;
+    cd.textContent=secs;
+    if(secs<=0){clearInterval(resetCountTimer);cd.textContent='now';}
+  },1000);
+}
+function resendResetOtp(){
+  clearInterval(resetCountTimer);
+  startResetCountdown();
+  showToast('New reset OTP sent!','ok');
+  ['rotp1','rotp2','rotp3','rotp4'].forEach(id=>{const el=document.getElementById(id);el.value='';el.classList.remove('filled');});
+  document.getElementById('rotp1').focus();
+}
+
+/* Reset OTP boxes auto-advance */
+const rOtpBoxes=['rotp1','rotp2','rotp3','rotp4'];
+rOtpBoxes.forEach((id,i)=>{
+  const el=document.getElementById(id);
+  el.addEventListener('input',e=>{
+    const v=e.target.value.replace(/\D/g,'');
+    e.target.value=v;
+    if(v.length===1){
+      e.target.classList.add('filled');
+      if(i<3)document.getElementById(rOtpBoxes[i+1]).focus();
+    }else{e.target.classList.remove('filled');}
+  });
+  el.addEventListener('keydown',e=>{
+    if(e.key==='Backspace'&&!e.target.value&&i>0)document.getElementById(rOtpBoxes[i-1]).focus();
+  });
+});
 
 /* OTP boxes auto-advance */
 const otpBoxes=['otp1','otp2','otp3','otp4'];
