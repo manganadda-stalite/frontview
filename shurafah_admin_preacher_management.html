@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Shurafah Admin — Artist Management</title>
+<title>Shurafah Admin — Preacher Management</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -113,12 +113,12 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
 .filter-select option{background:var(--surface2);color:var(--text);}
 
 /* ── ARTIST CARDS GRID ── */
-.artists-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin-bottom:20px;}
+.preachers-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin-bottom:20px;}
 
-.artist-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden;cursor:pointer;transition:border-color .2s,transform .15s;animation:fadeUp .35s ease both;}
-.artist-card:hover{border-color:rgba(255,107,53,.25);transform:translateY(-2px);}
-.artist-card.pending{border-color:rgba(255,209,102,.2);}
-.artist-card.pending:hover{border-color:rgba(255,209,102,.4);}
+.preacher-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden;cursor:pointer;transition:border-color .2s,transform .15s;animation:fadeUp .35s ease both;}
+.preacher-card:hover{border-color:rgba(255,107,53,.25);transform:translateY(-2px);}
+.preacher-card.pending{border-color:rgba(255,209,102,.2);}
+.preacher-card.pending:hover{border-color:rgba(255,209,102,.4);}
 
 /* Card cover */
 .ac-cover{height:80px;position:relative;overflow:hidden;}
@@ -201,7 +201,7 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
 .dp-avatar-over{position:absolute;bottom:-28px;left:20px;z-index:2;}
 .dp-avatar-lg{width:70px;height:70px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px;font-family:sans-serif;font-weight:700;border:3px solid var(--surface);box-shadow:0 6px 20px rgba(0,0,0,.4);}
 .dp-content{padding:40px 20px 20px;}
-.dp-artist-name{font-family:sans-serif;font-size:18px;font-weight:800;margin-bottom:2px;}
+.dp-preacher-name{font-family:sans-serif;font-size:18px;font-weight:800;margin-bottom:2px;}
 .dp-genre{font-size:11px;color:var(--text2);margin-bottom:12px;}
 .dp-badges{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px;}
 .dp-section-title{font-family:sans-serif;font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;margin-top:16px;}
@@ -289,7 +289,7 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
 
 /* ── MOBILE RESPONSIVENESS ── */
 @media (max-width:1200px) {
-  .artists-grid{grid-template-columns:repeat(auto-fill,minmax(240px,1fr));}
+  .preachers-grid{grid-template-columns:repeat(auto-fill,minmax(240px,1fr));}
 }
 
 @media (max-width:768px) {
@@ -303,7 +303,7 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
   .search-box{min-width:100%;}
   .filter-select{width:100%;}
   
-  .artists-grid{grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;}
+  .preachers-grid{grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;}
   
   .ac-body{padding:24px 12px 10px;}
   .ac-name{font-size:12px;}
@@ -349,7 +349,7 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
   .ss-val{font-size:16px;}
   .ss-label{font-size:9px;}
   
-  .artists-grid{grid-template-columns:1fr;gap:10px;}
+  .preachers-grid{grid-template-columns:1fr;gap:10px;}
   
   .ac-cover{height:70px;}
   .ac-avatar-wrap{bottom:-18px;left:12px;}
@@ -369,7 +369,7 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
   .dp-title{font-size:13px;}
   .dp-close{width:28px;height:28px;}
   .dp-content{padding:32px 16px 16px;}
-  .dp-artist-name{font-size:16px;}
+  .dp-preacher-name{font-size:16px;}
   .dp-genre{font-size:10px;}
   .dp-stat-grid{grid-template-columns:1fr;}
   .dp-info-grid{grid-template-columns:1fr;}
@@ -404,7 +404,7 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
 </style>
 </head>
 <body>
-<div id="shurafah-scope-banner" style="position:fixed;top:8px;left:50%;transform:translateX(-50%);z-index:9999;background:rgba(15,20,32,.92);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.08);border-radius:50px;padding:5px 10px 5px 12px;font-family:'Syne',sans-serif;font-size:11px;font-weight:700;color:#F0F4FF;box-shadow:0 8px 24px rgba(0,0,0,.45);display:flex;align-items:center;gap:8px;pointer-events:auto;"><span style="display:flex;align-items:center;gap:5px;color:#FFB347;"><span style="font-size:13px;">🎵</span>Songs Admin</span><a href="shurafah_admin_preacher_management.html" style="display:flex;align-items:center;gap:5px;background:linear-gradient(135deg,#C8860A,#E8A020);color:#1A0800;text-decoration:none;padding:4px 10px;border-radius:50px;font-weight:700;">🎙️ Switch &rarr; Preacher Management</a><span onclick="document.getElementById('shurafah-scope-banner').remove()" style="cursor:pointer;padding:0 4px;opacity:.55;font-size:13px;">✕</span></div>
+<div id="waazi-scope-banner" style="position:fixed;top:8px;left:50%;transform:translateX(-50%);z-index:9999;background:linear-gradient(135deg,#C8860A,#E8A020);color:#1A0800;padding:5px 14px 5px 12px;border-radius:50px;font-family:'Syne',sans-serif;font-size:11px;font-weight:700;box-shadow:0 6px 20px rgba(200,134,10,.35);display:flex;align-items:center;gap:8px;pointer-events:auto;"><span>🎙️ Wa'azi Admin</span><a href="shurafah_admin_artist_management.html" style="color:#1A0800;text-decoration:underline;font-weight:600;">Switch &rarr; Songs view: Artist Management</a><span onclick="document.getElementById('waazi-scope-banner').remove()" style="cursor:pointer;padding-left:6px;opacity:.7;">✕</span></div>
 
 
 <script src="admin-sidebar.js"></script>
@@ -418,7 +418,7 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
     </div>
     <div class="topbar-breadcrumb">
       <span>Admin</span><span style="color:var(--text3);margin:0 6px;">/</span>
-      <span style="color:var(--accent);">Artist Management</span>
+      <span style="color:var(--accent);">Preacher Management</span>
     </div>
     <div class="topbar-right">
       <div class="tb-icon-btn">
@@ -437,17 +437,17 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
     <!-- Page header -->
     <div class="page-header">
       <div>
-        <div class="page-title">Artist Management</div>
-        <div class="page-subtitle">Manage, verify and monitor all platform artists · 86 total</div>
+        <div class="page-title">Preacher Management</div>
+        <div class="page-subtitle">Manage, verify and monitor all platform preachers · 86 total</div>
       </div>
       <div style="display:flex;gap:8px;">
-        <div class="btn btn-outline" onclick="exportArtists()">
+        <div class="btn btn-outline" onclick="exportPreachers()">
           <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
           Export
         </div>
-        <div class="btn btn-primary" onclick="openAddArtist()">
+        <div class="btn btn-primary" onclick="openAddPreacher()">
           <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          Add Artist
+          Add Preacher
         </div>
       </div>
     </div>
@@ -456,7 +456,7 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
     <div class="stat-strip">
       <div class="ss-card" style="animation-delay:0s;">
         <div class="ss-icon" style="background:rgba(255,107,53,.15);"><svg viewBox="0 0 24 24" style="stroke:var(--accent);"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
-        <div><div class="ss-val" style="color:var(--accent);">86</div><div class="ss-label">Total Artists</div></div>
+        <div><div class="ss-val" style="color:var(--accent);">86</div><div class="ss-label">Total Preachers</div></div>
       </div>
       <div class="ss-card" style="animation-delay:.05s;">
         <div class="ss-icon" style="background:rgba(77,159,255,.15);"><svg viewBox="0 0 24 24" style="stroke:var(--blue);"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22,4 12,14.01 9,11.01"/></svg></div>
@@ -478,7 +478,7 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
 
     <!-- Tabs -->
     <div class="tab-bar" id="tabBar">
-      <div class="tab-btn active" data-tab="all">All Artists <span class="tab-count" id="tc-all">86</span></div>
+      <div class="tab-btn active" data-tab="all">All Preachers <span class="tab-count" id="tc-all">86</span></div>
       <div class="tab-btn" data-tab="verified">✅ Verified <span class="tab-count" id="tc-verified">52</span></div>
       <div class="tab-btn" data-tab="pending">⏳ Pending <span class="tab-count" id="tc-pending">8</span></div>
       <div class="tab-btn" data-tab="rejected">❌ Rejected <span class="tab-count" id="tc-rejected">4</span></div>
@@ -501,14 +501,14 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
       </select>
       <select class="filter-select" id="sortSelect">
         <option value="plays">Most Plays</option>
-        <option value="songs">Most Songs</option>
+        <option value="lectures">Most Lectures</option>
         <option value="followers">Most Followers</option>
         <option value="newest">Newest</option>
       </select>
     </div>
 
-    <!-- Artists container -->
-    <div id="artistsContainer"></div>
+    <!-- Preachers container -->
+    <div id="preachersContainer"></div>
 
     <!-- Pagination -->
     <div class="pagination" id="paginationWrap">
@@ -531,18 +531,18 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
 <div class="detail-overlay" id="detailOverlay" onclick="closePanel()"></div>
 <div class="detail-panel" id="detailPanel">
   <div class="dp-header">
-    <div class="dp-title">Artist Profile</div>
+    <div class="dp-title">Preacher Profile</div>
     <div class="dp-close" onclick="closePanel()"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
   </div>
   <div class="dp-body" id="dpBody"></div>
 </div>
 
 <!-- ════ EDIT ARTIST MODAL ════ -->
-<div class="modal-overlay" id="editArtistOverlay" onclick="closeEditArtist()"></div>
-<div class="modal-container" id="editArtistModal">
+<div class="modal-overlay" id="editPreacherOverlay" onclick="closeEditPreacher()"></div>
+<div class="modal-container" id="editPreacherModal">
   <div class="modal-header">
-    <div class="modal-title">Edit Artist Profile</div>
-    <div class="modal-close" onclick="closeEditArtist()"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+    <div class="modal-title">Edit Preacher Profile</div>
+    <div class="modal-close" onclick="closeEditPreacher()"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
   </div>
   <div class="modal-body">
     <!-- Media Upload Section -->
@@ -587,12 +587,12 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
       <div class="form-section-title">Basic Information</div>
       <div class="form-row">
         <div class="form-group">
-          <label class="form-label">Artist Name</label>
-          <input class="form-input" id="editArtistName" placeholder="Artist name">
+          <label class="form-label">Preacher Name</label>
+          <input class="form-input" id="editPreacherName" placeholder="Preacher name">
         </div>
         <div class="form-group">
           <label class="form-label">Status</label>
-          <select class="form-select" id="editArtistStatus">
+          <select class="form-select" id="editPreacherStatus">
             <option value="verified">Verified</option>
             <option value="pending">Pending</option>
             <option value="rejected">Rejected</option>
@@ -604,11 +604,11 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
       <div class="form-row">
         <div class="form-group">
           <label class="form-label">Genre</label>
-          <input class="form-input" id="editArtistGenre" placeholder="Nasheed · Shuhada">
+          <input class="form-input" id="editPreacherGenre" placeholder="Nasheed · Shuhada">
         </div>
         <div class="form-group">
           <label class="form-label">Location</label>
-          <input class="form-input" id="editArtistLocation" placeholder="Kano, Nigeria">
+          <input class="form-input" id="editPreacherLocation" placeholder="Kano, Nigeria">
         </div>
       </div>
     </div>
@@ -619,11 +619,11 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
       <div class="form-row">
         <div class="form-group">
           <label class="form-label">Followers</label>
-          <input class="form-input" id="editArtistFollowers" placeholder="320K">
+          <input class="form-input" id="editPreacherFollowers" placeholder="320K">
         </div>
         <div class="form-group">
           <label class="form-label">Downloads</label>
-          <input class="form-input" id="editArtistDownloads" placeholder="840K">
+          <input class="form-input" id="editPreacherDownloads" placeholder="840K">
         </div>
       </div>
     </div>
@@ -633,26 +633,26 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
       <div class="form-section-title">Additional Information</div>
       <div class="form-group">
         <label class="form-label">Social Handle</label>
-        <input class="form-input" id="editArtistSocial" placeholder="@artist">
+        <input class="form-input" id="editPreacherSocial" placeholder="@preacher">
       </div>
       <div class="form-group">
         <label class="form-label">Bio</label>
-        <textarea class="form-textarea" id="editArtistBio" placeholder="Short artist bio…"></textarea>
+        <textarea class="form-textarea" id="editPreacherBio" placeholder="Short preacher bio…"></textarea>
       </div>
     </div>
   </div>
   <div class="modal-footer">
-    <div class="btn btn-outline" onclick="closeEditArtist()">Cancel</div>
-    <div class="btn btn-primary" onclick="saveEditArtist()">Save Changes</div>
+    <div class="btn btn-outline" onclick="closeEditPreacher()">Cancel</div>
+    <div class="btn btn-primary" onclick="saveEditPreacher()">Save Changes</div>
   </div>
 </div>
 
 <!-- ════ ADD ARTIST MODAL ════ -->
-<div class="modal-overlay" id="addArtistOverlay" onclick="closeAddArtist()"></div>
-<div class="modal-container" id="addArtistModal">
+<div class="modal-overlay" id="addPreacherOverlay" onclick="closeAddPreacher()"></div>
+<div class="modal-container" id="addPreacherModal">
   <div class="modal-header">
-    <div class="modal-title">Add New Artist</div>
-    <div class="modal-close" onclick="closeAddArtist()"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+    <div class="modal-title">Add New Preacher</div>
+    <div class="modal-close" onclick="closeAddPreacher()"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
   </div>
   <div class="modal-body">
     <!-- Media Upload Section -->
@@ -697,12 +697,12 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
       <div class="form-section-title">Basic Information</div>
       <div class="form-row">
         <div class="form-group">
-          <label class="form-label">Artist Name</label>
-          <input class="form-input" id="addArtistName" placeholder="Artist name">
+          <label class="form-label">Preacher Name</label>
+          <input class="form-input" id="addPreacherName" placeholder="Preacher name">
         </div>
         <div class="form-group">
           <label class="form-label">Status</label>
-          <select class="form-select" id="addArtistStatus">
+          <select class="form-select" id="addPreacherStatus">
             <option value="verified">Verified</option>
             <option value="pending">Pending</option>
             <option value="rejected">Rejected</option>
@@ -714,11 +714,11 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
       <div class="form-row">
         <div class="form-group">
           <label class="form-label">Genre</label>
-          <input class="form-input" id="addArtistGenre" placeholder="Nasheed · Shuhada">
+          <input class="form-input" id="addPreacherGenre" placeholder="Nasheed · Shuhada">
         </div>
         <div class="form-group">
           <label class="form-label">Location</label>
-          <input class="form-input" id="addArtistLocation" placeholder="Kano, Nigeria">
+          <input class="form-input" id="addPreacherLocation" placeholder="Kano, Nigeria">
         </div>
       </div>
     </div>
@@ -729,11 +729,11 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
       <div class="form-row">
         <div class="form-group">
           <label class="form-label">Followers</label>
-          <input class="form-input" id="addArtistFollowers" placeholder="0">
+          <input class="form-input" id="addPreacherFollowers" placeholder="0">
         </div>
         <div class="form-group">
           <label class="form-label">Downloads</label>
-          <input class="form-input" id="addArtistDownloads" placeholder="0">
+          <input class="form-input" id="addPreacherDownloads" placeholder="0">
         </div>
       </div>
     </div>
@@ -743,17 +743,17 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
       <div class="form-section-title">Additional Information</div>
       <div class="form-group">
         <label class="form-label">Social Handle</label>
-        <input class="form-input" id="addArtistSocial" placeholder="@artist">
+        <input class="form-input" id="addPreacherSocial" placeholder="@preacher">
       </div>
       <div class="form-group">
         <label class="form-label">Bio</label>
-        <textarea class="form-textarea" id="addArtistBio" placeholder="Short artist bio…"></textarea>
+        <textarea class="form-textarea" id="addPreacherBio" placeholder="Short preacher bio…"></textarea>
       </div>
     </div>
   </div>
   <div class="modal-footer">
-    <div class="btn btn-outline" onclick="closeAddArtist()">Cancel</div>
-    <div class="btn btn-primary" onclick="saveAddArtist()">Add Artist</div>
+    <div class="btn btn-outline" onclick="closeAddPreacher()">Cancel</div>
+    <div class="btn btn-primary" onclick="saveAddPreacher()">Add Preacher</div>
   </div>
 </div>
 
@@ -782,34 +782,34 @@ function showToast(msg, type) {
 }
 
 /* ─────────────────────────────────────────────
-   STATIC DATA — 24 artists (2 pages of 12)
-   Laravel: var ALL_ARTISTS = {!! json_encode($artists) !!};
+   STATIC DATA — 24 preachers (2 pages of 12)
+   Laravel: var ALL_ARTISTS = {!! json_encode($preachers) !!};
 ───────────────────────────────────────────── */
 var ALL_ARTISTS = [
-  { id:1,  name:'Uzairu Badamasi',       initials:'UB', grad:'g1', genre:'Nasheed · Shuhada',  status:'verified',  songs:1348, plays:'4.2M', followers:'320K', downloads:'840K', joined:'Mar 2022', location:'Kano, Nigeria',    tags:['Nasheed','Shuhada'],   bio:'Leading Hausa nasheed artist with over 4M plays. Known for emotionally charged shuhada recitations.',    social:'@uzairuB' },
-  { id:2,  name:'Shamsudden Fudiyya',    initials:'SF', grad:'g2', genre:'Nasheed · Ashura',   status:'verified',  songs:612,  plays:'2.8M', followers:'210K', downloads:'620K', joined:'Jan 2022', location:'Katsina, Nigeria', tags:['Nasheed','Ashura'],    bio:'Veteran nasheed artist from Katsina. Renowned for authentic ashura commemorations.',                  social:'@ShamsFud' },
-  { id:3,  name:'Ahmad Isah Katsina',    initials:'AI', grad:'g3', genre:'Shuhada · Maulud',   status:'verified',  songs:480,  plays:'1.9M', followers:'180K', downloads:'490K', joined:'Jun 2022', location:'Katsina, Nigeria', tags:['Shuhada','Maulud'],    bio:'Prolific producer of maulud songs and shuhada recitations from Northern Nigeria.',                    social:'@AhmadIsah' },
-  { id:4,  name:'Yusuf Badamasi',        initials:'YB', grad:'g4', genre:'Shurafah · Nasheed', status:'verified',  songs:340,  plays:'1.4M', followers:'145K', downloads:'320K', joined:'Sep 2022', location:'Kaduna, Nigeria',  tags:['Shurafah','Nasheed'],  bio:'Multi-genre artist combining shurafah tradition with modern nasheed production.',                     social:'@YusufBada' },
-  { id:5,  name:'Maishurafah',           initials:'MS', grad:'g5', genre:'Shurafah',           status:'verified',  songs:290,  plays:'1.1M', followers:'98K',  downloads:'255K', joined:'Nov 2022', location:'Sokoto, Nigeria',  tags:['Shurafah'],            bio:'Dedicated shurafah specialist preserving the noble tradition of Hausa Islamic chanting.',            social:'@Maishurafah' },
-  { id:6,  name:'Ibrahim Khali',         initials:'IK', grad:'g6', genre:'Maulud · Nasheed',   status:'verified',  songs:210,  plays:'870K', followers:'76K',  downloads:'198K', joined:'Feb 2023', location:'Bauchi, Nigeria',  tags:['Maulud','Nasheed'],   bio:'Singer and composer of maulud songs with a focus on Hausa lyrical tradition.',                       social:'@IbrahimK' },
-  { id:7,  name:'Saidu Arzika',          initials:'SA', grad:'g7', genre:'Shuhada',            status:'verified',  songs:198,  plays:'740K', followers:'64K',  downloads:'170K', joined:'Apr 2023', location:'Zamfara, Nigeria', tags:['Shuhada'],             bio:'Dedicated shuhada vocalist from Zamfara known for deep, spiritual delivery.',                         social:'@SaiduArz' },
-  { id:8,  name:'Malam Kasim',           initials:'MK', grad:'g8', genre:'Maulud · Ashura',    status:'verified',  songs:175,  plays:'620K', followers:'54K',  downloads:'142K', joined:'May 2023', location:'Borno, Nigeria',   tags:['Maulud','Ashura'],    bio:'Scholar-musician from Borno combining religious knowledge with musical expression.',                  social:'@MalamKasim' },
-  { id:9,  name:'Abdullahi Dan Maraya',  initials:'AD', grad:'g1', genre:'Nasheed',            status:'verified',  songs:160,  plays:'510K', followers:'44K',  downloads:'118K', joined:'Jul 2023', location:'Jigawa, Nigeria',  tags:['Nasheed'],             bio:'Traditional nasheed vocalist from Jigawa specialising in prophetic poetry.',                          social:'@AbdullahiD' },
-  { id:10, name:'Hafiz Abdullahi',       initials:'HA', grad:'g2', genre:'Shuhada · Maulud',   status:'verified',  songs:144,  plays:'440K', followers:'38K',  downloads:'100K', joined:'Aug 2023', location:'Kano, Nigeria',    tags:['Shuhada','Maulud'],   bio:'Young artist making waves with fusion of shuhada and maulud styles.',                                social:'@HafizAbd' },
-  { id:11, name:'Bello Maiangwa',        initials:'BM', grad:'g3', genre:'Maulud',             status:'verified',  songs:108,  plays:'310K', followers:'27K',  downloads:'71K',  joined:'Oct 2023', location:'Kaduna, Nigeria',  tags:['Maulud'],              bio:'Specialist in Barzanji and Diba\'i style maulud recitations.',                                        social:'@BelloMai' },
-  { id:12, name:'Sani Aliyu',            initials:'SA', grad:'g4', genre:'Shuhada · Ashura',   status:'verified',  songs:96,   plays:'270K', followers:'23K',  downloads:'62K',  joined:'Dec 2023', location:'Gombe, Nigeria',   tags:['Shuhada','Ashura'],   bio:'Rising star in shuhada and ashura vocal traditions from Gombe State.',                               social:'@SaniAliyu' },
-  { id:13, name:'Kabiru Gombe',          initials:'KG', grad:'g5', genre:'Nasheed',            status:'pending',   songs:44,   plays:'82K',  followers:'8K',   downloads:'19K',  joined:'Feb 2024', location:'Gombe, Nigeria',   tags:['Nasheed'],             bio:'Emerging nasheed artist applying for official verification on the platform.' },
-  { id:14, name:'Hussaini Danko',        initials:'HD', grad:'g6', genre:'Shuhada',            status:'pending',   songs:36,   plays:'61K',  followers:'6.2K', downloads:'14K',  joined:'Mar 2024', location:'Kebbi, Nigeria',   tags:['Shuhada'],             bio:'Traditional shuhada singer from Kebbi awaiting content compliance review.' },
-  { id:15, name:'Muhammad Lawal',        initials:'ML', grad:'g7', genre:'Nasheed · Maulud',   status:'pending',   songs:28,   plays:'44K',  followers:'4.8K', downloads:'10K',  joined:'Mar 2024', location:'Niger, Nigeria',   tags:['Nasheed','Maulud'],   bio:'New artist submitting verification request with initial song catalogue.' },
-  { id:16, name:'Zahrau Maidabino',      initials:'ZM', grad:'g8', genre:'Maulud',             status:'pending',   songs:18,   plays:'28K',  followers:'3.1K', downloads:'6.4K', joined:'Apr 2024', location:'Sokoto, Nigeria',  tags:['Maulud'],              bio:'Female maulud vocalist — first of its kind on the platform, awaiting review.' },
-  { id:17, name:'Ismail Dankwairo',      initials:'ID', grad:'g1', genre:'Shuhada',            status:'pending',   songs:22,   plays:'35K',  followers:'3.8K', downloads:'8K',   joined:'Apr 2024', location:'Kebbi, Nigeria',   tags:['Shuhada'],             bio:'Local artist with strong community support applying for platform verification.' },
-  { id:18, name:'Alhaji Maikasuwa',      initials:'AM', grad:'g2', genre:'Nasheed · Shuhada',  status:'pending',   songs:14,   plays:'21K',  followers:'2.4K', downloads:'4.8K', joined:'Apr 2024', location:'Sokoto, Nigeria',  tags:['Nasheed'],             bio:'Veteran community performer seeking formal digital platform presence.' },
-  { id:19, name:'Hassan Ringim',         initials:'HR', grad:'g3', genre:'Shurafah',           status:'pending',   songs:9,    plays:'14K',  followers:'1.8K', downloads:'3.2K', joined:'Apr 2024', location:'Jigawa, Nigeria',  tags:['Shurafah'],            bio:'Newcomer shurafah artist with 3 months of activity on the platform.' },
-  { id:20, name:'Nuhu Zaria',            initials:'NZ', grad:'g4', genre:'Nasheed',            status:'pending',   songs:7,    plays:'10K',  followers:'1.2K', downloads:'2.1K', joined:'Apr 2024', location:'Kaduna, Nigeria',  tags:['Nasheed'],             bio:'Recent upload request — content review in progress.' },
-  { id:21, name:'Lawal Birni',           initials:'LB', grad:'g5', genre:'Ashura',             status:'rejected',  songs:12,   plays:'8K',   followers:'820',  downloads:'1.8K', joined:'Jan 2024', location:'Borno, Nigeria',   tags:['Ashura'],              bio:'Rejected: content did not meet platform guidelines. Can reapply in 30 days.' },
-  { id:22, name:'Garba Sokoto',          initials:'GS', grad:'g6', genre:'Nasheed',            status:'rejected',  songs:4,    plays:'2K',   followers:'210',  downloads:'440',  joined:'Feb 2024', location:'Sokoto, Nigeria',  tags:['Nasheed'],             bio:'Rejected: duplicate account — primary account already exists.' },
-  { id:23, name:'Kabir Dan Juma',        initials:'KD', grad:'g7', genre:'Maulud',             status:'suspended', songs:88,   plays:'180K', followers:'14K',  downloads:'41K',  joined:'Oct 2022', location:'Kano, Nigeria',    tags:['Maulud'],              bio:'Suspended: violation of community standards. Under review by content team.' },
-  { id:24, name:'Aminu Funtua',          initials:'AF', grad:'g8', genre:'Shuhada · Nasheed',  status:'suspended', songs:64,   plays:'120K', followers:'10K',  downloads:'27K',  joined:'May 2023', location:'Katsina, Nigeria', tags:['Shuhada'],             bio:'Suspended: multiple copyright complaints received from third-party rights holders.' }
+  { id:1,  name:'Uzairu Badamasi',       initials:'UB', grad:'g1', genre:'Nasheed · Shuhada',  status:'verified',  lectures:1348, plays:'4.2M', followers:'320K', downloads:'840K', joined:'Mar 2022', location:'Kano, Nigeria',    tags:['Nasheed','Shuhada'],   bio:'Leading Hausa nasheed preacher with over 4M plays. Known for emotionally charged shuhada recitations.',    social:'@uzairuB' },
+  { id:2,  name:'Shamsudden Fudiyya',    initials:'SF', grad:'g2', genre:'Nasheed · Ashura',   status:'verified',  lectures:612,  plays:'2.8M', followers:'210K', downloads:'620K', joined:'Jan 2022', location:'Katsina, Nigeria', tags:['Nasheed','Ashura'],    bio:'Veteran nasheed preacher from Katsina. Renowned for authentic ashura commemorations.',                  social:'@ShamsFud' },
+  { id:3,  name:'Ahmad Isah Katsina',    initials:'AI', grad:'g3', genre:'Shuhada · Maulud',   status:'verified',  lectures:480,  plays:'1.9M', followers:'180K', downloads:'490K', joined:'Jun 2022', location:'Katsina, Nigeria', tags:['Shuhada','Maulud'],    bio:'Prolific producer of maulud lectures and shuhada recitations from Northern Nigeria.',                    social:'@AhmadIsah' },
+  { id:4,  name:'Yusuf Badamasi',        initials:'YB', grad:'g4', genre:'Shurafah · Nasheed', status:'verified',  lectures:340,  plays:'1.4M', followers:'145K', downloads:'320K', joined:'Sep 2022', location:'Kaduna, Nigeria',  tags:['Shurafah','Nasheed'],  bio:'Multi-genre preacher combining shurafah tradition with modern nasheed production.',                     social:'@YusufBada' },
+  { id:5,  name:'Maishurafah',           initials:'MS', grad:'g5', genre:'Shurafah',           status:'verified',  lectures:290,  plays:'1.1M', followers:'98K',  downloads:'255K', joined:'Nov 2022', location:'Sokoto, Nigeria',  tags:['Shurafah'],            bio:'Dedicated shurafah specialist preserving the noble tradition of Hausa Islamic chanting.',            social:'@Maishurafah' },
+  { id:6,  name:'Ibrahim Khali',         initials:'IK', grad:'g6', genre:'Maulud · Nasheed',   status:'verified',  lectures:210,  plays:'870K', followers:'76K',  downloads:'198K', joined:'Feb 2023', location:'Bauchi, Nigeria',  tags:['Maulud','Nasheed'],   bio:'Singer and composer of maulud lectures with a focus on Hausa lyrical tradition.',                       social:'@IbrahimK' },
+  { id:7,  name:'Saidu Arzika',          initials:'SA', grad:'g7', genre:'Shuhada',            status:'verified',  lectures:198,  plays:'740K', followers:'64K',  downloads:'170K', joined:'Apr 2023', location:'Zamfara, Nigeria', tags:['Shuhada'],             bio:'Dedicated shuhada vocalist from Zamfara known for deep, spiritual delivery.',                         social:'@SaiduArz' },
+  { id:8,  name:'Malam Kasim',           initials:'MK', grad:'g8', genre:'Maulud · Ashura',    status:'verified',  lectures:175,  plays:'620K', followers:'54K',  downloads:'142K', joined:'May 2023', location:'Borno, Nigeria',   tags:['Maulud','Ashura'],    bio:'Scholar-musician from Borno combining religious knowledge with musical expression.',                  social:'@MalamKasim' },
+  { id:9,  name:'Abdullahi Dan Maraya',  initials:'AD', grad:'g1', genre:'Nasheed',            status:'verified',  lectures:160,  plays:'510K', followers:'44K',  downloads:'118K', joined:'Jul 2023', location:'Jigawa, Nigeria',  tags:['Nasheed'],             bio:'Traditional nasheed vocalist from Jigawa specialising in prophetic poetry.',                          social:'@AbdullahiD' },
+  { id:10, name:'Hafiz Abdullahi',       initials:'HA', grad:'g2', genre:'Shuhada · Maulud',   status:'verified',  lectures:144,  plays:'440K', followers:'38K',  downloads:'100K', joined:'Aug 2023', location:'Kano, Nigeria',    tags:['Shuhada','Maulud'],   bio:'Young preacher making waves with fusion of shuhada and maulud styles.',                                social:'@HafizAbd' },
+  { id:11, name:'Bello Maiangwa',        initials:'BM', grad:'g3', genre:'Maulud',             status:'verified',  lectures:108,  plays:'310K', followers:'27K',  downloads:'71K',  joined:'Oct 2023', location:'Kaduna, Nigeria',  tags:['Maulud'],              bio:'Specialist in Barzanji and Diba\'i style maulud recitations.',                                        social:'@BelloMai' },
+  { id:12, name:'Sani Aliyu',            initials:'SA', grad:'g4', genre:'Shuhada · Ashura',   status:'verified',  lectures:96,   plays:'270K', followers:'23K',  downloads:'62K',  joined:'Dec 2023', location:'Gombe, Nigeria',   tags:['Shuhada','Ashura'],   bio:'Rising star in shuhada and ashura vocal traditions from Gombe State.',                               social:'@SaniAliyu' },
+  { id:13, name:'Kabiru Gombe',          initials:'KG', grad:'g5', genre:'Nasheed',            status:'pending',   lectures:44,   plays:'82K',  followers:'8K',   downloads:'19K',  joined:'Feb 2024', location:'Gombe, Nigeria',   tags:['Nasheed'],             bio:'Emerging nasheed preacher applying for official verification on the platform.' },
+  { id:14, name:'Hussaini Danko',        initials:'HD', grad:'g6', genre:'Shuhada',            status:'pending',   lectures:36,   plays:'61K',  followers:'6.2K', downloads:'14K',  joined:'Mar 2024', location:'Kebbi, Nigeria',   tags:['Shuhada'],             bio:'Traditional shuhada singer from Kebbi awaiting content compliance review.' },
+  { id:15, name:'Muhammad Lawal',        initials:'ML', grad:'g7', genre:'Nasheed · Maulud',   status:'pending',   lectures:28,   plays:'44K',  followers:'4.8K', downloads:'10K',  joined:'Mar 2024', location:'Niger, Nigeria',   tags:['Nasheed','Maulud'],   bio:'New preacher submitting verification request with initial song catalogue.' },
+  { id:16, name:'Zahrau Maidabino',      initials:'ZM', grad:'g8', genre:'Maulud',             status:'pending',   lectures:18,   plays:'28K',  followers:'3.1K', downloads:'6.4K', joined:'Apr 2024', location:'Sokoto, Nigeria',  tags:['Maulud'],              bio:'Female maulud vocalist — first of its kind on the platform, awaiting review.' },
+  { id:17, name:'Ismail Dankwairo',      initials:'ID', grad:'g1', genre:'Shuhada',            status:'pending',   lectures:22,   plays:'35K',  followers:'3.8K', downloads:'8K',   joined:'Apr 2024', location:'Kebbi, Nigeria',   tags:['Shuhada'],             bio:'Local preacher with strong community support applying for platform verification.' },
+  { id:18, name:'Alhaji Maikasuwa',      initials:'AM', grad:'g2', genre:'Nasheed · Shuhada',  status:'pending',   lectures:14,   plays:'21K',  followers:'2.4K', downloads:'4.8K', joined:'Apr 2024', location:'Sokoto, Nigeria',  tags:['Nasheed'],             bio:'Veteran community performer seeking formal digital platform presence.' },
+  { id:19, name:'Hassan Ringim',         initials:'HR', grad:'g3', genre:'Shurafah',           status:'pending',   lectures:9,    plays:'14K',  followers:'1.8K', downloads:'3.2K', joined:'Apr 2024', location:'Jigawa, Nigeria',  tags:['Shurafah'],            bio:'Newcomer shurafah preacher with 3 months of activity on the platform.' },
+  { id:20, name:'Nuhu Zaria',            initials:'NZ', grad:'g4', genre:'Nasheed',            status:'pending',   lectures:7,    plays:'10K',  followers:'1.2K', downloads:'2.1K', joined:'Apr 2024', location:'Kaduna, Nigeria',  tags:['Nasheed'],             bio:'Recent upload request — content review in progress.' },
+  { id:21, name:'Lawal Birni',           initials:'LB', grad:'g5', genre:'Ashura',             status:'rejected',  lectures:12,   plays:'8K',   followers:'820',  downloads:'1.8K', joined:'Jan 2024', location:'Borno, Nigeria',   tags:['Ashura'],              bio:'Rejected: content did not meet platform guidelines. Can reapply in 30 days.' },
+  { id:22, name:'Garba Sokoto',          initials:'GS', grad:'g6', genre:'Nasheed',            status:'rejected',  lectures:4,    plays:'2K',   followers:'210',  downloads:'440',  joined:'Feb 2024', location:'Sokoto, Nigeria',  tags:['Nasheed'],             bio:'Rejected: duplicate account — primary account already exists.' },
+  { id:23, name:'Kabir Dan Juma',        initials:'KD', grad:'g7', genre:'Maulud',             status:'suspended', lectures:88,   plays:'180K', followers:'14K',  downloads:'41K',  joined:'Oct 2022', location:'Kano, Nigeria',    tags:['Maulud'],              bio:'Suspended: violation of community standards. Under review by content team.' },
+  { id:24, name:'Aminu Funtua',          initials:'AF', grad:'g8', genre:'Shuhada · Nasheed',  status:'suspended', lectures:64,   plays:'120K', followers:'10K',  downloads:'27K',  joined:'May 2023', location:'Katsina, Nigeria', tags:['Shuhada'],             bio:'Suspended: multiple copyright complaints received from third-party rights holders.' }
 ];
 
 var PER_PAGE     = 12;
@@ -831,7 +831,7 @@ function getFiltered() {
              a.location.toLowerCase().indexOf(q) !== -1;
     });
   }
-  if (sortField === 'songs')     list = list.slice().sort(function(a,b){ return b.songs - a.songs; });
+  if (sortField === 'lectures')     list = list.slice().sort(function(a,b){ return b.lectures - a.lectures; });
   if (sortField === 'followers') list = list.slice().sort(function(a,b){ return parseFloat(b.followers) - parseFloat(a.followers); });
   if (sortField === 'newest')    list = list.slice().reverse();
   return list;
@@ -859,23 +859,23 @@ var STATUS_STRIP = {
   active:'var(--green)'
 };
 
-function verifyArtist(id) {
+function verifyPreacher(id) {
   for (var i = 0; i < ALL_ARTISTS.length; i++) {
     if (ALL_ARTISTS[i].id === id) { ALL_ARTISTS[i].status = 'verified'; break; }
   }
   updateTabCounts();
-  renderArtists();
-  showToast('Artist verified successfully!', 'success');
+  renderPreachers();
+  showToast('Preacher verified successfully!', 'success');
 }
-function rejectArtist(id) {
+function rejectPreacher(id) {
   for (var i = 0; i < ALL_ARTISTS.length; i++) {
     if (ALL_ARTISTS[i].id === id) { ALL_ARTISTS[i].status = 'rejected'; break; }
   }
   updateTabCounts();
-  renderArtists();
-  showToast('Artist application rejected.', 'danger');
+  renderPreachers();
+  showToast('Preacher application rejected.', 'danger');
 }
-function suspendArtist(id) {
+function suspendPreacher(id) {
   for (var i = 0; i < ALL_ARTISTS.length; i++) {
     if (ALL_ARTISTS[i].id === id) {
       ALL_ARTISTS[i].status = ALL_ARTISTS[i].status === 'suspended' ? 'verified' : 'suspended';
@@ -884,7 +884,7 @@ function suspendArtist(id) {
     }
   }
   updateTabCounts();
-  renderArtists();
+  renderPreachers();
 }
 
 function updateTabCounts() {
@@ -897,7 +897,7 @@ function updateTabCounts() {
   document.getElementById('tc-suspended').textContent = counts.suspended;
 }
 
-function renderArtists() {
+function renderPreachers() {
   var filtered = getFiltered();
   var tp    = totalPages(filtered);
   if (currentPage > tp) currentPage = 1;
@@ -919,20 +919,20 @@ function renderArtists() {
     var pb = document.createElement('div');
     pb.className = 'pag-btn' + (p === currentPage ? ' active' : '');
     pb.textContent = p;
-    (function(pp){ pb.onclick = function(){ currentPage = pp; renderArtists(); }; }(p));
+    (function(pp){ pb.onclick = function(){ currentPage = pp; renderPreachers(); }; }(p));
     pnEl.appendChild(pb);
   }
 
-  var container = document.getElementById('artistsContainer');
+  var container = document.getElementById('preachersContainer');
   container.innerHTML = '';
 
   if (page.length === 0) {
-    container.innerHTML = '<div style="text-align:center;padding:48px;color:var(--text3);font-size:12px;">No artists found.</div>';
+    container.innerHTML = '<div style="text-align:center;padding:48px;color:var(--text3);font-size:12px;">No preachers found.</div>';
     return;
   }
 
   var grid = document.createElement('div');
-  grid.className = 'artists-grid';
+  grid.className = 'preachers-grid';
 
   for (var i = 0; i < page.length; i++) {
     var a = page[i];
@@ -957,10 +957,10 @@ function renderArtists() {
         '<div class="acf-btn acf-view" onclick="openPanel(' + a.id + ',event)">' +
           '<svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>View' +
         '</div>' +
-        '<div class="acf-btn acf-verify" onclick="verifyArtist(' + a.id + ');event.stopPropagation();">' +
+        '<div class="acf-btn acf-verify" onclick="verifyPreacher(' + a.id + ');event.stopPropagation();">' +
           '<svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22,4 12,14.01 9,11.01"/></svg>Verify' +
         '</div>' +
-        '<div class="acf-btn acf-reject" onclick="rejectArtist(' + a.id + ');event.stopPropagation();">' +
+        '<div class="acf-btn acf-reject" onclick="rejectPreacher(' + a.id + ');event.stopPropagation();">' +
           '<svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Reject' +
         '</div>';
     } else {
@@ -968,10 +968,10 @@ function renderArtists() {
         '<div class="acf-btn acf-view" onclick="openPanel(' + a.id + ',event)">' +
           '<svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>View' +
         '</div>' +
-        '<div class="acf-btn acf-edit" onclick="openEditArtist(' + a.id + ');event.stopPropagation();">' +
+        '<div class="acf-btn acf-edit" onclick="openEditPreacher(' + a.id + ');event.stopPropagation();">' +
           '<svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>Edit' +
         '</div>' +
-        '<div class="acf-btn acf-ban" onclick="suspendArtist(' + a.id + ');event.stopPropagation();">' +
+        '<div class="acf-btn acf-ban" onclick="suspendPreacher(' + a.id + ');event.stopPropagation();">' +
           '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>' +
           (isSuspended ? 'Restore' : 'Suspend') +
         '</div>';
@@ -986,7 +986,7 @@ function renderArtists() {
     }
 
     var card = document.createElement('div');
-    card.className = 'artist-card' + (isPending ? ' pending' : '');
+    card.className = 'preacher-card' + (isPending ? ' pending' : '');
     card.style.animationDelay = (i * 0.04) + 's';
     card.onclick = function(){ openPanel(a.id); };
 
@@ -1007,7 +1007,7 @@ function renderArtists() {
         '</div>' +
         '<div class="ac-genre">' + a.genre + ' · ' + a.location + '</div>' +
         '<div class="ac-stats-row">' +
-          '<div class="ac-stat"><div class="ac-stat-n" style="color:var(--accent);">' + a.songs + '</div><div class="ac-stat-l">Songs</div></div>' +
+          '<div class="ac-stat"><div class="ac-stat-n" style="color:var(--accent);">' + a.lectures + '</div><div class="ac-stat-l">Lectures</div></div>' +
           '<div class="ac-stat"><div class="ac-stat-n" style="color:var(--blue);">' + a.followers + '</div><div class="ac-stat-l">Followers</div></div>' +
           '<div class="ac-stat"><div class="ac-stat-n" style="color:var(--green);">' + a.plays + '</div><div class="ac-stat-l">Plays</div></div>' +
         '</div>' +
@@ -1025,7 +1025,7 @@ function renderArtists() {
 function changePage(dir) {
   var tp = totalPages(getFiltered());
   var next = currentPage + dir;
-  if (next >= 1 && next <= tp) { currentPage = next; renderArtists(); }
+  if (next >= 1 && next <= tp) { currentPage = next; renderPreachers(); }
 }
 
 /* Tabs */
@@ -1036,7 +1036,7 @@ document.getElementById('tabBar').addEventListener('click', function(e) {
   btn.classList.add('active');
   currentTab  = btn.getAttribute('data-tab');
   currentPage = 1;
-  renderArtists();
+  renderPreachers();
 });
 
 /* Search */
@@ -1044,10 +1044,10 @@ var searchTimer = null;
 document.getElementById('searchInput').addEventListener('input', function() {
   clearTimeout(searchTimer);
   var val = this.value;
-  searchTimer = setTimeout(function() { searchQuery = val.trim(); currentPage = 1; renderArtists(); }, 250);
+  searchTimer = setTimeout(function() { searchQuery = val.trim(); currentPage = 1; renderPreachers(); }, 250);
 });
-document.getElementById('genreFilter').addEventListener('change', function() { genreFilter = this.value; currentPage = 1; renderArtists(); });
-document.getElementById('sortSelect').addEventListener('change',  function() { sortField   = this.value; currentPage = 1; renderArtists(); });
+document.getElementById('genreFilter').addEventListener('change', function() { genreFilter = this.value; currentPage = 1; renderPreachers(); });
+document.getElementById('sortSelect').addEventListener('change',  function() { sortField   = this.value; currentPage = 1; renderPreachers(); });
 
 /* ── Detail Panel ── */
 function openPanel(id, e) {
@@ -1070,23 +1070,23 @@ function openPanel(id, e) {
   var actionBtns = '';
   if (isPending) {
     actionBtns =
-      '<div class="dp-act dpa-green" onclick="verifyArtist(' + a.id + ');closePanel();">' +
-        '<svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22,4 12,14.01 9,11.01"/></svg>Verify Artist' +
+      '<div class="dp-act dpa-green" onclick="verifyPreacher(' + a.id + ');closePanel();">' +
+        '<svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22,4 12,14.01 9,11.01"/></svg>Verify Preacher' +
       '</div>' +
       '<div class="dp-act dpa-yellow" onclick="showToast(\'Verification request on hold.\',\'warn\');closePanel();">' +
         '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>Put On Hold' +
       '</div>' +
-      '<div class="dp-act dpa-danger" onclick="rejectArtist(' + a.id + ');closePanel();">' +
+      '<div class="dp-act dpa-danger" onclick="rejectPreacher(' + a.id + ');closePanel();">' +
         '<svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Reject Application' +
       '</div>';
   } else {
     actionBtns =
-      '<div class="dp-act dpa-primary" onclick="openEditArtist(' + a.id + ');closePanel();">' +
+      '<div class="dp-act dpa-primary" onclick="openEditPreacher(' + a.id + ');closePanel();">' +
         '<svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>Edit Profile' +
       '</div>' +
-      '<div class="dp-act ' + (isSuspended ? 'dpa-green' : 'dpa-danger') + '" onclick="suspendArtist(' + a.id + ');closePanel();">' +
+      '<div class="dp-act ' + (isSuspended ? 'dpa-green' : 'dpa-danger') + '" onclick="suspendPreacher(' + a.id + ');closePanel();">' +
         '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>' +
-        (isSuspended ? 'Restore Artist' : 'Suspend Artist') +
+        (isSuspended ? 'Restore Preacher' : 'Suspend Preacher') +
       '</div>';
   }
 
@@ -1096,7 +1096,7 @@ function openPanel(id, e) {
     '</div>' +
     '<div class="dp-content">' +
       '<div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:4px;">' +
-        '<div class="dp-artist-name">' + a.name + '</div>' +
+        '<div class="dp-preacher-name">' + a.name + '</div>' +
         '<span class="status-badge ' + statusCls + '"><div class="status-dot"></div>' + statusLabel + '</span>' +
       '</div>' +
       '<div class="dp-genre">' + a.genre + ' · ' + a.location + '</div>' +
@@ -1109,7 +1109,7 @@ function openPanel(id, e) {
 
       '<div class="dp-section-title">Stats</div>' +
       '<div class="dp-stat-grid">' +
-        '<div class="dp-stat-item"><div class="dp-stat-val" style="color:var(--accent);">' + a.songs + '</div><div class="dp-stat-lbl">Songs</div></div>' +
+        '<div class="dp-stat-item"><div class="dp-stat-val" style="color:var(--accent);">' + a.lectures + '</div><div class="dp-stat-lbl">Lectures</div></div>' +
         '<div class="dp-stat-item"><div class="dp-stat-val" style="color:var(--blue);">' + a.followers + '</div><div class="dp-stat-lbl">Followers</div></div>' +
         '<div class="dp-stat-item"><div class="dp-stat-val" style="color:var(--green);">' + a.plays + '</div><div class="dp-stat-lbl">Plays</div></div>' +
       '</div>' +
@@ -1119,7 +1119,7 @@ function openPanel(id, e) {
         '<div class="dp-info-item"><div class="dp-info-lbl">Downloads</div><div class="dp-info-val" style="color:var(--purple);">' + a.downloads + '</div></div>' +
         '<div class="dp-info-item"><div class="dp-info-lbl">Joined</div><div class="dp-info-val">' + a.joined + '</div></div>' +
         '<div class="dp-info-item"><div class="dp-info-lbl">Location</div><div class="dp-info-val">' + a.location + '</div></div>' +
-        '<div class="dp-info-item"><div class="dp-info-lbl">Account</div><div class="dp-info-val">Artist #' + a.id + '</div></div>' +
+        '<div class="dp-info-item"><div class="dp-info-lbl">Account</div><div class="dp-info-val">Preacher #' + a.id + '</div></div>' +
       '</div>' +
 
       '<div class="dp-section-title">Actions</div>' +
@@ -1135,9 +1135,9 @@ function closePanel() {
   document.getElementById('detailPanel').classList.remove('open');
 }
 
-/* ── Edit Artist Modal ── */
-var editArtistId = null;
-var editArtistInitials = '';
+/* ── Edit Preacher Modal ── */
+var editPreacherId = null;
+var editPreacherInitials = '';
 
 function switchMediaTab(tab) {
   document.querySelectorAll('.media-tab').forEach(function(t){ t.classList.remove('active'); });
@@ -1190,56 +1190,56 @@ function handleThumbnailUpload(e) {
   reader.readAsDataURL(file);
 }
 
-function openEditArtist(id) {
+function openEditPreacher(id) {
   var a = ALL_ARTISTS.find(function(x){ return x.id === id; });
   if (!a) return;
-  editArtistId = id;
-  editArtistInitials = a.initials;
-  document.getElementById('editArtistName').value = a.name || '';
-  document.getElementById('editArtistStatus').value = a.status || 'verified';
-  document.getElementById('editArtistGenre').value = a.genre || '';
-  document.getElementById('editArtistLocation').value = a.location || '';
-  document.getElementById('editArtistFollowers').value = a.followers || '';
-  document.getElementById('editArtistDownloads').value = a.downloads || '';
-  document.getElementById('editArtistSocial').value = a.social || '';
-  document.getElementById('editArtistBio').value = a.bio || '';
+  editPreacherId = id;
+  editPreacherInitials = a.initials;
+  document.getElementById('editPreacherName').value = a.name || '';
+  document.getElementById('editPreacherStatus').value = a.status || 'verified';
+  document.getElementById('editPreacherGenre').value = a.genre || '';
+  document.getElementById('editPreacherLocation').value = a.location || '';
+  document.getElementById('editPreacherFollowers').value = a.followers || '';
+  document.getElementById('editPreacherDownloads').value = a.downloads || '';
+  document.getElementById('editPreacherSocial').value = a.social || '';
+  document.getElementById('editPreacherBio').value = a.bio || '';
   document.getElementById('editAvatarPreview').textContent = a.initials;
   document.getElementById('editAvatarPreview').style.backgroundImage = 'none';
   document.getElementById('editThumbnailPreview').textContent = '🖼️';
   document.getElementById('editThumbnailPreview').style.backgroundImage = 'none';
   switchMediaTab('avatar');
-  document.getElementById('editArtistOverlay').classList.add('open');
-  document.getElementById('editArtistModal').classList.add('open');
+  document.getElementById('editPreacherOverlay').classList.add('open');
+  document.getElementById('editPreacherModal').classList.add('open');
 }
 
-function closeEditArtist() {
-  document.getElementById('editArtistOverlay').classList.remove('open');
-  document.getElementById('editArtistModal').classList.remove('open');
+function closeEditPreacher() {
+  document.getElementById('editPreacherOverlay').classList.remove('open');
+  document.getElementById('editPreacherModal').classList.remove('open');
 }
 
-function saveEditArtist() {
-  if (!editArtistId) return;
-  var a = ALL_ARTISTS.find(function(x){ return x.id === editArtistId; });
+function saveEditPreacher() {
+  if (!editPreacherId) return;
+  var a = ALL_ARTISTS.find(function(x){ return x.id === editPreacherId; });
   if (!a) return;
-  a.name = document.getElementById('editArtistName').value.trim() || a.name;
-  a.status = document.getElementById('editArtistStatus').value || a.status;
-  a.genre = document.getElementById('editArtistGenre').value.trim() || a.genre;
-  a.location = document.getElementById('editArtistLocation').value.trim() || a.location;
-  a.followers = document.getElementById('editArtistFollowers').value.trim() || a.followers;
-  a.downloads = document.getElementById('editArtistDownloads').value.trim() || a.downloads;
-  a.social = document.getElementById('editArtistSocial').value.trim() || a.social;
-  a.bio = document.getElementById('editArtistBio').value.trim() || a.bio;
+  a.name = document.getElementById('editPreacherName').value.trim() || a.name;
+  a.status = document.getElementById('editPreacherStatus').value || a.status;
+  a.genre = document.getElementById('editPreacherGenre').value.trim() || a.genre;
+  a.location = document.getElementById('editPreacherLocation').value.trim() || a.location;
+  a.followers = document.getElementById('editPreacherFollowers').value.trim() || a.followers;
+  a.downloads = document.getElementById('editPreacherDownloads').value.trim() || a.downloads;
+  a.social = document.getElementById('editPreacherSocial').value.trim() || a.social;
+  a.bio = document.getElementById('editPreacherBio').value.trim() || a.bio;
   updateTabCounts();
-  renderArtists();
-  closeEditArtist();
-  showToast('Artist profile updated', 'success');
+  renderPreachers();
+  closeEditPreacher();
+  showToast('Preacher profile updated', 'success');
 }
 
-/* ── Add Artist Modal ── */
+/* ── Add Preacher Modal ── */
 function switchAddMediaTab(tab) {
-  document.querySelectorAll('#addArtistModal .media-tab').forEach(function(t){ t.classList.remove('active'); });
-  document.querySelectorAll('#addArtistModal .media-tab-content').forEach(function(c){ c.style.display = 'none'; });
-  document.querySelector('#addArtistModal [data-tab="' + tab + '"]').classList.add('active');
+  document.querySelectorAll('#addPreacherModal .media-tab').forEach(function(t){ t.classList.remove('active'); });
+  document.querySelectorAll('#addPreacherModal .media-tab-content').forEach(function(c){ c.style.display = 'none'; });
+  document.querySelector('#addPreacherModal [data-tab="' + tab + '"]').classList.add('active');
   document.getElementById('add' + tab.charAt(0).toUpperCase() + tab.slice(1) + 'Tab').style.display = 'block';
 }
 
@@ -1287,67 +1287,67 @@ function handleAddThumbnailUpload(e) {
   reader.readAsDataURL(file);
 }
 
-function openAddArtist() {
-  document.getElementById('addArtistName').value = '';
-  document.getElementById('addArtistStatus').value = 'pending';
-  document.getElementById('addArtistGenre').value = '';
-  document.getElementById('addArtistLocation').value = '';
-  document.getElementById('addArtistFollowers').value = '0';
-  document.getElementById('addArtistDownloads').value = '0';
-  document.getElementById('addArtistSocial').value = '';
-  document.getElementById('addArtistBio').value = '';
+function openAddPreacher() {
+  document.getElementById('addPreacherName').value = '';
+  document.getElementById('addPreacherStatus').value = 'pending';
+  document.getElementById('addPreacherGenre').value = '';
+  document.getElementById('addPreacherLocation').value = '';
+  document.getElementById('addPreacherFollowers').value = '0';
+  document.getElementById('addPreacherDownloads').value = '0';
+  document.getElementById('addPreacherSocial').value = '';
+  document.getElementById('addPreacherBio').value = '';
   document.getElementById('addAvatarPreview').textContent = 'AB';
   document.getElementById('addAvatarPreview').style.backgroundImage = 'none';
   document.getElementById('addThumbnailPreview').textContent = '🖼️';
   document.getElementById('addThumbnailPreview').style.backgroundImage = 'none';
   switchAddMediaTab('avatar');
-  document.getElementById('addArtistOverlay').classList.add('open');
-  document.getElementById('addArtistModal').classList.add('open');
+  document.getElementById('addPreacherOverlay').classList.add('open');
+  document.getElementById('addPreacherModal').classList.add('open');
 }
 
-function closeAddArtist() {
-  document.getElementById('addArtistOverlay').classList.remove('open');
-  document.getElementById('addArtistModal').classList.remove('open');
+function closeAddPreacher() {
+  document.getElementById('addPreacherOverlay').classList.remove('open');
+  document.getElementById('addPreacherModal').classList.remove('open');
 }
 
-function saveAddArtist() {
-  var name = document.getElementById('addArtistName').value.trim();
-  if (!name) { showToast('Please enter artist name', 'warn'); return; }
+function saveAddPreacher() {
+  var name = document.getElementById('addPreacherName').value.trim();
+  if (!name) { showToast('Please enter preacher name', 'warn'); return; }
   var newId = Math.max.apply(null, ALL_ARTISTS.map(function(a){ return a.id; })) + 1;
   var initials = name.split(' ').map(function(w){ return w[0]; }).join('').toUpperCase().slice(0, 2);
-  var newArtist = {
+  var newPreacher = {
     id: newId,
     name: name,
     initials: initials,
     grad: 'g' + ((newId % 8) + 1),
-    genre: document.getElementById('addArtistGenre').value.trim() || 'Nasheed',
-    status: document.getElementById('addArtistStatus').value || 'pending',
-    songs: 0,
+    genre: document.getElementById('addPreacherGenre').value.trim() || 'Nasheed',
+    status: document.getElementById('addPreacherStatus').value || 'pending',
+    lectures: 0,
     plays: '0',
-    followers: document.getElementById('addArtistFollowers').value.trim() || '0',
-    downloads: document.getElementById('addArtistDownloads').value.trim() || '0',
+    followers: document.getElementById('addPreacherFollowers').value.trim() || '0',
+    downloads: document.getElementById('addPreacherDownloads').value.trim() || '0',
     joined: new Date().toLocaleDateString('en-US', {year:'numeric', month:'short', day:'numeric'}),
-    location: document.getElementById('addArtistLocation').value.trim() || 'Unknown',
-    tags: document.getElementById('addArtistGenre').value.trim().split('·').map(function(t){ return t.trim(); }) || ['Nasheed'],
-    bio: document.getElementById('addArtistBio').value.trim() || '',
-    social: document.getElementById('addArtistSocial').value.trim() || ''
+    location: document.getElementById('addPreacherLocation').value.trim() || 'Unknown',
+    tags: document.getElementById('addPreacherGenre').value.trim().split('·').map(function(t){ return t.trim(); }) || ['Nasheed'],
+    bio: document.getElementById('addPreacherBio').value.trim() || '',
+    social: document.getElementById('addPreacherSocial').value.trim() || ''
   };
-  ALL_ARTISTS.push(newArtist);
+  ALL_ARTISTS.push(newPreacher);
   updateTabCounts();
-  renderArtists();
-  closeAddArtist();
-  showToast('Artist added successfully', 'success');
+  renderPreachers();
+  closeAddPreacher();
+  showToast('Preacher added successfully', 'success');
 }
 
 /* ── Export CSV ── */
-function exportArtists() {
-  var rows = [['Name','Genre','Status','Songs','Plays','Followers','Downloads','Joined','Location','Social']];
+function exportPreachers() {
+  var rows = [['Name','Genre','Status','Lectures','Plays','Followers','Downloads','Joined','Location','Social']];
   ALL_ARTISTS.forEach(function(a){
     rows.push([
       a.name,
       a.genre,
       a.status,
-      a.songs,
+      a.lectures,
       a.plays,
       a.followers,
       a.downloads,
@@ -1366,17 +1366,17 @@ function exportArtists() {
   var url = URL.createObjectURL(blob);
   var a = document.createElement('a');
   a.href = url;
-  a.download = 'artists_export.csv';
+  a.download = 'preachers_export.csv';
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
-  showToast('Exported artists CSV', 'success');
+  showToast('Exported preachers CSV', 'success');
 }
 
 /* Init */
 updateTabCounts();
-renderArtists();
+renderPreachers();
 </script>
 </body>
 </html>

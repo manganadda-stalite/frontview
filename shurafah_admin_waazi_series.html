@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Shurafah Admin — Playlist Management</title>
+<title>Shurafah Admin — Wa'azi Series</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -114,7 +114,7 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
 .vt-btn.on svg{stroke:var(--purple);}
 
 /* ── PLAYLIST GRID ── */
-.playlist-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;}
+.series-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;}
 .pl-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden;cursor:pointer;transition:border-color .15s,transform .15s;animation:fadeUp .35s ease both;}
 .pl-card:hover{border-color:rgba(155,107,255,.25);transform:translateY(-2px);}
 .pl-cover{height:120px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:42px;}
@@ -408,7 +408,7 @@ td{padding:11px 16px;font-size:12px;vertical-align:middle;}
 </style>
 </head>
 <body>
-<div id="shurafah-scope-banner" style="position:fixed;top:8px;left:50%;transform:translateX(-50%);z-index:9999;background:rgba(15,20,32,.92);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.08);border-radius:50px;padding:5px 10px 5px 12px;font-family:'Syne',sans-serif;font-size:11px;font-weight:700;color:#F0F4FF;box-shadow:0 8px 24px rgba(0,0,0,.45);display:flex;align-items:center;gap:8px;pointer-events:auto;"><span style="display:flex;align-items:center;gap:5px;color:#FFB347;"><span style="font-size:13px;">🎵</span>Songs Admin</span><a href="shurafah_admin_waazi_series.html" style="display:flex;align-items:center;gap:5px;background:linear-gradient(135deg,#C8860A,#E8A020);color:#1A0800;text-decoration:none;padding:4px 10px;border-radius:50px;font-weight:700;">🎙️ Switch &rarr; Wa'azi Series</a><span onclick="document.getElementById('shurafah-scope-banner').remove()" style="cursor:pointer;padding:0 4px;opacity:.55;font-size:13px;">✕</span></div>
+<div id="waazi-scope-banner" style="position:fixed;top:8px;left:50%;transform:translateX(-50%);z-index:9999;background:linear-gradient(135deg,#C8860A,#E8A020);color:#1A0800;padding:5px 14px 5px 12px;border-radius:50px;font-family:'Syne',sans-serif;font-size:11px;font-weight:700;box-shadow:0 6px 20px rgba(200,134,10,.35);display:flex;align-items:center;gap:8px;pointer-events:auto;"><span>🎙️ Wa'azi Admin</span><a href="shurafah_admin_playlist_management.html" style="color:#1A0800;text-decoration:underline;font-weight:600;">Switch &rarr; Songs view: Playlists</a><span onclick="document.getElementById('waazi-scope-banner').remove()" style="cursor:pointer;padding-left:6px;opacity:.7;">✕</span></div>
 
 
 <script src="admin-sidebar.js"></script>
@@ -422,7 +422,7 @@ td{padding:11px 16px;font-size:12px;vertical-align:middle;}
     </div>
     <div class="topbar-breadcrumb">
       <span>Admin</span><span style="color:var(--text3);margin:0 6px;">/</span>
-      <span style="color:var(--purple);">Playlist Management</span>
+      <span style="color:var(--purple);">Wa'azi Series Management</span>
     </div>
     <div class="topbar-right">
       <div class="tb-icon-btn"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><div class="tb-notif-dot"></div></div>
@@ -435,17 +435,17 @@ td{padding:11px 16px;font-size:12px;vertical-align:middle;}
 
     <div class="page-header">
       <div>
-        <div class="page-title">Playlist Management</div>
-        <div class="page-subtitle">Create, curate &amp; manage official playlists · Monitor user-created playlists</div>
+        <div class="page-title">Wa'azi Series Management</div>
+        <div class="page-subtitle">Create, curate &amp; manage official series · Monitor user-created series</div>
       </div>
       <div style="display:flex;gap:8px;">
         <div class="btn btn-outline" onclick="switchTab('user')">
           <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
-          User Playlists
+          User Series
         </div>
         <div class="btn btn-primary" onclick="openModal()">
           <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          New Playlist
+          New Series
         </div>
       </div>
     </div>
@@ -454,11 +454,11 @@ td{padding:11px 16px;font-size:12px;vertical-align:middle;}
     <div class="stat-strip">
       <div class="ss-card" style="animation-delay:0s;">
         <div class="ss-icon" style="background:rgba(155,107,255,.15);"><svg viewBox="0 0 24 24" style="stroke:var(--purple);"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/></svg></div>
-        <div><div class="ss-val" style="color:var(--purple);">48</div><div class="ss-label">Official Playlists</div></div>
+        <div><div class="ss-val" style="color:var(--purple);">48</div><div class="ss-label">Official Series</div></div>
       </div>
       <div class="ss-card" style="animation-delay:.04s;">
         <div class="ss-icon" style="background:rgba(77,159,255,.12);"><svg viewBox="0 0 24 24" style="stroke:var(--blue);"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
-        <div><div class="ss-val" style="color:var(--blue);">3,284</div><div class="ss-label">User Playlists</div></div>
+        <div><div class="ss-val" style="color:var(--blue);">3,284</div><div class="ss-label">User Series</div></div>
       </div>
       <div class="ss-card" style="animation-delay:.08s;">
         <div class="ss-icon" style="background:rgba(46,204,143,.12);"><svg viewBox="0 0 24 24" style="stroke:var(--green);"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
@@ -466,7 +466,7 @@ td{padding:11px 16px;font-size:12px;vertical-align:middle;}
       </div>
       <div class="ss-card" style="animation-delay:.12s;">
         <div class="ss-icon" style="background:rgba(255,209,102,.1);"><svg viewBox="0 0 24 24" style="stroke:var(--yellow);"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
-        <div><div class="ss-val" style="color:var(--yellow);">12</div><div class="ss-label">Featured Playlists</div></div>
+        <div><div class="ss-val" style="color:var(--yellow);">12</div><div class="ss-label">Featured Series</div></div>
       </div>
     </div>
 
@@ -482,7 +482,7 @@ td{padding:11px 16px;font-size:12px;vertical-align:middle;}
     <div class="toolbar">
       <div class="search-wrap">
         <div class="search-icon"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
-        <input class="search-input" id="searchInput" type="text" placeholder="Search playlists by name, owner…">
+        <input class="search-input" id="searchInput" type="text" placeholder="Search series by name, owner…">
       </div>
       <select class="filter-select" id="categoryFilter">
         <option value="all">All Categories</option>
@@ -495,7 +495,7 @@ td{padding:11px 16px;font-size:12px;vertical-align:middle;}
       <select class="filter-select" id="sortFilter">
         <option value="newest">Newest</option>
         <option value="popular">Most Played</option>
-        <option value="songs">Most Songs</option>
+        <option value="lectures">Most Lectures</option>
       </select>
       <div class="view-toggle">
         <div class="vt-btn on" id="gridBtn" onclick="setView('grid')">
@@ -521,7 +521,7 @@ td{padding:11px 16px;font-size:12px;vertical-align:middle;}
 <!-- ════ SIDE PANEL ════ -->
 <div class="side-panel" id="sidePanel">
   <div class="sp-header">
-    <div class="sp-title" id="spTitle">Playlist Details</div>
+    <div class="sp-title" id="spTitle">Series Details</div>
     <div class="sp-close" onclick="closePanel()"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
   </div>
   <div class="sp-body" id="spBody"></div>
@@ -531,13 +531,13 @@ td{padding:11px 16px;font-size:12px;vertical-align:middle;}
 <div class="modal-overlay" id="modalOverlay" onclick="closeModalOnBg(event)">
   <div class="modal" id="modal">
     <div class="modal-header">
-      <div class="modal-title" id="modalTitle">New Official Playlist</div>
+      <div class="modal-title" id="modalTitle">New Official Series</div>
       <div class="modal-close" onclick="closeModal()"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
     </div>
     <div class="modal-body" id="modalBody"></div>
     <div class="modal-footer">
       <div class="btn btn-outline" onclick="closeModal()">Cancel</div>
-      <div class="btn btn-purple" onclick="savePlaylist()">Save Playlist</div>
+      <div class="btn btn-purple" onclick="saveSeries()">Save Series</div>
     </div>
   </div>
 </div>
@@ -583,9 +583,9 @@ function setView(v) {
 }
 
 /* ── Panel ── */
-var currentPlaylistId = null;
+var currentSeriesId = null;
 function openPanel(pl) {
-  currentPlaylistId = pl.id;
+  currentSeriesId = pl.id;
   document.getElementById('spTitle').textContent = pl.title;
   document.getElementById('spBody').innerHTML = buildPanel(pl);
   document.getElementById('sidePanel').classList.add('open');
@@ -593,7 +593,7 @@ function openPanel(pl) {
 function closePanel() { document.getElementById('sidePanel').classList.remove('open'); }
 
 function buildPanel(pl) {
-  var songs = SONG_POOL.slice(0, pl.songs > SONG_POOL.length ? SONG_POOL.length : pl.songs);
+  var lectures = SONG_POOL.slice(0, pl.lectures > SONG_POOL.length ? SONG_POOL.length : pl.lectures);
   var typeBadgeHtml = pl.type === 'official'
     ? '<span class="type-badge tb-official">⭐ Official</span>'
     : pl.type === 'auto'
@@ -603,14 +603,14 @@ function buildPanel(pl) {
     : '<span class="type-badge tb-user">👤 User</span>';
 
   var songRows = '';
-  for (var i = 0; i < songs.length && i < 6; i++) {
-    var s = songs[i];
+  for (var i = 0; i < lectures.length && i < 6; i++) {
+    var s = lectures[i];
     songRows += '<div class="psl-row">' +
       '<div class="psl-num">' + (i+1) + '</div>' +
       '<div class="psl-thumb ' + s.grad + '" style="' + (s.thumbnail ? 'background-image:url(' + s.thumbnail + ');background-size:cover;background-position:center;' : '') + '">' + (s.thumbnail ? '' : s.emoji) + '</div>' +
       '<div class="psl-info"><div class="psl-title">' + s.title + '</div><div class="psl-artist">' + s.artist + '</div></div>' +
       '<div class="psl-dur">' + s.dur + '</div>' +
-      '<div class="psl-remove" onclick="showToast(\'Song removed from playlist.\',\'danger\')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>' +
+      '<div class="psl-remove" onclick="showToast(\'Song removed from series.\',\'danger\')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>' +
     '</div>';
   }
 
@@ -619,7 +619,7 @@ function buildPanel(pl) {
       '<span class="vis-badge ' + (pl.public ? 'vis-public' : 'vis-private') + '">' + (pl.public ? '🌍 Public' : '🔒 Private') + '</span>' +
     '</div>' +
     '<div class="panel-info-grid">' +
-      '<div class="pig-item"><div class="pig-label">Songs</div><div class="pig-value" style="color:var(--purple);">' + pl.songs + '</div></div>' +
+      '<div class="pig-item"><div class="pig-label">Lectures</div><div class="pig-value" style="color:var(--purple);">' + pl.lectures + '</div></div>' +
       '<div class="pig-item"><div class="pig-label">Duration</div><div class="pig-value">' + pl.duration + '</div></div>' +
       '<div class="pig-item"><div class="pig-label">Plays</div><div class="pig-value" style="color:var(--green);">' + pl.plays + '</div></div>' +
       '<div class="pig-item"><div class="pig-label">Followers</div><div class="pig-value" style="color:var(--blue);">' + pl.followers + '</div></div>' +
@@ -627,37 +627,37 @@ function buildPanel(pl) {
       '<div class="pig-item"><div class="pig-label">Category</div><div class="pig-value">' + pl.category + '</div></div>' +
     '</div>' +
     '<div class="panel-actions">' +
-      '<div class="btn btn-sm btn-purple" onclick="editPlaylist(' + pl.id + ');closePanel();"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>Edit</div>' +
-      '<div class="btn btn-sm btn-green" onclick="openAddSongsModal(' + pl.id + ');"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Add Songs</div>' +
-      '<div class="btn btn-sm" style="background:rgba(255,209,102,.1);border-color:rgba(255,209,102,.25);color:var(--yellow);" onclick="featurePlaylist(' + pl.id + ');closePanel();renderGrid();">' + (pl.featured ? '★ Unfeature' : '☆ Feature') + '</div>' +
-      '<div class="btn btn-sm btn-danger" onclick="deletePlaylist(' + pl.id + ');closePanel();"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/></svg>Delete</div>' +
+      '<div class="btn btn-sm btn-purple" onclick="editSeries(' + pl.id + ');closePanel();"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>Edit</div>' +
+      '<div class="btn btn-sm btn-green" onclick="openAddLecturesModal(' + pl.id + ');"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Add Lectures</div>' +
+      '<div class="btn btn-sm" style="background:rgba(255,209,102,.1);border-color:rgba(255,209,102,.25);color:var(--yellow);" onclick="featureSeries(' + pl.id + ');closePanel();renderGrid();">' + (pl.featured ? '★ Unfeature' : '☆ Feature') + '</div>' +
+      '<div class="btn btn-sm btn-danger" onclick="deleteSeries(' + pl.id + ');closePanel();"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/></svg>Delete</div>' +
     '</div>' +
-    '<div style="font-family:\'Syne\',sans-serif;font-size:12px;font-weight:700;margin-bottom:10px;">Songs in Playlist</div>' +
+    '<div style="font-family:\'Syne\',sans-serif;font-size:12px;font-weight:700;margin-bottom:10px;">Lectures in Series</div>' +
     '<div class="panel-song-list">' + songRows + '</div>' +
-    (pl.songs > 6 ? '<div style="text-align:center;font-size:11px;color:var(--purple);cursor:pointer;margin-top:6px;" onclick="showToast(\'Loading all ' + pl.songs + ' songs…\',\'\')">View all ' + pl.songs + ' songs ↓</div>' : '');
+    (pl.lectures > 6 ? '<div style="text-align:center;font-size:11px;color:var(--purple);cursor:pointer;margin-top:6px;" onclick="showToast(\'Loading all ' + pl.lectures + ' lectures…\',\'\')">View all ' + pl.lectures + ' lectures ↓</div>' : '');
 }
 
 /* ─────────────────────────────────────────
    DATA
-   Laravel: var PLAYLISTS = {!! json_encode($playlists) !!};
+   Laravel: var PLAYLISTS = {!! json_encode($series) !!};
 ───────────────────────────────────────── */
 var PLAYLISTS = [
-  { id:1,  title:'Ashura Collection',      emoji:'☪️', grad:'g1', type:'official', category:'Ashura',  owner:'Admin',          songs:28, duration:'1h 52min', plays:'420K', followers:'8.2K', public:true,  featured:true  },
-  { id:2,  title:'Sunday Morning Nasheeds', emoji:'🌅', grad:'g2', type:'official', category:'Shairai', owner:'Admin',          songs:18, duration:'1h 14min', plays:'310K', followers:'6.4K', public:true,  featured:true  },
-  { id:3,  title:'Muharram Vibes',          emoji:'🌙', grad:'g3', type:'official', category:'Ashura',  owner:'Admin',          songs:22, duration:'1h 28min', plays:'284K', followers:'5.1K', public:true,  featured:false },
-  { id:4,  title:'Maulud Classics',         emoji:'🎉', grad:'g4', type:'official', category:'Maulud',  owner:'Admin',          songs:15, duration:'58min',    plays:'198K', followers:'3.8K', public:true,  featured:true  },
-  { id:5,  title:'Best of Uzairu',          emoji:'🎤', grad:'g5', type:'official', category:'Mix',     owner:'Admin',          songs:32, duration:'2h 08min', plays:'640K', followers:'12.1K',public:true,  featured:true  },
-  { id:6,  title:'Deep Night Worship',      emoji:'🕯️', grad:'g6', type:'official', category:'Shairai', owner:'Admin',          songs:12, duration:'48min',    plays:'152K', followers:'2.9K', public:true,  featured:false },
-  { id:7,  title:'Karbala Remembrance',     emoji:'🌹', grad:'g7', type:'official', category:'Shuhada', owner:'Admin',          songs:24, duration:'1h 36min', plays:'228K', followers:'4.6K', public:true,  featured:false },
-  { id:8,  title:'Ramadan Special 2026',    emoji:'⭐', grad:'g8', type:'official', category:'Mix',     owner:'Admin',          songs:30, duration:'2h 01min', plays:'580K', followers:'9.8K', public:true,  featured:true  },
-  { id:9,  title:'Ahmad Isah Best',         emoji:'🎵', grad:'g1', type:'official', category:'Shairai', owner:'Admin',          songs:20, duration:'1h 18min', plays:'190K', followers:'3.4K', public:true,  featured:false },
-  { id:10, title:'Shuhada Anthems',         emoji:'⚔️', grad:'g2', type:'official', category:'Shuhada', owner:'Admin',          songs:16, duration:'1h 04min', plays:'144K', followers:'2.7K', public:true,  featured:false },
-  { id:11, title:'My Morning Playlist',     emoji:'🌄', grad:'g3', type:'user',     category:'Mix',     owner:'Ahmad Musa',     songs:10, duration:'42min',    plays:'1.2K', followers:'48',   public:true,  featured:false },
-  { id:12, title:'Favourite Nasheeds',      emoji:'❤️', grad:'g4', type:'user',     category:'Mix',     owner:'Fatima A.',      songs:24, duration:'1h 38min', plays:'3.8K', followers:'124',  public:false, featured:false },
-  { id:13, title:'Ashura 2026 Mix',         emoji:'🎶', grad:'g5', type:'user',     category:'Ashura',  owner:'Ibrahim K.',     songs:8,  duration:'34min',    plays:'980',  followers:'21',   public:true,  featured:false },
-  { id:14, title:'Auto: Top Shairai',       emoji:'🤖', grad:'g6', type:'auto',     category:'Shairai', owner:'System',         songs:50, duration:'3h 22min', plays:'88K',  followers:'1.4K', public:true,  featured:false },
-  { id:15, title:'Auto: Trending Today',    emoji:'🔥', grad:'g7', type:'auto',     category:'Mix',     owner:'System',         songs:20, duration:'1h 12min', plays:'52K',  followers:'840',  public:true,  featured:false },
-  { id:16, title:'Kano Chapter Collab',     emoji:'🤝', grad:'g8', type:'collab',   category:'Mix',     owner:'Multiple',       songs:36, duration:'2h 24min', plays:'22K',  followers:'640',  public:true,  featured:false }
+  { id:1,  title:'Ashura Collection',      emoji:'☪️', grad:'g1', type:'official', category:'Ashura',  owner:'Admin',          lectures:28, duration:'1h 52min', plays:'420K', followers:'8.2K', public:true,  featured:true  },
+  { id:2,  title:'Sunday Morning Nasheeds', emoji:'🌅', grad:'g2', type:'official', category:'Shairai', owner:'Admin',          lectures:18, duration:'1h 14min', plays:'310K', followers:'6.4K', public:true,  featured:true  },
+  { id:3,  title:'Muharram Vibes',          emoji:'🌙', grad:'g3', type:'official', category:'Ashura',  owner:'Admin',          lectures:22, duration:'1h 28min', plays:'284K', followers:'5.1K', public:true,  featured:false },
+  { id:4,  title:'Maulud Classics',         emoji:'🎉', grad:'g4', type:'official', category:'Maulud',  owner:'Admin',          lectures:15, duration:'58min',    plays:'198K', followers:'3.8K', public:true,  featured:true  },
+  { id:5,  title:'Best of Uzairu',          emoji:'🎤', grad:'g5', type:'official', category:'Mix',     owner:'Admin',          lectures:32, duration:'2h 08min', plays:'640K', followers:'12.1K',public:true,  featured:true  },
+  { id:6,  title:'Deep Night Worship',      emoji:'🕯️', grad:'g6', type:'official', category:'Shairai', owner:'Admin',          lectures:12, duration:'48min',    plays:'152K', followers:'2.9K', public:true,  featured:false },
+  { id:7,  title:'Karbala Remembrance',     emoji:'🌹', grad:'g7', type:'official', category:'Shuhada', owner:'Admin',          lectures:24, duration:'1h 36min', plays:'228K', followers:'4.6K', public:true,  featured:false },
+  { id:8,  title:'Ramadan Special 2026',    emoji:'⭐', grad:'g8', type:'official', category:'Mix',     owner:'Admin',          lectures:30, duration:'2h 01min', plays:'580K', followers:'9.8K', public:true,  featured:true  },
+  { id:9,  title:'Ahmad Isah Best',         emoji:'🎵', grad:'g1', type:'official', category:'Shairai', owner:'Admin',          lectures:20, duration:'1h 18min', plays:'190K', followers:'3.4K', public:true,  featured:false },
+  { id:10, title:'Shuhada Anthems',         emoji:'⚔️', grad:'g2', type:'official', category:'Shuhada', owner:'Admin',          lectures:16, duration:'1h 04min', plays:'144K', followers:'2.7K', public:true,  featured:false },
+  { id:11, title:'My Morning Series',     emoji:'🌄', grad:'g3', type:'user',     category:'Mix',     owner:'Ahmad Musa',     lectures:10, duration:'42min',    plays:'1.2K', followers:'48',   public:true,  featured:false },
+  { id:12, title:'Favourite Nasheeds',      emoji:'❤️', grad:'g4', type:'user',     category:'Mix',     owner:'Fatima A.',      lectures:24, duration:'1h 38min', plays:'3.8K', followers:'124',  public:false, featured:false },
+  { id:13, title:'Ashura 2026 Mix',         emoji:'🎶', grad:'g5', type:'user',     category:'Ashura',  owner:'Ibrahim K.',     lectures:8,  duration:'34min',    plays:'980',  followers:'21',   public:true,  featured:false },
+  { id:14, title:'Auto: Top Shairai',       emoji:'🤖', grad:'g6', type:'auto',     category:'Shairai', owner:'System',         lectures:50, duration:'3h 22min', plays:'88K',  followers:'1.4K', public:true,  featured:false },
+  { id:15, title:'Auto: Trending Today',    emoji:'🔥', grad:'g7', type:'auto',     category:'Mix',     owner:'System',         lectures:20, duration:'1h 12min', plays:'52K',  followers:'840',  public:true,  featured:false },
+  { id:16, title:'Kano Chapter Collab',     emoji:'🤝', grad:'g8', type:'collab',   category:'Mix',     owner:'Multiple',       lectures:36, duration:'2h 24min', plays:'22K',  followers:'640',  public:true,  featured:false }
 ];
 
 var SONG_POOL = [
@@ -700,12 +700,12 @@ function renderGrid() {
   var start = (currentPage - 1) * pageSize;
   var paged = filtered.slice(start, Math.min(start + pageSize, total));
 
-  document.getElementById('pageInfo').textContent = total === 0 ? 'No playlists found' : 'Showing ' + (start+1) + '–' + Math.min(start+pageSize,total) + ' of ' + total;
+  document.getElementById('pageInfo').textContent = total === 0 ? 'No series found' : 'Showing ' + (start+1) + '–' + Math.min(start+pageSize,total) + ' of ' + total;
 
   var gv = document.getElementById('gridView');
   gv.innerHTML = '';
   var grid = document.createElement('div');
-  grid.className = 'playlist-grid';
+  grid.className = 'series-grid';
 
   for (var i = 0; i < paged.length; i++) {
     var p = paged[i];
@@ -724,8 +724,8 @@ function renderGrid() {
         '<div class="pl-cover-overlay"></div>' +
         '<div class="pl-type-badge" style="' + typeBadgeCss + '">' + typeBadgeTxt + '</div>' +
         '<div class="pl-cover-actions">' +
-          '<div class="pl-cover-btn" title="Edit" onclick="editPlaylist(' + p.id + ');event.stopPropagation();"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></div>' +
-          '<div class="pl-cover-btn" title="Delete" onclick="deletePlaylist(' + p.id + ');event.stopPropagation();"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/></svg></div>' +
+          '<div class="pl-cover-btn" title="Edit" onclick="editSeries(' + p.id + ');event.stopPropagation();"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></div>' +
+          '<div class="pl-cover-btn" title="Delete" onclick="deleteSeries(' + p.id + ');event.stopPropagation();"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/></svg></div>' +
         '</div>' +
         '<div class="pl-play-btn ' + p.grad + '" onclick="event.stopPropagation();"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>' +
       '</div>' +
@@ -737,17 +737,17 @@ function renderGrid() {
           (p.public ? '' : ' <span style="font-size:9px;color:var(--red);">🔒</span>') +
         '</div>' +
         '<div class="pl-meta">' +
-          '<span class="pl-meta-item"><svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>' + p.songs + ' songs</span>' +
+          '<span class="pl-meta-item"><svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>' + p.lectures + ' lectures</span>' +
           '<span class="pl-meta-item"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>' + p.plays + '</span>' +
           '<span class="pl-meta-item"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>' + p.followers + '</span>' +
         '</div>' +
       '</div>' +
       '<div class="pl-footer">' +
         (p.type === 'official' || p.type === 'auto'
-          ? '<div class="plf-btn feature" onclick="featurePlaylist(' + p.id + ');event.stopPropagation();">' + (p.featured ? '★ Unfeature' : '☆ Feature') + '</div>'
+          ? '<div class="plf-btn feature" onclick="featureSeries(' + p.id + ');event.stopPropagation();">' + (p.featured ? '★ Unfeature' : '☆ Feature') + '</div>'
           : '') +
-        '<div class="plf-btn edit" onclick="editPlaylist(' + p.id + ');event.stopPropagation();">Edit</div>' +
-        '<div class="plf-btn del" onclick="deletePlaylist(' + p.id + ');event.stopPropagation();">Delete</div>' +
+        '<div class="plf-btn edit" onclick="editSeries(' + p.id + ');event.stopPropagation();">Edit</div>' +
+        '<div class="plf-btn del" onclick="deleteSeries(' + p.id + ');event.stopPropagation();">Delete</div>' +
       '</div>';
 
     (function(pl) { card.addEventListener('click', function(){ openPanel(pl); }); }(p));
@@ -761,7 +761,7 @@ function renderGrid() {
   lv.innerHTML = '';
   var twrap = document.createElement('div');
   twrap.className = 'table-wrap';
-  var tableHtml = '<table><thead><tr><th>Playlist</th><th>Type</th><th>Visibility</th><th>Songs</th><th>Plays</th><th>Followers</th><th>Actions</th></tr></thead><tbody>';
+  var tableHtml = '<table><thead><tr><th>Series</th><th>Type</th><th>Visibility</th><th>Lectures</th><th>Plays</th><th>Followers</th><th>Actions</th></tr></thead><tbody>';
   for (var j = 0; j < paged.length; j++) {
     var lp = paged[j];
     var lTypeBadge;
@@ -773,13 +773,13 @@ function renderGrid() {
       '<td><div class="td-pl"><div class="td-cover ' + lp.grad + '">' + lp.emoji + '</div><div><div class="td-title">' + lp.title + '</div><div class="td-sub">' + lp.owner + ' · ' + lp.duration + '</div></div></div></td>' +
       '<td>' + lTypeBadge + '</td>' +
       '<td><span class="vis-badge ' + (lp.public ? 'vis-public' : 'vis-private') + '">' + (lp.public ? 'Public' : 'Private') + '</span></td>' +
-      '<td style="font-family:\'Syne\',sans-serif;font-weight:700;color:var(--purple);">' + lp.songs + '</td>' +
+      '<td style="font-family:\'Syne\',sans-serif;font-weight:700;color:var(--purple);">' + lp.lectures + '</td>' +
       '<td style="font-family:\'Syne\',sans-serif;font-weight:700;color:var(--green);">' + lp.plays + '</td>' +
       '<td style="font-family:\'Syne\',sans-serif;font-weight:700;color:var(--blue);">' + lp.followers + '</td>' +
       '<td><div class="td-actions">' +
-        '<div class="td-btn feature" onclick="featurePlaylist(' + lp.id + ');event.stopPropagation();">' + (lp.featured ? '★ Featured' : '☆ Feature') + '</div>' +
-        '<div class="td-btn edit" onclick="editPlaylist(' + lp.id + ');event.stopPropagation();">Edit</div>' +
-        '<div class="td-btn del" onclick="deletePlaylist(' + lp.id + ');event.stopPropagation();">Delete</div>' +
+        '<div class="td-btn feature" onclick="featureSeries(' + lp.id + ');event.stopPropagation();">' + (lp.featured ? '★ Featured' : '☆ Feature') + '</div>' +
+        '<div class="td-btn edit" onclick="editSeries(' + lp.id + ');event.stopPropagation();">Edit</div>' +
+        '<div class="td-btn del" onclick="deleteSeries(' + lp.id + ');event.stopPropagation();">Delete</div>' +
       '</div></td></tr>';
   }
   tableHtml += '</tbody></table>';
@@ -872,7 +872,7 @@ function renderPagination(total) {
 }
 
 /* ── Actions ── */
-function featurePlaylist(id) {
+function featureSeries(id) {
   for (var i = 0; i < PLAYLISTS.length; i++) {
     if (PLAYLISTS[i].id === id) { PLAYLISTS[i].featured = !PLAYLISTS[i].featured; break; }
   }
@@ -880,19 +880,19 @@ function featurePlaylist(id) {
   showToast('Feature status updated.', 'success');
 }
 
-function deletePlaylist(id) {
+function deleteSeries(id) {
   PLAYLISTS = PLAYLISTS.filter(function(p){ return p.id !== id; });
   renderGrid();
-  showToast('Playlist deleted.', 'danger');
+  showToast('Series deleted.', 'danger');
 }
 
-function editPlaylist(id) {
+function editSeries(id) {
   var pl = null;
   for (var i = 0; i < PLAYLISTS.length; i++) { if (PLAYLISTS[i].id === id) { pl = PLAYLISTS[i]; break; } }
   if (!pl) return;
   modalEditId = id;
   selectedEmoji = pl.emoji;
-  document.getElementById('modalTitle').textContent = 'Edit Playlist';
+  document.getElementById('modalTitle').textContent = 'Edit Series';
   buildModalBody(pl);
   document.getElementById('modalOverlay').classList.add('open');
 }
@@ -937,7 +937,7 @@ function buildModalBody(existing) {
   emojiHtml += '</div>';
 
   mbody.innerHTML =
-    '<div class="form-group"><label class="form-label">Playlist Name *</label><input class="form-input" id="mName" value="' + name + '" placeholder="e.g. Best of Uzairu Badamasi"></div>' +
+    '<div class="form-group"><label class="form-label">Series Name *</label><input class="form-input" id="mName" value="' + name + '" placeholder="e.g. Best of Uzairu Badamasi"></div>' +
     '<div class="form-group"><label class="form-label">Description</label><textarea class="form-textarea" id="mDesc" placeholder="Short description…">' + desc + '</textarea></div>' +
     '<div class="form-row">' +
       '<div class="form-group"><label class="form-label">Category</label><select class="form-select" id="mCat"><option' + (cat==='Shairai'?' selected':'') + '>Shairai</option><option' + (cat==='Ashura'?' selected':'') + '>Ashura</option><option' + (cat==='Maulud'?' selected':'') + '>Maulud</option><option' + (cat==='Shuhada'?' selected':'') + '>Shuhada</option><option' + (cat==='Mix'?' selected':'') + '>Mix</option></select></div>' +
@@ -962,14 +962,14 @@ function buildModalBody(existing) {
 function openModal() {
   modalEditId   = null;
   selectedEmoji = '🎵';
-  document.getElementById('modalTitle').textContent = 'New Official Playlist';
+  document.getElementById('modalTitle').textContent = 'New Official Series';
   buildModalBody(null);
   document.getElementById('modalOverlay').classList.add('open');
 }
 
-function savePlaylist() {
+function saveSeries() {
   var name = document.getElementById('mName').value.trim();
-  if (!name) { showToast('Playlist name is required.', 'danger'); return; }
+  if (!name) { showToast('Series name is required.', 'danger'); return; }
   var cat  = document.getElementById('mCat').value;
   var pub  = document.getElementById('mTogglePub').classList.contains('on');
   var type = document.getElementById('mType').value;
@@ -986,11 +986,11 @@ function savePlaylist() {
         break;
       }
     }
-    showToast('Playlist updated!', 'success');
+    showToast('Series updated!', 'success');
   } else {
     var newId = PLAYLISTS.length ? PLAYLISTS[PLAYLISTS.length - 1].id + 1 : 1;
-    PLAYLISTS.push({ id:newId, title:name, emoji:selectedEmoji, grad:grads[newId % 8], type:type, category:cat, owner:'Admin', songs:0, duration:'0min', plays:'0', followers:'0', public:pub, featured:false });
-    showToast('Playlist "' + name + '" created!', 'success');
+    PLAYLISTS.push({ id:newId, title:name, emoji:selectedEmoji, grad:grads[newId % 8], type:type, category:cat, owner:'Admin', lectures:0, duration:'0min', plays:'0', followers:'0', public:pub, featured:false });
+    showToast('Series "' + name + '" created!', 'success');
   }
   closeModal();
   renderGrid();
@@ -1004,14 +1004,14 @@ function closeModalOnBg(e) {
   }
 }
 
-/* ── Add Songs Modal ── */
-function openAddSongsModal(playlistId) {
-  currentPlaylistId = playlistId;
-  document.getElementById('modalTitle').textContent = 'Add Songs to Playlist';
+/* ── Add Lectures Modal ── */
+function openAddLecturesModal(seriesId) {
+  currentSeriesId = seriesId;
+  document.getElementById('modalTitle').textContent = 'Add Lectures to Series';
   var mbody = document.getElementById('modalBody');
   mbody.innerHTML =
     '<div class="form-group">' +
-      '<label class="form-label">Search Songs</label>' +
+      '<label class="form-label">Search Lectures</label>' +
       '<input class="form-input" id="songSearchInput" type="text" placeholder="Search by song name or artist…">' +
     '</div>' +
     '<div id="songSearchResults" style="max-height:300px;overflow-y:auto;"></div>';
@@ -1021,16 +1021,16 @@ function openAddSongsModal(playlistId) {
   var searchInput = document.getElementById('songSearchInput');
   searchInput.focus();
   searchInput.addEventListener('input', function() {
-    searchSongsForPlaylist(this.value);
+    searchLecturesForSeries(this.value);
   });
 }
 
-function searchSongsForPlaylist(query) {
+function searchLecturesForSeries(query) {
   var resultsDiv = document.getElementById('songSearchResults');
   query = query.toLowerCase().trim();
   
   if (!query) {
-    resultsDiv.innerHTML = '<div style="padding:12px;color:var(--text3);font-size:11px;">Type to search songs…</div>';
+    resultsDiv.innerHTML = '<div style="padding:12px;color:var(--text3);font-size:11px;">Type to search lectures…</div>';
     return;
   }
   
@@ -1039,31 +1039,31 @@ function searchSongsForPlaylist(query) {
   });
   
   if (matches.length === 0) {
-    resultsDiv.innerHTML = '<div style="padding:12px;color:var(--text3);font-size:11px;">No songs found for "' + query + '"</div>';
+    resultsDiv.innerHTML = '<div style="padding:12px;color:var(--text3);font-size:11px;">No lectures found for "' + query + '"</div>';
     return;
   }
   
   var html = '';
   for (var i = 0; i < matches.length; i++) {
     var s = matches[i];
-    html += '<div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;margin-bottom:8px;cursor:pointer;transition:all .15s;" onmouseover="this.style.background=\'var(--surface3)\'" onmouseout="this.style.background=\'var(--surface2)\'" onclick="addSongToPlaylist(' + i + ',\'' + s.title.replace(/'/g, "\\'") + '\');"><div class="' + s.grad + '" style="width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">' + s.emoji + '</div><div style="flex:1;min-width:0;"><div style="font-family:sans-serif;font-size:11px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + s.title + '</div><div style="font-size:9px;color:var(--text3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + s.artist + '</div></div><div style="font-size:10px;color:var(--text3);font-family:sans-serif;font-weight:600;flex-shrink:0;">' + s.dur + '</div><div style="width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;background:rgba(46,204,143,.15);cursor:pointer;flex-shrink:0;" title="Add song"><svg viewBox="0 0 24 24" style="width:14px;height:14px;fill:none;stroke:var(--green);stroke-width:2;"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>';
+    html += '<div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;margin-bottom:8px;cursor:pointer;transition:all .15s;" onmouseover="this.style.background=\'var(--surface3)\'" onmouseout="this.style.background=\'var(--surface2)\'" onclick="addSongToSeries(' + i + ',\'' + s.title.replace(/'/g, "\\'") + '\');"><div class="' + s.grad + '" style="width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">' + s.emoji + '</div><div style="flex:1;min-width:0;"><div style="font-family:sans-serif;font-size:11px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + s.title + '</div><div style="font-size:9px;color:var(--text3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + s.artist + '</div></div><div style="font-size:10px;color:var(--text3);font-family:sans-serif;font-weight:600;flex-shrink:0;">' + s.dur + '</div><div style="width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;background:rgba(46,204,143,.15);cursor:pointer;flex-shrink:0;" title="Add song"><svg viewBox="0 0 24 24" style="width:14px;height:14px;fill:none;stroke:var(--green);stroke-width:2;"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>';
   }
   resultsDiv.innerHTML = html;
 }
 
-function addSongToPlaylist(songIndex, songTitle) {
+function addSongToSeries(songIndex, songTitle) {
   var pl = null;
   for (var i = 0; i < PLAYLISTS.length; i++) {
-    if (PLAYLISTS[i].id === currentPlaylistId) {
+    if (PLAYLISTS[i].id === currentSeriesId) {
       pl = PLAYLISTS[i];
       break;
     }
   }
   if (!pl) return;
   
-  pl.songs++;
+  pl.lectures++;
   closeModal();
-  showToast('"' + songTitle + '" added to playlist!', 'success');
+  showToast('"' + songTitle + '" added to series!', 'success');
   
   var panelBody = document.getElementById('spBody');
   if (panelBody && panelBody.innerHTML) {

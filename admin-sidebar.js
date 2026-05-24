@@ -282,6 +282,16 @@
         item('shurafah_admin_playlist_management.html', 'Playlist Management', 'Playlist Management',
           '<line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>') +
 
+        '<div class="sb-group-label">Wa\'azi</div>' +
+        item('shurafah_admin_waazi_management.html', 'Wa\'azi Management', 'Wa\'azi Management',
+          '<path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/>') +
+        item('shurafah_admin_preacher_management.html', 'Preacher Management', 'Preacher Management',
+          '<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/><path d="M16 3l1 2 2-1-1 2 2 1-2 1 1 2-2-1-1 2"/>') +
+        item('shurafah_admin_waazi_categories.html', 'Wa\'azi Categories', 'Wa\'azi Categories',
+          '<path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/><line x1="9" y1="13" x2="15" y2="13"/>') +
+        item('shurafah_admin_waazi_series.html', 'Wa\'azi Series', 'Wa\'azi Series (Playlists)',
+          '<line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><polyline points="3 5 5 7 3 9"/><polyline points="3 11 5 13 3 15"/><polyline points="3 17 5 19 3 21"/>') +
+
         '<div class="sb-group-label">Users</div>' +
         item('shurafah_admin_user_management.html', 'User Management', 'User Management',
           '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>') +
