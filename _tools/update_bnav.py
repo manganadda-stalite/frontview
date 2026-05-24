@@ -1,4 +1,4 @@
-"""Replace the existing bottom nav with a 5-item nav: Home / Wa'azi / Explore / Favourites / Profile.
+"""Replace the existing 5-item bottom nav with a 4-item nav: Home / Wa'azi / Explore / Favourites.
 
 Wraps each item in an anchor tag so navigation works. Sets the `active` state per page.
 The existing CSS (`.ni`, `.ni.on`, `.bnav`, etc.) works on anchors just as well as on divs.
@@ -11,59 +11,46 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 
-# Per-page mapping: file -> active key (one of: home, waazi, explore, favourites, profile, none)
+# Per-page mapping: file -> active key (one of: home, waazi, explore, favourites, none)
 # `none` = no item highlighted (used for sub-pages and "see all" pages)
 PAGE_ACTIVE = {
-    "song_portal_web.html":            "home",
-    "shurafah_waazi.html":             "waazi",
-    "shurafah_explore.html":           "explore",
-    "favourites_page.html":            "favourites",
-    "user_profile_page.html":          "profile",
+    "song_portal_web.html":       "home",
+    "shurafah_waazi.html":        "waazi",
+    "shurafah_explore.html":      "explore",
+    "favourites_page.html":       "favourites",
 
     # Sub-pages — no item highlighted; user navigated here from a section above.
-    "song_detail_page.html":           "none",
-    "artist_profile_page.html":        "none",
-    "shurafah_waazi_detail.html":      "none",
-    "shurafah_preacher_profile.html":  "none",
+    "song_detail_page.html":      "none",
+    "artist_profile_page.html":   "none",
+    "user_profile_page.html":     "none",
 
     # "See all" listing pages for songs — highlight Home (they belong to the songs flow).
-    "all_categories.html":             "home",
-    "all_featured_songs.html":         "home",
-    "all_recently_added.html":         "home",
-    "all_subcategories.html":          "home",
-    "all_top_artists.html":            "home",
-    "all_top_songs.html":              "home",
-    "all_trending_songs.html":         "home",
-
-    # "See all" listing pages for Wa'azi — highlight Wa'azi.
-    "all_top_preachers.html":          "waazi",
-    "all_top_lectures.html":           "waazi",
-    "all_trending_lectures.html":      "waazi",
-    "all_featured_lectures.html":      "waazi",
-    "all_recent_lectures.html":        "waazi",
-    "all_waazi_categories.html":       "waazi",
-    "all_waazi_subcategories.html":    "waazi",
+    "all_categories.html":        "home",
+    "all_featured_songs.html":    "home",
+    "all_recently_added.html":    "home",
+    "all_subcategories.html":     "home",
+    "all_top_artists.html":       "home",
+    "all_top_songs.html":         "home",
+    "all_trending_songs.html":    "home",
 }
 
 HOME_SVG    = '<svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>'
 WAAZI_SVG   = '<svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>'
 EXPLORE_SVG = '<svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>'
 FAV_SVG     = '<svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>'
-PROFILE_SVG = '<svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>'
 
 ITEMS = [
-    ("home",       "song_portal_web.html",  HOME_SVG,    "Home"),
-    ("waazi",      "shurafah_waazi.html",   WAAZI_SVG,   "Wa'azi"),
-    ("explore",    "shurafah_explore.html", EXPLORE_SVG, "Explore"),
-    ("favourites", "favourites_page.html",  FAV_SVG,     "Favourites"),
-    ("profile",    "user_profile_page.html",PROFILE_SVG, "Profile"),
+    ("home",       "song_portal_web.html", HOME_SVG,    "Home"),
+    ("waazi",      "shurafah_waazi.html",  WAAZI_SVG,   "Wa'azi"),
+    ("explore",    "shurafah_explore.html",EXPLORE_SVG, "Explore"),
+    ("favourites", "favourites_page.html", FAV_SVG,     "Favourites"),
 ]
 
 ANCHOR_STYLE = 'text-decoration:none;color:inherit;'
 
 
 def build_bnav(active_key: str) -> str:
-    parts = ['  <!-- BOTTOM NAV (Home · Wa\'azi · Explore · Favourites · Profile) -->',
+    parts = ['  <!-- BOTTOM NAV (Home · Wa\'azi · Explore · Favourites) -->',
              '  <div class="bnav">']
     for key, href, svg, label in ITEMS:
         on = " on" if key == active_key else ""
