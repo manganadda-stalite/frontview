@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Shurafah Admin — Categories</title>
+<title>Shurafah Admin — Wa'azi Categories</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#070A11;--sidebar:#0B0F1A;--surface:#0F1520;--surface2:#141C2E;--surface3:#1A2340;--accent:#FF6B35;--accent2:#FFB347;--blue:#4D9FFF;--green:#2ECC8F;--purple:#9B6BFF;--pink:#FF4D8F;--yellow:#FFD166;--red:#FF4444;--teal:#00D4AA;--text:#F0F4FF;--text2:#8A94B0;--text3:#3D4B6A;--border:rgba(255,255,255,0.06);--sidebar-w:220px;--header-h:60px;--radius:14px;}
@@ -267,7 +267,7 @@ tbody td{padding:12px 14px;font-size:13px;vertical-align:middle;}
 </style>
 </head>
 <body>
-<div id="shurafah-scope-banner" style="position:fixed;top:8px;left:50%;transform:translateX(-50%);z-index:9999;background:rgba(15,20,32,.92);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.08);border-radius:50px;padding:5px 10px 5px 12px;font-family:'Syne',sans-serif;font-size:11px;font-weight:700;color:#F0F4FF;box-shadow:0 8px 24px rgba(0,0,0,.45);display:flex;align-items:center;gap:8px;pointer-events:auto;"><span style="display:flex;align-items:center;gap:5px;color:#FFB347;"><span style="font-size:13px;">🎵</span>Songs Admin</span><a href="shurafah_admin_waazi_categories.html" style="display:flex;align-items:center;gap:5px;background:linear-gradient(135deg,#C8860A,#E8A020);color:#1A0800;text-decoration:none;padding:4px 10px;border-radius:50px;font-weight:700;">🎙️ Switch &rarr; Wa'azi Categories</a><span onclick="document.getElementById('shurafah-scope-banner').remove()" style="cursor:pointer;padding:0 4px;opacity:.55;font-size:13px;">✕</span></div>
+<div id="waazi-scope-banner" style="position:fixed;top:8px;left:50%;transform:translateX(-50%);z-index:9999;background:linear-gradient(135deg,#C8860A,#E8A020);color:#1A0800;padding:5px 14px 5px 12px;border-radius:50px;font-family:'Syne',sans-serif;font-size:11px;font-weight:700;box-shadow:0 6px 20px rgba(200,134,10,.35);display:flex;align-items:center;gap:8px;pointer-events:auto;"><span>🎙️ Wa'azi Admin</span><a href="shurafah_admin_categories.html" style="color:#1A0800;text-decoration:underline;font-weight:600;">Switch &rarr; Songs view: Categories</a><span onclick="document.getElementById('waazi-scope-banner').remove()" style="cursor:pointer;padding-left:6px;opacity:.7;">✕</span></div>
 
 
 <div class="toast" id="toast"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span id="toastMsg"></span></div>
@@ -422,7 +422,7 @@ tbody td{padding:12px 14px;font-size:13px;vertical-align:middle;}
       <input type="hidden" id="as-thumbnail" value="">
     </div>
     <div class="form-group"><label class="form-label">Icon / Emoji</label><input class="form-input" type="text" placeholder="e.g. 🎶" maxlength="4" style="font-size:18px;text-align:center;"></div>
-    <div class="form-group"><label class="form-label">Description</label><textarea class="form-textarea" placeholder="What type of songs belong in this sub-category?"></textarea></div>
+    <div class="form-group"><label class="form-label">Description</label><textarea class="form-textarea" placeholder="What type of lectures belong in this sub-category?"></textarea></div>
     <div class="form-row">
       <div class="form-group"><label class="form-label">Display Order</label><input class="form-input" type="number" placeholder="1" min="1"></div>
       <div class="form-group"><label class="form-label">Visibility</label><select class="form-select"><option>Visible</option><option>Hidden</option></select></div>
@@ -456,7 +456,7 @@ tbody td{padding:12px 14px;font-size:13px;vertical-align:middle;}
       <div class="form-group"><label class="form-label">Icon</label><input class="form-input" value="🙌" style="font-size:18px;text-align:center;"></div>
       <div class="form-group"><label class="form-label">Display Order</label><input class="form-input" type="number" value="1"></div>
     </div>
-    <div class="form-group"><label class="form-label">Description</label><textarea class="form-textarea">High energy praise songs and anthems for worship settings.</textarea></div>
+    <div class="form-group"><label class="form-label">Description</label><textarea class="form-textarea">High energy praise lectures and anthems for worship settings.</textarea></div>
     <div class="form-group"><label class="form-label">Visibility</label><select class="form-select"><option selected>Visible</option><option>Hidden</option></select></div>
     <div class="modal-footer">
       <button class="btn btn-danger btn-sm" onclick="if(confirm('Delete this sub-category?')){showToast('Sub-category deleted','ok');closeModal('editSubModal')}">Delete</button>
@@ -511,14 +511,14 @@ tbody td{padding:12px 14px;font-size:13px;vertical-align:middle;}
       <div class="stat-card" style="border-color:rgba(255,107,53,0.15);">
         <div class="sc-icon" style="background:linear-gradient(135deg,var(--accent),var(--accent2));"><svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div>
         <div class="sc-val" style="color:var(--accent);">1,248</div>
-        <div class="sc-label">Total Songs Categorised</div>
+        <div class="sc-label">Total Lectures Categorised</div>
         <div class="sc-change up"><svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>100% categorised</div>
       </div>
       <div class="stat-card" style="border-color:rgba(46,204,143,0.15);">
         <div class="sc-icon" style="background:linear-gradient(135deg,var(--green),var(--teal));"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
         <div class="sc-val" style="color:var(--green);">Gospel</div>
         <div class="sc-label">Most Popular Category</div>
-        <div class="sc-change up"><svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>524 songs · 42% of plays</div>
+        <div class="sc-change up"><svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>524 lectures · 42% of plays</div>
       </div>
     </div>
 
@@ -544,7 +544,7 @@ tbody td{padding:12px 14px;font-size:13px;vertical-align:middle;}
         <div class="cat-name">Gospel</div>
         <div class="cat-desc">Contemporary Christian music, praise, worship and church hymns</div>
         <div class="cat-meta">
-          <div class="cat-meta-item" style="color:var(--accent);"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/></svg>524 songs</div>
+          <div class="cat-meta-item" style="color:var(--accent);"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/></svg>524 lectures</div>
           <div class="cat-meta-item" style="color:var(--blue);"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/></svg>8 sub-cats</div>
           <div class="cat-meta-item" style="color:var(--green);"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>1.8M plays</div>
         </div>
@@ -567,7 +567,7 @@ tbody td{padding:12px 14px;font-size:13px;vertical-align:middle;}
         <div class="cat-name">Worship</div>
         <div class="cat-desc">Intimate worship, corporate praise, prophetic and spontaneous worship</div>
         <div class="cat-meta">
-          <div class="cat-meta-item" style="color:var(--accent);">312 songs</div>
+          <div class="cat-meta-item" style="color:var(--accent);">312 lectures</div>
           <div class="cat-meta-item" style="color:var(--blue);">6 sub-cats</div>
           <div class="cat-meta-item" style="color:var(--green);">980K plays</div>
         </div>
@@ -590,7 +590,7 @@ tbody td{padding:12px 14px;font-size:13px;vertical-align:middle;}
         <div class="cat-name">Afrobeat</div>
         <div class="cat-desc">Afropop, Highlife, Jùjú, Fuji and Afro-Soul rhythms from Nigeria and beyond</div>
         <div class="cat-meta">
-          <div class="cat-meta-item" style="color:var(--accent);">186 songs</div>
+          <div class="cat-meta-item" style="color:var(--accent);">186 lectures</div>
           <div class="cat-meta-item" style="color:var(--blue);">5 sub-cats</div>
           <div class="cat-meta-item" style="color:var(--green);">540K plays</div>
         </div>
@@ -613,7 +613,7 @@ tbody td{padding:12px 14px;font-size:13px;vertical-align:middle;}
         <div class="cat-name">Hip Hop</div>
         <div class="cat-desc">Christian rap, trap gospel, inspirational hip hop and R&B gospel fusions</div>
         <div class="cat-meta">
-          <div class="cat-meta-item" style="color:var(--accent);">98 songs</div>
+          <div class="cat-meta-item" style="color:var(--accent);">98 lectures</div>
           <div class="cat-meta-item" style="color:var(--blue);">4 sub-cats</div>
           <div class="cat-meta-item" style="color:var(--green);">240K plays</div>
         </div>
@@ -636,7 +636,7 @@ tbody td{padding:12px 14px;font-size:13px;vertical-align:middle;}
         <div class="cat-name">R&amp;B / Soul</div>
         <div class="cat-desc">Neo soul, Gospel R&B, smooth contemporary and inspirational soul music</div>
         <div class="cat-meta">
-          <div class="cat-meta-item" style="color:var(--accent);">64 songs</div>
+          <div class="cat-meta-item" style="color:var(--accent);">64 lectures</div>
           <div class="cat-meta-item" style="color:var(--blue);">3 sub-cats</div>
           <div class="cat-meta-item" style="color:var(--green);">148K plays</div>
         </div>
@@ -659,7 +659,7 @@ tbody td{padding:12px 14px;font-size:13px;vertical-align:middle;}
         <div class="cat-name">Jazz</div>
         <div class="cat-desc">Smooth jazz, gospel jazz and jazz soul — currently hidden from app</div>
         <div class="cat-meta">
-          <div class="cat-meta-item" style="color:var(--text3);">54 songs</div>
+          <div class="cat-meta-item" style="color:var(--text3);">54 lectures</div>
           <div class="cat-meta-item" style="color:var(--text3);">3 sub-cats</div>
           <div class="cat-meta-item" style="color:var(--text3);">28K plays</div>
         </div>
@@ -682,7 +682,7 @@ tbody td{padding:12px 14px;font-size:13px;vertical-align:middle;}
         <div class="cat-name">Highlife</div>
         <div class="cat-desc">Classic and contemporary Nigerian highlife music and Afro-Highlife fusions</div>
         <div class="cat-meta">
-          <div class="cat-meta-item" style="color:var(--accent);">72 songs</div>
+          <div class="cat-meta-item" style="color:var(--accent);">72 lectures</div>
           <div class="cat-meta-item" style="color:var(--blue);">3 sub-cats</div>
           <div class="cat-meta-item" style="color:var(--green);">98K plays</div>
         </div>
@@ -705,7 +705,7 @@ tbody td{padding:12px 14px;font-size:13px;vertical-align:middle;}
         <div class="cat-name">Classical</div>
         <div class="cat-desc">Orchestral, chamber music, hymnal arrangements and sacred classical compositions</div>
         <div class="cat-meta">
-          <div class="cat-meta-item" style="color:var(--accent);">38 songs</div>
+          <div class="cat-meta-item" style="color:var(--accent);">38 lectures</div>
           <div class="cat-meta-item" style="color:var(--blue);">2 sub-cats</div>
           <div class="cat-meta-item" style="color:var(--green);">22K plays</div>
         </div>
@@ -737,7 +737,7 @@ tbody td{padding:12px 14px;font-size:13px;vertical-align:middle;}
           <span class="drag-handle" title="Drag to reorder">⠿</span>
           <div class="subcat-icon">🙌</div>
           <div style="flex:1;"><div class="subcat-name">Praise</div><div class="subcat-parent">Parent: Gospel</div></div>
-          <span style="font-size:12px;color:var(--text2);margin-right:8px;">142 songs</span>
+          <span style="font-size:12px;color:var(--text2);margin-right:8px;">142 lectures</span>
           <span class="badge badge-green" style="margin-right:8px;"><span class="badge-dot"></span>Visible</span>
           <div class="td-actions"><button class="act-btn edit" onclick="openModal('editSubModal')"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="act-btn del" onclick="if(confirm('Delete Praise?')){showToast('Deleted','ok')}"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg></button></div>
         </div>
@@ -746,7 +746,7 @@ tbody td{padding:12px 14px;font-size:13px;vertical-align:middle;}
           <span class="drag-handle">⠿</span>
           <div class="subcat-icon">🎵</div>
           <div style="flex:1;"><div class="subcat-name">Contemporary Gospel</div><div class="subcat-parent">Parent: Gospel</div></div>
-          <span style="font-size:12px;color:var(--text2);margin-right:8px;">98 songs</span>
+          <span style="font-size:12px;color:var(--text2);margin-right:8px;">98 lectures</span>
           <span class="badge badge-green" style="margin-right:8px;"><span class="badge-dot"></span>Visible</span>
           <div class="td-actions"><button class="act-btn edit" onclick="openModal('editSubModal')"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="act-btn del" onclick="if(confirm('Delete?')){showToast('Deleted','ok')}"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg></button></div>
         </div>
@@ -755,7 +755,7 @@ tbody td{padding:12px 14px;font-size:13px;vertical-align:middle;}
           <span class="drag-handle">⠿</span>
           <div class="subcat-icon">🕯️</div>
           <div style="flex:1;"><div class="subcat-name">Intimate Worship</div><div class="subcat-parent">Parent: Worship</div></div>
-          <span style="font-size:12px;color:var(--text2);margin-right:8px;">86 songs</span>
+          <span style="font-size:12px;color:var(--text2);margin-right:8px;">86 lectures</span>
           <span class="badge badge-green" style="margin-right:8px;"><span class="badge-dot"></span>Visible</span>
           <div class="td-actions"><button class="act-btn edit" onclick="openModal('editSubModal')"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="act-btn del" onclick="if(confirm('Delete?')){showToast('Deleted','ok')}"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg></button></div>
         </div>
@@ -764,7 +764,7 @@ tbody td{padding:12px 14px;font-size:13px;vertical-align:middle;}
           <span class="drag-handle">⠿</span>
           <div class="subcat-icon">🥁</div>
           <div style="flex:1;"><div class="subcat-name">Afropop</div><div class="subcat-parent">Parent: Afrobeat</div></div>
-          <span style="font-size:12px;color:var(--text2);margin-right:8px;">112 songs</span>
+          <span style="font-size:12px;color:var(--text2);margin-right:8px;">112 lectures</span>
           <span class="badge badge-green" style="margin-right:8px;"><span class="badge-dot"></span>Visible</span>
           <div class="td-actions"><button class="act-btn edit" onclick="openModal('editSubModal')"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="act-btn del" onclick="if(confirm('Delete?')){showToast('Deleted','ok')}"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg></button></div>
         </div>
@@ -773,7 +773,7 @@ tbody td{padding:12px 14px;font-size:13px;vertical-align:middle;}
           <span class="drag-handle">⠿</span>
           <div class="subcat-icon">🎤</div>
           <div style="flex:1;"><div class="subcat-name">Trap Gospel</div><div class="subcat-parent">Parent: Hip Hop</div></div>
-          <span style="font-size:12px;color:var(--text2);margin-right:8px;">44 songs</span>
+          <span style="font-size:12px;color:var(--text2);margin-right:8px;">44 lectures</span>
           <span class="badge badge-green" style="margin-right:8px;"><span class="badge-dot"></span>Visible</span>
           <div class="td-actions"><button class="act-btn edit" onclick="openModal('editSubModal')"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="act-btn del" onclick="if(confirm('Delete?')){showToast('Deleted','ok')}"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg></button></div>
         </div>
@@ -782,7 +782,7 @@ tbody td{padding:12px 14px;font-size:13px;vertical-align:middle;}
           <span class="drag-handle">⠿</span>
           <div class="subcat-icon">🎷</div>
           <div style="flex:1;"><div class="subcat-name">Neo Soul</div><div class="subcat-parent">Parent: R&amp;B / Soul</div></div>
-          <span style="font-size:12px;color:var(--text2);margin-right:8px;">32 songs</span>
+          <span style="font-size:12px;color:var(--text2);margin-right:8px;">32 lectures</span>
           <span class="badge badge-green" style="margin-right:8px;"><span class="badge-dot"></span>Visible</span>
           <div class="td-actions"><button class="act-btn edit" onclick="openModal('editSubModal')"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="act-btn del" onclick="if(confirm('Delete?')){showToast('Deleted','ok')}"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg></button></div>
         </div>
@@ -791,7 +791,7 @@ tbody td{padding:12px 14px;font-size:13px;vertical-align:middle;}
           <span class="drag-handle">⠿</span>
           <div class="subcat-icon">🎺</div>
           <div style="flex:1;"><div class="subcat-name">Smooth Jazz</div><div class="subcat-parent">Parent: Jazz</div></div>
-          <span style="font-size:12px;color:var(--text2);margin-right:8px;">28 songs</span>
+          <span style="font-size:12px;color:var(--text2);margin-right:8px;">28 lectures</span>
           <span class="badge badge-gray" style="margin-right:8px;">Hidden</span>
           <div class="td-actions"><button class="act-btn edit" onclick="openModal('editSubModal')"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="act-btn del" onclick="if(confirm('Delete?')){showToast('Deleted','ok')}"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg></button></div>
         </div>
@@ -800,7 +800,7 @@ tbody td{padding:12px 14px;font-size:13px;vertical-align:middle;}
           <span class="drag-handle">⠿</span>
           <div class="subcat-icon">🔥</div>
           <div style="flex:1;"><div class="subcat-name">Prophetic Worship</div><div class="subcat-parent">Parent: Worship</div></div>
-          <span style="font-size:12px;color:var(--text2);margin-right:8px;">58 songs</span>
+          <span style="font-size:12px;color:var(--text2);margin-right:8px;">58 lectures</span>
           <span class="badge badge-green" style="margin-right:8px;"><span class="badge-dot"></span>Visible</span>
           <div class="td-actions"><button class="act-btn edit" onclick="openModal('editSubModal')"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="act-btn del" onclick="if(confirm('Delete?')){showToast('Deleted','ok')}"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg></button></div>
         </div>

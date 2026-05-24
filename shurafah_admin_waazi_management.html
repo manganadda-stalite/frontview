@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Shurafah Admin — Song Management</title>
+<title>Shurafah Admin — Wa'azi Management</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -169,7 +169,7 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
 .cb.checked svg{display:block;}
 .cb svg{width:9px;height:9px;fill:none;stroke:white;stroke-width:3;display:none;}
 
-/* song cell */
+/* lecture cell */
 .song-cell{display:flex;align-items:center;gap:10px;}
 .song-art{width:40px;height:40px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;position:relative;overflow:hidden;}
 .song-art-play{position:absolute;inset:0;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .15s;cursor:pointer;}
@@ -749,7 +749,7 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
 </style>
 </head>
 <body>
-<div id="shurafah-scope-banner" style="position:fixed;top:8px;left:50%;transform:translateX(-50%);z-index:9999;background:rgba(15,20,32,.92);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.08);border-radius:50px;padding:5px 10px 5px 12px;font-family:'Syne',sans-serif;font-size:11px;font-weight:700;color:#F0F4FF;box-shadow:0 8px 24px rgba(0,0,0,.45);display:flex;align-items:center;gap:8px;pointer-events:auto;"><span style="display:flex;align-items:center;gap:5px;color:#FFB347;"><span style="font-size:13px;">🎵</span>Songs Admin</span><a href="shurafah_admin_waazi_management.html" style="display:flex;align-items:center;gap:5px;background:linear-gradient(135deg,#C8860A,#E8A020);color:#1A0800;text-decoration:none;padding:4px 10px;border-radius:50px;font-weight:700;">🎙️ Switch &rarr; Wa'azi Management</a><span onclick="document.getElementById('shurafah-scope-banner').remove()" style="cursor:pointer;padding:0 4px;opacity:.55;font-size:13px;">✕</span></div>
+<div id="waazi-scope-banner" style="position:fixed;top:8px;left:50%;transform:translateX(-50%);z-index:9999;background:linear-gradient(135deg,#C8860A,#E8A020);color:#1A0800;padding:5px 14px 5px 12px;border-radius:50px;font-family:'Syne',sans-serif;font-size:11px;font-weight:700;box-shadow:0 6px 20px rgba(200,134,10,.35);display:flex;align-items:center;gap:8px;pointer-events:auto;"><span>🎙️ Wa'azi Admin</span><a href="shurafah_song_management.html" style="color:#1A0800;text-decoration:underline;font-weight:600;">Switch &rarr; Songs view: Song Management</a><span onclick="document.getElementById('waazi-scope-banner').remove()" style="cursor:pointer;padding-left:6px;opacity:.7;">✕</span></div>
 
 
 <!-- TOAST -->
@@ -759,7 +759,7 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
 <div class="modal-overlay" id="deleteModal">
   <div class="modal">
     <div class="modal-ico">🗑️</div>
-    <div class="modal-title">Delete Song?</div>
+    <div class="modal-title">Delete Lecture?</div>
     <div class="modal-desc">You're about to permanently delete <strong id="deleteTitle">"Kurmus"</strong>. This will remove the audio file, all play history, comments and downloads. This cannot be undone.</div>
     <div class="modal-actions">
       <div class="modal-cancel" onclick="closeModal()">Cancel</div>
@@ -773,8 +773,8 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
 <div class="upload-panel" id="uploadPanel">
   <div class="up-header">
     <div>
-      <div class="up-title">Add New Song</div>
-      <div style="font-size:10px;color:var(--text3);margin-top:2px;">Choose how you want to add this song</div>
+      <div class="up-title">Add New Lecture</div>
+      <div style="font-size:10px;color:var(--text3);margin-top:2px;">Choose how you want to add this lecture</div>
     </div>
     <div class="up-close" onclick="closeUpload()"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
   </div>
@@ -900,7 +900,7 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--text3)" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
           <span style="font-size:11px;color:var(--text3);">shurafah-audio</span>
           <span style="font-size:11px;color:var(--text3);">/</span>
-          <span style="font-size:11px;font-weight:600;">songs/</span>
+          <span style="font-size:11px;font-weight:600;">lectures/</span>
           <div style="margin-left:auto;display:flex;gap:6px;">
             <div style="padding:4px 10px;background:var(--surface3);border-radius:7px;font-size:9px;font-family:sans-serif;font-weight:700;color:var(--text2);cursor:pointer;">↑ Upload to R2</div>
             <div style="padding:4px 10px;background:var(--surface3);border-radius:7px;font-size:9px;font-family:sans-serif;font-weight:700;color:var(--text2);cursor:pointer;">⟳ Refresh</div>
@@ -994,14 +994,14 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
       </div>
       <div style="background:rgba(255,209,102,.05);border:1px solid rgba(255,209,102,.15);border-radius:10px;padding:11px 13px;">
         <div style="font-size:10px;color:var(--yellow);font-family:sans-serif;font-weight:700;margin-bottom:4px;">⚠ Copyright Notice</div>
-        <div style="font-size:10px;color:var(--text3);line-height:1.7;">Ensure you have the rights to use this content. Only import songs you own or have explicit permission to distribute. Shurafah reserves the right to remove content violating copyright.</div>
+        <div style="font-size:10px;color:var(--text3);line-height:1.7;">Ensure you have the rights to use this content. Only import lectures you own or have explicit permission to distribute. Shurafah reserves the right to remove content violating copyright.</div>
       </div>
     </div>
 
     <!-- ══ DIVIDER ══ -->
     <div style="display:flex;align-items:center;gap:10px;margin:20px 0 16px;">
       <div style="flex:1;height:1px;background:var(--border);"></div>
-      <div style="font-size:9px;color:var(--text3);font-family:sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.5px;">Song Details</div>
+      <div style="font-size:9px;color:var(--text3);font-family:sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.5px;">Lecture Details</div>
       <div style="flex:1;height:1px;background:var(--border);"></div>
     </div>
 
@@ -1027,7 +1027,7 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
               <div class="ca-swatch g2" onclick="selectCaGradient(this,'g2','🎶')" title="Orange–Gold"></div>
               <div class="ca-swatch g3" onclick="selectCaGradient(this,'g3','🎸')" title="Pink–Orange"></div>
               <div class="ca-swatch g4" onclick="selectCaGradient(this,'g4','🎼')" title="Green–Blue"></div>
-              <div class="ca-swatch g5" onclick="selectCaGradient(this,'g5','🎤')" title="Gold–Pink"></div>
+              <div class="ca-swatch g5" onclick="selectCaGradient(this,'g5','🎙️')" title="Gold–Pink"></div>
               <div class="ca-swatch g6" onclick="selectCaGradient(this,'g6','🎹')" title="Blue–Purple"></div>
               <div class="ca-swatch g7" onclick="selectCaGradient(this,'g7','🎺')" title="Orange–Pink"></div>
               <div class="ca-swatch g8" onclick="selectCaGradient(this,'g8','🎻')" title="Green–Purple"></div>
@@ -1051,7 +1051,7 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
     <!-- ══ SONG DETAILS FORM ══ -->
     <div class="form-row">
       <div class="form-group">
-        <div class="form-label">Song Title <span class="req">*</span></div>
+        <div class="form-label">Lecture Title <span class="req">*</span></div>
         <input class="form-input" type="text" placeholder="e.g. Kurmus" id="songTitle">
       </div>
       <div class="form-group">
@@ -1108,7 +1108,7 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
     </div>
     <div class="form-group">
       <div class="form-label">Description / Lyrics Summary</div>
-      <textarea class="form-textarea" placeholder="Brief description of the song, themes, or partial lyrics…"></textarea>
+      <textarea class="form-textarea" placeholder="Brief description of the lecture, themes, or partial lyrics…"></textarea>
     </div>
 
     <!-- ══ AUDIO QUALITY ══ -->
@@ -1141,11 +1141,11 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
         <div class="toggler off" onclick="toggleSw(this)"><div class="tog-thumb"></div></div>
       </div>
       <div class="toggle-row">
-        <div class="tr-info"><div class="tr-title">Mark as Official Source</div><div class="tr-desc">Displays verified badge on song page</div></div>
+        <div class="tr-info"><div class="tr-title">Mark as Official Source</div><div class="tr-desc">Displays verified badge on lecture page</div></div>
         <div class="toggler on" onclick="toggleSw(this)"><div class="tog-thumb"></div></div>
       </div>
       <div class="toggle-row">
-        <div class="tr-info"><div class="tr-title">Allow Downloads</div><div class="tr-desc">Users can download this song</div></div>
+        <div class="tr-info"><div class="tr-title">Allow Downloads</div><div class="tr-desc">Users can download this lecture</div></div>
         <div class="toggler on" onclick="toggleSw(this)"><div class="tog-thumb"></div></div>
       </div>
       <div class="toggle-row">
@@ -1161,7 +1161,7 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
     <div class="up-cancel" onclick="closeUpload()">Cancel</div>
     <div class="up-submit" onclick="submitUpload()">
       <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22,4 12,14.01 9,11.01"/></svg>
-      Save & Add Song
+      Save & Add Lecture
     </div>
   </div>
 </div>
@@ -1171,7 +1171,7 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
 <div class="edit-panel" id="editPanel">
   <div class="up-header">
     <div>
-      <div class="up-title">Edit Song</div>
+      <div class="up-title">Edit Lecture</div>
       <div style="font-size:10px;color:var(--text3);margin-top:2px;font-family:sans-serif;" id="editSongName">Kurmus · Uzairu Badamasi</div>
     </div>
     <div class="up-close" onclick="closeEdit()"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
@@ -1227,7 +1227,7 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
               <div class="ca-swatch g2" onclick="selectEditCaGradient(this,'g2','🎶')" title="Orange–Gold"></div>
               <div class="ca-swatch g3" onclick="selectEditCaGradient(this,'g3','🎸')" title="Pink–Orange"></div>
               <div class="ca-swatch g4" onclick="selectEditCaGradient(this,'g4','🎼')" title="Green–Blue"></div>
-              <div class="ca-swatch g5" onclick="selectEditCaGradient(this,'g5','🎤')" title="Gold–Pink"></div>
+              <div class="ca-swatch g5" onclick="selectEditCaGradient(this,'g5','🎙️')" title="Gold–Pink"></div>
               <div class="ca-swatch g6" onclick="selectEditCaGradient(this,'g6','🎹')" title="Blue–Purple"></div>
               <div class="ca-swatch g7" onclick="selectEditCaGradient(this,'g7','🎺')" title="Orange–Pink"></div>
               <div class="ca-swatch g8" onclick="selectEditCaGradient(this,'g8','🎻')" title="Green–Purple"></div>
@@ -1248,7 +1248,7 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
     </div>
 
     <div class="form-row">
-      <div class="form-group"><div class="form-label">Song Title <span class="req">*</span></div><input class="form-input" type="text" value="Kurmus"></div>
+      <div class="form-group"><div class="form-label">Lecture Title <span class="req">*</span></div><input class="form-input" type="text" value="Kurmus"></div>
       <div class="form-group"><div class="form-label">Duration</div><input class="form-input" type="text" value="3:42"></div>
     </div>
     <div class="form-row">
@@ -1267,7 +1267,7 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
         <select class="form-select"><option>General</option><option>Nasheed</option></select>
       </div>
     </div>
-    <div class="form-group"><div class="form-label">Description</div><textarea class="form-textarea">"Kurmus" is a spiritual and reflective Hausa song about life, faith, and consequences…</textarea></div>
+    <div class="form-group"><div class="form-label">Description</div><textarea class="form-textarea">"Kurmus" is a spiritual and reflective Hausa lecture about life, faith, and consequences…</textarea></div>
     <div style="background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:14px;">
       <div class="toggle-row"><div class="tr-info"><div class="tr-title">Featured</div></div><div class="toggler off" onclick="toggleSw(this)"><div class="tog-thumb"></div></div></div>
       <div class="toggle-row"><div class="tr-info"><div class="tr-title">Official Source</div></div><div class="toggler on" onclick="toggleSw(this)"><div class="tog-thumb"></div></div></div>
@@ -1295,7 +1295,7 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
       <div class="sm-hd-bg" id="smHdBg"></div>
       <div class="sm-hd-art" id="smArt">🎵</div>
       <div class="sm-hd-info">
-        <div class="sm-hd-title" id="smTitle">Song Title</div>
+        <div class="sm-hd-title" id="smTitle">Lecture Title</div>
         <div class="sm-hd-artist" id="smArtist">Artist Name</div>
         <div class="sm-hd-badges" id="smBadges"></div>
       </div>
@@ -1345,7 +1345,7 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
               <svg id="smPlayIcon" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
             </div>
             <div class="sm-player-meta">
-              <div class="sm-player-title" id="smPlayerTitle">Song Title</div>
+              <div class="sm-player-title" id="smPlayerTitle">Lecture Title</div>
               <div class="sm-player-dur" id="smPlayerDur">0:00 / 0:00</div>
             </div>
           </div>
@@ -1362,7 +1362,7 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
         </div>
 
         <!-- Metadata -->
-        <div class="sm-section-title">Song Details</div>
+        <div class="sm-section-title">Lecture Details</div>
         <div class="sm-meta-grid">
           <div class="sm-meta-row">
             <span class="sm-meta-key">Artist</span>
@@ -1405,7 +1405,7 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
 
         <!-- Description -->
         <div class="sm-section-title">Description</div>
-        <div class="sm-desc" id="smDesc">No description available for this song.</div>
+        <div class="sm-desc" id="smDesc">No description available for this lecture.</div>
 
         <!-- Download Breakdown -->
         <div class="sm-section-title">Download Breakdown</div>
@@ -1444,7 +1444,7 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
     <div class="sm-footer">
       <div class="sm-action-btn sab-edit" onclick="smEdit()">
         <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-        Edit Song
+        Edit Lecture
       </div>
       <div class="sm-action-btn sab-feat" id="smFeatBtn" onclick="smToggleFeature()">
         <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
@@ -1457,7 +1457,7 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
       <div class="sm-footer-spacer"></div>
       <div class="sm-action-btn sab-del" onclick="smDelete()">
         <svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
-        Delete Song
+        Delete Lecture
       </div>
     </div>
 
@@ -1474,19 +1474,19 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
   <div class="topbar">
     <div class="toggle-btn" id="sidebarToggle"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></div>
     <div class="tb-left">
-      <div class="tb-title">Song Management</div>
-      <div class="tb-crumb">Admin <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg> <span>Songs</span></div>
+      <div class="tb-title">Wa'azi Management</div>
+      <div class="tb-crumb">Admin <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg> <span>Lectures</span></div>
     </div>
     <div class="tb-search">
       <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      <input type="text" placeholder="Quick search songs…" oninput="filterTable(this.value)">
+      <input type="text" placeholder="Quick search lectures…" oninput="filterTable(this.value)">
     </div>
     <div class="tb-actions">
       <div class="tb-btn"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><div class="tb-dot"></div></div>
       <div class="tb-admin"><div class="tb-av">SA</div><span class="tb-aname">Super Admin</span></div>
       <div class="upload-btn" onclick="openUpload()">
         <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        Add Song
+        Add Lecture
       </div>
     </div>
   </div>
@@ -1498,7 +1498,7 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
     <div class="stats-strip">
       <div class="ss-card">
         <div class="ss-ico" style="background:rgba(255,107,53,.14)"><svg viewBox="0 0 24 24" style="stroke:var(--accent)"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div>
-        <div><div class="ss-v" style="color:var(--accent)">2,841</div><div class="ss-l">Total Songs</div><div class="ss-t" style="color:var(--green)">↑ +14 this week</div></div>
+        <div><div class="ss-v" style="color:var(--accent)">2,841</div><div class="ss-l">Total Lectures</div><div class="ss-t" style="color:var(--green)">↑ +14 this week</div></div>
       </div>
       <div class="ss-card">
         <div class="ss-ico" style="background:rgba(46,204,143,.14)"><svg viewBox="0 0 24 24" style="stroke:var(--green)"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22,4 12,14.01 9,11.01"/></svg></div>
@@ -1523,7 +1523,7 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
       <div class="filter-grp">
         <div class="search-box">
           <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          <input type="text" placeholder="Search songs, artists, categories…" id="mainSearch" oninput="filterTable(this.value)">
+          <input type="text" placeholder="Search lectures, artists, categories…" id="mainSearch" oninput="filterTable(this.value)">
         </div>
         <select class="fsel" id="filterCat" onchange="filterTable()">
           <option value="">All Categories</option>
@@ -1546,14 +1546,14 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
       </div>
       <div class="action-grp">
         <div class="abtn btn-sec" onclick="exportCSV()"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Export</div>
-        <div class="abtn btn-pri" onclick="openUpload()"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Add Song</div>
+        <div class="abtn btn-pri" onclick="openUpload()"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Add Lecture</div>
       </div>
     </div>
 
     <!-- BULK ACTION BAR (hidden until rows selected) -->
     <div class="bulk-bar" id="bulkBar" style="display:none;">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22,4 12,14.01 9,11.01"/></svg>
-      <div class="bulk-count" id="bulkCount">3 songs selected</div>
+      <div class="bulk-count" id="bulkCount">3 lectures selected</div>
       <div style="font-size:10px;color:var(--text3);">Bulk Actions:</div>
       <div class="bulk-actions">
         <div class="abtn btn-sec" style="padding:6px 12px;font-size:10px;" onclick="bulkAction('live')"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22,4 12,14.01 9,11.01"/></svg>Set Live</div>
@@ -1591,7 +1591,7 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
         <thead>
           <tr>
             <th style="width:36px;"><div class="cb" id="selectAll" onclick="toggleSelectAll(this)"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div></th>
-            <th class="active-sort" onclick="sortTable('title')">Song <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></th>
+            <th class="active-sort" onclick="sortTable('title')">Lecture <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></th>
             <th onclick="sortTable('category')">Category</th>
             <th onclick="sortTable('duration')">Duration</th>
             <th onclick="sortTable('quality')">Quality</th>
@@ -1612,7 +1612,7 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
 
     <!-- PAGINATION -->
     <div class="pagination">
-      <div class="pg-info">Showing <strong>1–25</strong> of <strong>2,841</strong> songs</div>
+      <div class="pg-info">Showing <strong>1–25</strong> of <strong>2,841</strong> lectures</div>
       <div class="pg-controls">
         <div class="pg-btn arrow disabled"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></div>
         <div class="pg-btn active">1</div>
@@ -1637,23 +1637,23 @@ const SONGS = [
   {id:2,title:'Juyin Juya Hali',artist:'Uzairu Badamasi',category:'Shuhada',duration:'5:33',quality:'320 kbps',plays:2400000,downloads:830000,status:'Live',featured:true,date:'Jan 5, 2025',art:'g2',emoji:'🎶',thumbnail:null},
   {id:3,title:'Yan Siyasa',artist:'Uzairu Badamasi',category:'Shurafah',duration:'4:48',quality:'128 kbps',plays:1900000,downloads:610000,status:'Live',featured:false,date:'Nov 18, 2024',art:'g3',emoji:'🎸',thumbnail:null},
   {id:4,title:'Qudus Remix',artist:'Uzairu Badamasi',category:'Shuhada',duration:'5:01',quality:'320 kbps',plays:1400000,downloads:490000,status:'Live',featured:false,date:'Oct 2, 2024',art:'g4',emoji:'🎼',thumbnail:null},
-  {id:5,title:'Motar Sayyidi',artist:'Uzairu Badamasi',category:'Maulud',duration:'6:20',quality:'128 kbps',plays:980000,downloads:312000,status:'Live',featured:true,date:'Sep 14, 2024',art:'g5',emoji:'🎤',thumbnail:null},
+  {id:5,title:'Motar Sayyidi',artist:'Uzairu Badamasi',category:'Maulud',duration:'6:20',quality:'128 kbps',plays:980000,downloads:312000,status:'Live',featured:true,date:'Sep 14, 2024',art:'g5',emoji:'🎙️',thumbnail:null},
   {id:6,title:'Fallen Stars',artist:'Amara Soul',category:'Shurafah',duration:'3:42',quality:'128 kbps',plays:48200,downloads:12100,status:'Live',featured:true,date:'Mar 1, 2025',art:'g7',emoji:'🎵',thumbnail:null},
   {id:7,title:'Way Maker',artist:'Sinach',category:'Shairai',duration:'5:33',quality:'320 kbps',plays:2400000,downloads:830000,status:'Live',featured:false,date:'Feb 20, 2025',art:'g1',emoji:'🎶',thumbnail:null},
   {id:8,title:'Holy Ground',artist:'Nathaniel Bassey',category:'Ashura',duration:'4:48',quality:'320 kbps',plays:1900000,downloads:610000,status:'Live',featured:false,date:'Feb 14, 2025',art:'g4',emoji:'🎸',thumbnail:null},
   {id:9,title:'Open Heaven',artist:'Nathaniel Bassey',category:'Ahlul-baiti',duration:'4:55',quality:'128 kbps',plays:750000,downloads:210000,status:'In Review',featured:false,date:'Apr 1, 2025',art:'g5',emoji:'🎼',thumbnail:null},
-  {id:10,title:'Higher Ground',artist:'Frank Edwards',category:'Maulud',duration:'5:01',quality:'128 kbps',plays:1400000,downloads:490000,status:'Live',featured:false,date:'Jan 28, 2025',art:'g2',emoji:'🎤',thumbnail:null},
+  {id:10,title:'Higher Ground',artist:'Frank Edwards',category:'Maulud',duration:'5:01',quality:'128 kbps',plays:1400000,downloads:490000,status:'Live',featured:false,date:'Jan 28, 2025',art:'g2',emoji:'🎙️',thumbnail:null},
   {id:11,title:'Grace Overflow',artist:'Tope Alabi',category:'Shurafah',duration:'4:15',quality:'320 kbps',plays:920000,downloads:280000,status:'Live',featured:false,date:'Mar 5, 2025',art:'g6',emoji:'🎹',thumbnail:null},
   {id:12,title:'Come Alive',artist:'Lauren Daigle',category:'Shairai',duration:'4:52',quality:'320 kbps',plays:3100000,downloads:1200000,status:'Live',featured:true,date:'Dec 10, 2024',art:'g7',emoji:'🎵',thumbnail:null},
   {id:13,title:'Miracles',artist:'Dunsin Oyekan',category:'Ashura',duration:'6:20',quality:'64 kbps',plays:640000,downloads:180000,status:'In Review',featured:false,date:'Apr 1, 2025',art:'g8',emoji:'🎶',thumbnail:null},
   {id:14,title:'River Flow',artist:'Sinach',category:'Shurafah',duration:'5:10',quality:'128 kbps',plays:510000,downloads:145000,status:'Offline',featured:false,date:'Nov 3, 2024',art:'g2',emoji:'🎸',thumbnail:null},
   {id:15,title:'A Kasar nan',artist:'Uzairu Badamasi',category:'Shuhada',duration:'4:10',quality:'320 kbps',plays:320000,downloads:88000,status:'Live',featured:false,date:'Feb 2, 2025',art:'g1',emoji:'🎼',thumbnail:null},
-  {id:16,title:'Kubra Shahida ce',artist:'Uzairu Badamasi',category:'Shuhada',duration:'6:20',quality:'320 kbps',plays:980000,downloads:312000,status:'Live',featured:false,date:'Mar 28, 2025',art:'g3',emoji:'🎤',thumbnail:null},
+  {id:16,title:'Kubra Shahida ce',artist:'Uzairu Badamasi',category:'Shuhada',duration:'6:20',quality:'320 kbps',plays:980000,downloads:312000,status:'Live',featured:false,date:'Mar 28, 2025',art:'g3',emoji:'🎙️',thumbnail:null},
   {id:17,title:'Salatin Awliya',artist:'Ahmad Isah',category:'Shurafah',duration:'5:14',quality:'128 kbps',plays:420000,downloads:98000,status:'In Review',featured:false,date:'Mar 30, 2025',art:'g6',emoji:'🎵',thumbnail:null},
   {id:18,title:'Zaman Lafiya',artist:'Yusuf Badamasi',category:'Maulud',duration:'4:33',quality:'128 kbps',plays:180000,downloads:42000,status:'Live',featured:false,date:'Mar 25, 2025',art:'g4',emoji:'🎶',thumbnail:null},
   {id:19,title:'Ta Sayyida Masuma',artist:'Uzairu Badamasi',category:'Ahlul-baiti',duration:'4:28',quality:'320 kbps',plays:750000,downloads:210000,status:'Live',featured:false,date:'Oct 15, 2024',art:'g5',emoji:'🎸',thumbnail:null},
   {id:20,title:'Morning Dew',artist:'Amara Soul',category:'Shurafah',duration:'3:55',quality:'64 kbps',plays:120000,downloads:32000,status:'Offline',featured:false,date:'Aug 20, 2024',art:'g7',emoji:'🎼',thumbnail:null},
-  {id:21,title:'Deep Calls',artist:'Amara Soul',category:'Shairai',duration:'4:28',quality:'128 kbps',plays:140000,downloads:38000,status:'Live',featured:false,date:'Sep 5, 2024',art:'g8',emoji:'🎤',thumbnail:null},
+  {id:21,title:'Deep Calls',artist:'Amara Soul',category:'Shairai',duration:'4:28',quality:'128 kbps',plays:140000,downloads:38000,status:'Live',featured:false,date:'Sep 5, 2024',art:'g8',emoji:'🎙️',thumbnail:null},
   {id:22,title:'Overflow',artist:'Amara Soul',category:'Shurafah',duration:'5:02',quality:'320 kbps',plays:228000,downloads:64000,status:'Live',featured:false,date:'Oct 28, 2024',art:'g1',emoji:'🎵',thumbnail:null},
   {id:23,title:'Grace Rain',artist:'Amara Soul',category:'Shairai',duration:'4:10',quality:'320 kbps',plays:314000,downloads:92000,status:'Live',featured:false,date:'Dec 18, 2024',art:'g2',emoji:'🎶',thumbnail:null},
   {id:24,title:'Taba ku lashe',artist:'Uzairu Badamasi',category:'Shuhada',duration:'4:10',quality:'128 kbps',plays:180000,downloads:48000,status:'Live',featured:false,date:'Nov 22, 2024',art:'g3',emoji:'🎸',thumbnail:null},
@@ -2006,14 +2006,14 @@ function handleEditCaImage(e) {
   reader.readAsDataURL(file);
 }
 
-/* Sync edit panel art with the song being edited */
+/* Sync edit panel art with the lecture being edited */
 function syncEditCaArt(song) {
   var preview = document.getElementById('editCaPreview');
   preview.className = 'ca-preview ' + (song.art || 'g1');
   var existing = preview.querySelector('img');
   if (existing) existing.remove();
   var emojiEl = document.getElementById('editCaEmoji');
-  if (emojiEl) { emojiEl.textContent = song.emoji || '🎵'; emojiEl.style.display = 'block'; }
+  if (emojiEl) { emojiEl.textContent = lecture.emoji || '🎵'; emojiEl.style.display = 'block'; }
   // Activate matching swatch
   document.querySelectorAll('#editCaGradPanel .ca-swatch').forEach(function(s){
     s.classList.toggle('active', s.classList.contains(song.art || 'g1'));
@@ -2031,10 +2031,10 @@ function toggleQuality(el){el.classList.toggle('selected');}
 /* ══ SUBMIT UPLOAD ══ */
 function submitUpload(){
   const title=document.getElementById('songTitle').value;
-  if(!title){showToast('Please enter a song title','error');return;}
+  if(!title){showToast('Please enter a lecture title','error');return;}
   const artist=document.getElementById('songArtist').value;
   if(!artist){showToast('Please select an artist','error');return;}
-  showToast('Song added successfully!','success');
+  showToast('Lecture added successfully!','success');
   closeUpload();
 }
 
@@ -2056,12 +2056,12 @@ function openDelete(id){deleteId=id;const s=SONGS.find(x=>x.id===id);document.ge
 function closeModal(){document.getElementById('deleteModal').classList.remove('show');deleteId=null;}
 function confirmDelete(){
   if(deleteId){const idx=SONGS.findIndex(x=>x.id===deleteId);if(idx>-1)SONGS.splice(idx,1);}
-  closeModal();renderTable(SONGS);showToast('Song deleted','success');
+  closeModal();renderTable(SONGS);showToast('Lecture deleted','success');
 }
 
 /* ══ BULK ACTIONS ══ */
 function bulkAction(action){
-  const msgs={live:'Set '+selected.size+' songs to Live',offline:'Took '+selected.size+' songs offline',feature:'Featured '+selected.size+' songs',delete:'Deleted '+selected.size+' songs'};
+  const msgs={live:'Set '+selected.size+' lectures to Live',offline:'Took '+selected.size+' lectures offline',feature:'Featured '+selected.size+' lectures',delete:'Deleted '+selected.size+' lectures'};
   showToast(msgs[action]||'Done','success');
   clearSelection();
 }
@@ -2080,7 +2080,7 @@ var DESCRIPTIONS = {
 };
 
 var ACTIVITY_TEMPLATES = [
-  {color:'var(--green)', text:'Song went live and became available for streaming.'},
+  {color:'var(--green)', text:'Lecture went live and became available for streaming.'},
   {color:'var(--blue)', text:'1,200 new downloads in the last 24 hours.'},
   {color:'var(--accent)', text:'Reached 1 million total plays milestone.'},
   {color:'var(--yellow)', text:'Featured on homepage banner for 3 days.'},
@@ -2274,7 +2274,7 @@ function smToggleFeature() {
   document.getElementById('smFeaturedVal').innerHTML = s.featured
     ? '<span style="color:var(--purple);">⭐ Yes</span>'
     : '<span style="color:var(--text3);">No</span>';
-  showToast(s.featured ? '⭐ Song featured!' : 'Removed from featured', 'success');
+  showToast(s.featured ? '⭐ Lecture featured!' : 'Removed from featured', 'success');
 }
 
 function smToggleStatus() {
@@ -2284,7 +2284,7 @@ function smToggleStatus() {
   s.status = isLive ? 'Offline' : 'Live';
   renderTable(SONGS);
   viewSong(_smSongId);
-  showToast(s.status === 'Live' ? 'Song is now Live' : 'Song taken offline', 'success');
+  showToast(s.status === 'Live' ? 'Lecture is now Live' : 'Lecture taken offline', 'success');
 }
 
 function smDelete() {
@@ -2293,7 +2293,7 @@ function smDelete() {
 }
 
 /* ══ OTHER ACTIONS ══ */
-function toggleFeature(id){const s=SONGS.find(x=>x.id===id);if(s){s.featured=!s.featured;renderTable(SONGS);showToast(s.featured?'Song featured!':'Removed from featured','success');}}
+function toggleFeature(id){const s=SONGS.find(x=>x.id===id);if(s){s.featured=!s.featured;renderTable(SONGS);showToast(s.featured?'Lecture featured!':'Removed from featured','success');}}
 function playSong(id){const s=SONGS.find(x=>x.id===id);showToast(`▶ Playing: ${s.title}`,'info');}
 function exportCSV(){showToast('Exporting CSV…','info');}
 function changePage(el){document.querySelectorAll('.pg-btn:not(.arrow)').forEach(b=>b.classList.remove('active'));el.classList.add('active');showToast(`Page ${el.textContent}`,'info');}
