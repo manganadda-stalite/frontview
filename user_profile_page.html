@@ -394,6 +394,21 @@ body{
 .ad-cta{font-size:11px;color:var(--accent);font-weight:700;font-family:sans-serif;flex-shrink:0;cursor:pointer;}
 .ad-x{font-size:12px;color:var(--text3);flex-shrink:0;cursor:pointer;margin-left:3px;}
 
+/* ── PAGINATION ── */
+.pagination{
+  display:flex;align-items:center;justify-content:center;gap:6px;padding:16px 14px;margin-top:8px;flex-wrap:wrap;
+}
+.pag-btn{
+  width:28px;height:28px;border-radius:8px;background:var(--surface2);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;cursor:pointer;font-family:sans-serif;font-size:11px;font-weight:700;
+  color:var(--text2);transition:all 0.15s;
+}
+.pag-btn:hover{background:var(--surface3);}
+.pag-btn.on{background:var(--accent);color:white;border-color:var(--accent);}
+.pag-btn.disabled{opacity:0.4;cursor:not-allowed;}
+.pag-btn.disabled:hover{background:var(--surface2);}
+.pag-info{font-size:10px;color:var(--text3);font-family:sans-serif;margin:0 4px;}
+
 /* ── MINI PLAYER ── */
 .mini-player{
   margin:7px 12px 6px;
@@ -456,6 +471,21 @@ body{
 .fav-empty{padding:40px 24px;text-align:center;color:var(--text3);font-size:12px;display:none;}
 .fav-empty.show{display:block;}
 .fav-empty .fe-icon{font-size:42px;margin-bottom:10px;}
+
+/* ── PAGINATION ── */
+.pagination{
+  display:flex;align-items:center;justify-content:center;gap:6px;padding:16px 14px;margin-top:8px;flex-wrap:wrap;
+}
+.pag-btn{
+  width:28px;height:28px;border-radius:8px;background:var(--surface2);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;cursor:pointer;font-family:sans-serif;font-size:11px;font-weight:700;
+  color:var(--text2);transition:all 0.15s;
+}
+.pag-btn:hover{background:var(--surface3);}
+.pag-btn.on{background:var(--accent);color:white;border-color:var(--accent);}
+.pag-btn.disabled{opacity:0.4;cursor:not-allowed;}
+.pag-btn.disabled:hover{background:var(--surface2);}
+.pag-info{font-size:10px;color:var(--text3);font-family:sans-serif;margin:0 4px;}
 
 /* ══════════════════════════════
    LOCATION SETTINGS (inside Settings tab)
@@ -671,18 +701,7 @@ body{
         <div class="fav-chip" data-fav="playlists">Playlists</div>
       </div>
 
-      <div class="fav-rows" id="favRows">
-        <div class="fav-row" data-cat="songs">
-          <div class="fav-thumb g3">🎵</div>
-          <div class="fav-info">
-            <div class="fav-title">Fallen Stars</div>
-            <div class="fav-artist">Amara Soul · Song</div>
-          </div>
-          <div class="fav-right">
-            <div class="fav-dur">3:42</div>
-            <div class="fav-heart" onclick="toggleFav(this, event)"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
-          </div>
-        </div>
+      <div class="fav-rows" id="favRows" data-page="1" data-per-page="5">
         <div class="fav-row" data-cat="songs">
           <div class="fav-thumb g1">🎶</div>
           <div class="fav-info">
@@ -761,6 +780,7 @@ body{
           </div>
         </div>
       </div>
+      <div class="pagination" id="pag-favRows"></div>
 
       <div class="fav-empty" id="favEmpty">
         <div class="fe-icon">❤️</div>
@@ -842,6 +862,7 @@ body{
           <div class="hr-right"><div class="hr-when">Sun</div><div class="hr-dur">4:28</div></div>
         </div>
       </div>
+      <div class="pagination" id="pag-histRows"></div>
 
       <div class="spacer"></div>
     </div>
@@ -917,6 +938,7 @@ body{
           <div class="dr-right"><div class="dr-dur">6:20</div><div class="dr-more"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg></div></div>
         </div>
       </div>
+      <div class="pagination" id="pag-dlRows"></div>
       <div class="spacer"></div>
     </div>
 
@@ -987,6 +1009,7 @@ body{
         </div>
 
       </div>
+      <div class="pagination" id="pag-cmtCards"></div>
       <div class="spacer"></div>
     </div>
 
@@ -2099,12 +2122,13 @@ body{
     </div>
   </div>
 
-  <!-- BOTTOM NAV (Home · Wa'azi · Explore · Favourites) -->
+  <!-- BOTTOM NAV (Home · Wa'azi · Explore · Favourites · Profile) -->
   <div class="bnav">
     <a class="ni" href="song_portal_web.html" style="text-decoration:none;color:inherit;"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><div class="nl">Home</div></a>
     <a class="ni" href="shurafah_waazi.html" style="text-decoration:none;color:inherit;"><svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg><div class="nl">Wa'azi</div></a>
     <a class="ni" href="shurafah_explore.html" style="text-decoration:none;color:inherit;"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><div class="nl">Explore</div></a>
     <a class="ni" href="favourites_page.html" style="text-decoration:none;color:inherit;"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><div class="nl">Favourites</div></a>
+    <a class="ni on" href="user_profile_page.html" style="text-decoration:none;color:inherit;"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><div class="nl">Profile</div></a>
   </div>
 
 </div>
@@ -2124,25 +2148,98 @@ tabs.forEach(tab => {
   });
 });
 
-// Favourites filter chips
-function applyFavFilter(category){
-  const rows = document.querySelectorAll('#favRows .fav-row');
-  let visible = 0;
-  rows.forEach(r => {
-    const match = (category === 'all' || r.dataset.cat === category);
-    r.style.display = match ? '' : 'none';
-    if(match) visible++;
-  });
-  document.getElementById('favEmpty').classList.toggle('show', visible === 0);
-  document.getElementById('favTabCount').textContent = visible + ' item' + (visible === 1 ? '' : 's');
+// ══════════════════════════════
+// PAGINATION ENGINE
+// ══════════════════════════════
+const PER_PAGE = 5;
+const pagState = {};
+
+function buildPaginator(pagId, items, page, total, onGo) {
+  const container = document.getElementById(pagId);
+  if (!container) return;
+  container.innerHTML = '';
+  if (total <= PER_PAGE) return;
+  const totalPages = Math.ceil(total / PER_PAGE);
+  if (totalPages <= 1) return;
+
+  function btn(label, targetPage, isCurrent, isDisabled) {
+    const el = document.createElement('div');
+    el.className = 'pag-btn' + (isCurrent ? ' on' : '') + (isDisabled ? ' disabled' : '');
+    el.innerHTML = label;
+    if (!isDisabled && !isCurrent) {
+      el.addEventListener('click', () => { onGo(targetPage); });
+    }
+    return el;
+  }
+
+  container.appendChild(btn('&#8249;', page - 1, false, page === 1));
+
+  let start = Math.max(1, page - 2);
+  let end = Math.min(totalPages, start + 4);
+  if (end - start < 4) start = Math.max(1, end - 4);
+
+  if (start > 1) {
+    container.appendChild(btn('1', 1, false, false));
+    if (start > 2) {
+      const dots = document.createElement('div');
+      dots.className = 'pag-info'; dots.textContent = '…';
+      container.appendChild(dots);
+    }
+  }
+  for (let p = start; p <= end; p++) {
+    container.appendChild(btn(String(p), p, p === page, false));
+  }
+  if (end < totalPages) {
+    if (end < totalPages - 1) {
+      const dots = document.createElement('div');
+      dots.className = 'pag-info'; dots.textContent = '…';
+      container.appendChild(dots);
+    }
+    container.appendChild(btn(String(totalPages), totalPages, false, false));
+  }
+
+  container.appendChild(btn('&#8250;', page + 1, false, page === totalPages));
+
+  const info = document.createElement('div');
+  info.className = 'pag-info';
+  info.style.cssText = 'width:100%;text-align:center;margin-top:4px;';
+  const from = (page - 1) * PER_PAGE + 1;
+  const to = Math.min(page * PER_PAGE, total);
+  info.textContent = from + '–' + to + ' of ' + total;
+  container.appendChild(info);
 }
+
+// ── FAVOURITES PAGINATION ──
+var favCurrentCat = 'all';
+var favCurrentPage = 1;
+
+function applyFavFilter(category, page) {
+  favCurrentCat = category || favCurrentCat;
+  favCurrentPage = page || 1;
+  const allRows = Array.from(document.querySelectorAll('#favRows .fav-row'));
+  const matched = allRows.filter(r => favCurrentCat === 'all' || r.dataset.cat === favCurrentCat);
+  const total = matched.length;
+  const start = (favCurrentPage - 1) * PER_PAGE;
+  const end = start + PER_PAGE;
+
+  allRows.forEach(r => r.style.display = 'none');
+  matched.forEach((r, i) => { r.style.display = (i >= start && i < end) ? '' : 'none'; });
+
+  document.getElementById('favEmpty').classList.toggle('show', total === 0);
+  document.getElementById('favTabCount').textContent = total + ' item' + (total === 1 ? '' : 's');
+
+  buildPaginator('pag-favRows', matched, favCurrentPage, total, (p) => applyFavFilter(favCurrentCat, p));
+}
+
 document.querySelectorAll('#favFilter .fav-chip').forEach(chip => {
   chip.addEventListener('click', () => {
     document.querySelectorAll('#favFilter .fav-chip').forEach(c => c.classList.remove('on'));
     chip.classList.add('on');
-    applyFavFilter(chip.dataset.fav);
+    applyFavFilter(chip.dataset.fav, 1);
   });
 });
+
+applyFavFilter('all', 1);
 
 // Toggle favourite (heart) on a row
 function toggleFav(el, ev){
@@ -2150,10 +2247,70 @@ function toggleFav(el, ev){
   const row = el.closest('.fav-row');
   if(!row) return;
   row.remove();
-  // Recompute filter / empty state
-  const activeChip = document.querySelector('#favFilter .fav-chip.on');
-  applyFavFilter(activeChip ? activeChip.dataset.fav : 'all');
+  applyFavFilter(favCurrentCat, 1);
 }
+
+// ── HISTORY PAGINATION ──
+var histCurrentPage = 1;
+var histCurrentFilter = 'All Time';
+
+function applyHistPagination(page) {
+  histCurrentPage = page || 1;
+  const allRows = Array.from(document.querySelectorAll('#tab-history .hrow'));
+  const visibleRows = allRows.filter(r => r.style.display !== 'none');
+  const total = visibleRows.length;
+  const start = (histCurrentPage - 1) * PER_PAGE;
+  const end = start + PER_PAGE;
+
+  visibleRows.forEach((r, i) => { r.style.display = (i >= start && i < end) ? '' : 'none'; });
+
+  const sections = document.querySelectorAll('#tab-history .hist-section-label');
+  sections.forEach(label => {
+    let next = label.nextElementSibling;
+    while (next && next.classList.contains('hist-list')) {
+      const hasVisible = Array.from(next.querySelectorAll('.hrow')).some(r => r.style.display !== 'none');
+      label.style.display = hasVisible ? '' : 'none';
+      next = next.nextElementSibling;
+    }
+  });
+
+  buildPaginator('pag-histRows', visibleRows, histCurrentPage, total, (p) => applyHistPagination(p));
+}
+
+function initHistPagination() {
+  const allRows = document.querySelectorAll('#tab-history .hrow');
+  allRows.forEach(r => r.style.display = '');
+  applyHistPagination(1);
+}
+initHistPagination();
+
+// ── DOWNLOADS PAGINATION ──
+var dlCurrentPage = 1;
+
+function applyDlPagination(page) {
+  dlCurrentPage = page || 1;
+  const allRows = Array.from(document.querySelectorAll('#tab-downloads .drow'));
+  const total = allRows.length;
+  const start = (dlCurrentPage - 1) * PER_PAGE;
+  const end = start + PER_PAGE;
+  allRows.forEach((r, i) => { r.style.display = (i >= start && i < end) ? '' : 'none'; });
+  buildPaginator('pag-dlRows', allRows, dlCurrentPage, total, (p) => applyDlPagination(p));
+}
+applyDlPagination(1);
+
+// ── COMMENTS PAGINATION ──
+var cmtCurrentPage = 1;
+
+function applyCmtPagination(page) {
+  cmtCurrentPage = page || 1;
+  const allCards = Array.from(document.querySelectorAll('#tab-comments .mc-card'));
+  const total = allCards.length;
+  const start = (cmtCurrentPage - 1) * PER_PAGE;
+  const end = start + PER_PAGE;
+  allCards.forEach((c, i) => { c.style.display = (i >= start && i < end) ? '' : 'none'; });
+  buildPaginator('pag-cmtCards', allCards, cmtCurrentPage, total, (p) => applyCmtPagination(p));
+}
+applyCmtPagination(1);
 
 // Location dropdowns (Zone / State / LGA) in Settings tab
 (function () {
@@ -2215,11 +2372,389 @@ document.querySelectorAll('.hf').forEach(hf => {
   hf.addEventListener('click', () => {
     document.querySelectorAll('.hf').forEach(h => {h.classList.remove('on');h.classList.add('off');});
     hf.classList.add('on'); hf.classList.remove('off');
+    histCurrentFilter = hf.textContent.trim();
+
+    // First reset all rows and sections to visible
+    document.querySelectorAll('#tab-history .hrow').forEach(r => r.style.display = '');
+    document.querySelectorAll('#tab-history .hist-section-label, #tab-history .hist-list').forEach(s => s.style.display = '');
+
+    // Then hide rows not in the selected time window
+    const sections = document.querySelectorAll('#tab-history .hist-section-label, #tab-history .hist-list');
+    if (histCurrentFilter === 'Today') {
+      let show = false;
+      sections.forEach(s => {
+        if (s.classList.contains('hist-section-label')) { show = s.textContent.trim() === 'Today'; }
+        if (!show) { s.style.display = 'none'; if (s.classList.contains('hist-list')) s.querySelectorAll('.hrow').forEach(r => r.style.display = 'none'); }
+      });
+    } else if (histCurrentFilter === 'This Week') {
+      const showSections = ['Today','Yesterday','This Week'];
+      let cur = '';
+      sections.forEach(s => {
+        if (s.classList.contains('hist-section-label')) { cur = s.textContent.trim(); }
+        if (!showSections.includes(cur)) { s.style.display = 'none'; if (s.classList.contains('hist-list')) s.querySelectorAll('.hrow').forEach(r => r.style.display = 'none'); }
+      });
+    }
+
+    applyHistPagination(1);
   });
 });
 
-// Toggle switches — already handled inline
-// Heart toggle on mini player
+// ── STATS ROW: click to jump to relevant tab ──
+document.querySelector('.us.s1').addEventListener('click', () => switchTab('favourites'));
+document.querySelector('.us.s2').addEventListener('click', () => switchTab('downloads'));
+document.querySelector('.us.s3').addEventListener('click', () => switchTab('overview'));
+document.querySelector('.us.s4').addEventListener('click', () => switchTab('overview'));
+function switchTab(name) {
+  document.querySelectorAll('.mtab').forEach(t => t.classList.remove('on'));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('on'));
+  const tab = document.querySelector('.mtab[data-tab="' + name + '"]');
+  if (tab) tab.classList.add('on');
+  const panel = document.getElementById('tab-' + name);
+  if (panel) panel.classList.add('on');
+  document.querySelector('.scroll').scrollTop = 0;
+}
+
+// ── SETTINGS BTN (hero top-left) → jump to Settings tab ──
+document.querySelector('.settings-btn').addEventListener('click', () => switchTab('settings'));
+
+// ── COVER EDIT ──
+document.querySelector('.cover-edit').addEventListener('click', () => {
+  showToast('Cover photo editing coming soon');
+});
+
+// ── AVATAR EDIT ──
+document.querySelector('.avatar-edit').addEventListener('click', () => {
+  showToast('Tap to change your profile photo');
+});
+
+// ── EDIT PROFILE BTN ──
+document.querySelector('.edit-btn').addEventListener('click', () => {
+  const row = document.querySelector('.si-row');
+  switchTab('settings');
+  setTimeout(() => {
+    const editRow = document.querySelector('#tab-settings .si-row');
+    if (editRow) { editRow.style.boxShadow = '0 0 0 2px var(--accent)'; setTimeout(() => editRow.style.boxShadow = '', 1200); }
+  }, 200);
+});
+
+// ── SHARE PROFILE ──
+document.querySelector('.share-profile').addEventListener('click', () => {
+  if (navigator.share) {
+    navigator.share({ title: 'Daniel Nwosu on Shurafah', url: window.location.href });
+  } else if (navigator.clipboard) {
+    navigator.clipboard.writeText(window.location.href);
+    showToast('Profile link copied to clipboard');
+  } else {
+    showToast('Share: @dan_music on Shurafah');
+  }
+});
+
+// ── NOTIFICATION BTN ──
+document.querySelector('.notif-btn').addEventListener('click', () => {
+  const dot = document.querySelector('.notif-dot');
+  if (dot) dot.style.display = 'none';
+  showToast('No new notifications');
+});
+
+// ── AD CLOSE & CTA ──
+document.querySelectorAll('.ad-x').forEach(x => {
+  x.addEventListener('click', () => { x.closest('.ad').style.display = 'none'; });
+});
+document.querySelectorAll('.ad-cta').forEach(cta => {
+  cta.addEventListener('click', () => showToast('Referral feature coming soon!'));
+});
+
+// ── PREMIUM CARD ──
+document.querySelector('.prem-card').addEventListener('click', () => switchTab('settings'));
+
+// ── ACHIEVEMENTS "See all" ──
+document.querySelector('.sh-a').addEventListener('click', () => showToast('All achievements coming soon'));
+
+// ── BADGE CARDS ──
+document.querySelectorAll('.badge-card').forEach(card => {
+  card.addEventListener('click', () => {
+    const name = card.querySelector('.badge-name').textContent;
+    const earned = card.classList.contains('earned');
+    showToast(earned ? '🏆 ' + name + ' — Earned!' : '🔒 ' + name + ' — Not yet earned');
+  });
+});
+
+// ── GENRE PILLS ──
+document.querySelectorAll('.genre-pill').forEach(pill => {
+  pill.addEventListener('click', () => {
+    const genre = pill.childNodes[0].textContent.trim();
+    showToast('Browsing ' + genre + ' genre');
+  });
+});
+
+// ── HISTORY ROWS ──
+document.querySelectorAll('.hrow').forEach(row => {
+  row.addEventListener('click', () => {
+    const title = row.querySelector('.hr-title').textContent;
+    const artist = row.querySelector('.hr-artist').textContent;
+    loadMiniPlayer(title, artist);
+    showToast('Now playing: ' + title);
+  });
+});
+
+// ── DOWNLOAD ROWS ──
+document.querySelectorAll('.drow').forEach(row => {
+  row.addEventListener('click', (e) => {
+    if (e.target.closest('.dr-more')) return;
+    const title = row.querySelector('.dr-title').textContent;
+    const artist = row.querySelector('.dr-artist').textContent;
+    loadMiniPlayer(title, artist);
+    showToast('Playing offline: ' + title);
+  });
+});
+
+// Download "Manage Storage"
+document.querySelector('.dl-manage-btn').addEventListener('click', () => showToast('Storage management coming soon'));
+
+// Download sort
+document.querySelector('.dl-sort').addEventListener('click', () => showToast('Sort options coming soon'));
+
+// Download "⋮" menus
+document.querySelectorAll('.dr-more').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const title = btn.closest('.drow').querySelector('.dr-title').textContent;
+    showContextMenu(e, [
+      { label: 'Play', action: () => { const row = btn.closest('.drow'); loadMiniPlayer(row.querySelector('.dr-title').textContent, row.querySelector('.dr-artist').textContent); } },
+      { label: 'Share', action: () => showToast('Share link copied') },
+      { label: 'Delete Download', action: () => { btn.closest('.drow').remove(); applyDlPagination(1); showToast(title + ' removed'); } }
+    ]);
+  });
+});
+
+// ── COMMENTS ──
+// "View →" links
+document.querySelectorAll('.mc-song-link').forEach(link => {
+  link.addEventListener('click', () => {
+    const title = link.closest('.mc-card').querySelector('.mc-song-title').textContent;
+    showToast('Opening: ' + title);
+  });
+});
+// Delete comment
+document.querySelectorAll('.mc-del').forEach(btn => {
+  btn.addEventListener('click', () => {
+    if (confirm('Delete this comment?')) {
+      btn.closest('.mc-card').style.animation = 'fup 0.3s ease reverse';
+      setTimeout(() => { btn.closest('.mc-card').remove(); applyCmtPagination(1); }, 280);
+    }
+  });
+});
+// Like comment
+document.querySelectorAll('.mc-likes').forEach(likeEl => {
+  likeEl.style.cursor = 'pointer';
+  likeEl.addEventListener('click', () => {
+    const countText = likeEl.lastChild.textContent.trim();
+    const count = parseInt(countText) || 0;
+    likeEl.lastChild.textContent = count + 1;
+    likeEl.style.transform = 'scale(1.2)';
+    setTimeout(() => likeEl.style.transform = '', 200);
+  });
+});
+
+// ── SETTINGS ROWS ──
+document.querySelectorAll('#tab-settings .si-row').forEach(row => {
+  const title = row.querySelector('.si-title');
+  if (!title) return;
+  const label = title.textContent.trim();
+  if (label === 'Edit Profile') {
+    row.addEventListener('click', () => openEditProfileModal());
+  } else if (label === 'Change Password') {
+    row.addEventListener('click', () => showToast('Change password — coming soon'));
+  } else if (label === 'Manage Subscription') {
+    row.addEventListener('click', () => { switchTab('overview'); showToast('Your subscription is active'); });
+  } else if (label === 'Data & Privacy Policy') {
+    row.addEventListener('click', () => showToast('Privacy policy coming soon'));
+  } else if (label === 'Stream Quality') {
+    row.addEventListener('click', () => cycleValue(row.querySelector('.si-right.val'), ['128 kbps','192 kbps','320 kbps']));
+  } else if (label === 'Download Quality') {
+    row.addEventListener('click', () => cycleValue(row.querySelector('.si-right.val'), ['64 kbps','128 kbps','256 kbps','320 kbps']));
+  } else if (label === 'Theme') {
+    row.addEventListener('click', () => {
+      const isLight = !document.body.classList.contains('light');
+      document.body.classList.toggle('light', isLight);
+      document.getElementById('ttIcon').textContent  = isLight ? '☀️' : '🌙';
+      document.getElementById('ttLabel').textContent = isLight ? 'Light' : 'Dark';
+      localStorage.setItem('shurafah-theme', isLight ? 'light' : 'dark');
+      row.querySelector('.si-right.val').textContent = isLight ? 'Light' : 'Dark';
+    });
+  } else if (label === 'Language') {
+    row.addEventListener('click', () => showToast('Language selection coming soon'));
+  } else if (label === 'Log Out') {
+    row.addEventListener('click', () => {
+      if (confirm('Are you sure you want to log out?')) {
+        showToast('Logging out…');
+        setTimeout(() => { window.location.href = 'login_page.html'; }, 1000);
+      }
+    });
+  } else if (label === 'Delete Account') {
+    row.addEventListener('click', () => {
+      if (confirm('Permanently delete your account? This cannot be undone.')) {
+        if (confirm('Are you absolutely sure? All data will be lost.')) {
+          showToast('Account deletion requested');
+        }
+      }
+    });
+  }
+});
+
+function cycleValue(el, values) {
+  if (!el) return;
+  const cur = el.textContent.trim();
+  const idx = values.indexOf(cur);
+  el.textContent = values[(idx + 1) % values.length];
+  showToast(el.closest('.si-row').querySelector('.si-title').textContent + ': ' + el.textContent);
+}
+
+// ── MINI PLAYER ──
+let mpPlaying = false;
+const mpPlayBtn = document.querySelector('.mp-play');
+const mpPlayIcon = `<svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3" fill="white"/></svg>`;
+const mpPauseIcon = `<svg viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16" fill="white"/><rect x="14" y="4" width="4" height="16" fill="white"/></svg>`;
+
+mpPlayBtn.addEventListener('click', () => {
+  mpPlaying = !mpPlaying;
+  mpPlayBtn.innerHTML = mpPlaying ? mpPauseIcon : mpPlayIcon;
+});
+
+// Prev / Next
+const mpCtrlSvgs = document.querySelectorAll('.mp-ctrl > svg');
+if (mpCtrlSvgs[0]) {
+  mpCtrlSvgs[0].addEventListener('click', () => showToast('Previous track'));
+}
+if (mpCtrlSvgs[1]) {
+  mpCtrlSvgs[1].addEventListener('click', () => showToast('Next track'));
+}
+
+// Progress bar seek
+const pbar = document.querySelector('.pbar');
+pbar.style.cursor = 'pointer';
+pbar.addEventListener('click', (e) => {
+  const rect = pbar.getBoundingClientRect();
+  const pct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+  document.querySelector('.pfill').style.width = (pct * 100) + '%';
+  const totalSecs = 222;
+  const elapsed = Math.round(pct * totalSecs);
+  const m = Math.floor(elapsed / 60);
+  const s = String(elapsed % 60).padStart(2, '0');
+  document.querySelectorAll('.pt')[0].textContent = m + ':' + s;
+});
+
+function loadMiniPlayer(title, artist) {
+  document.querySelector('.mp-title').textContent = title;
+  document.querySelector('.mp-artist').textContent = artist;
+  document.querySelector('.pfill').style.width = '0%';
+  document.querySelectorAll('.pt')[0].textContent = '0:00';
+  mpPlaying = true;
+  mpPlayBtn.innerHTML = mpPauseIcon;
+}
+
+// ── BOTTOM NAV active state ──
+document.querySelectorAll('.bnav .ni').forEach(ni => {
+  ni.addEventListener('click', function() {
+    document.querySelectorAll('.bnav .ni').forEach(n => n.classList.remove('on'));
+    this.classList.add('on');
+  });
+});
+// Mark current page
+document.querySelectorAll('.bnav .ni').forEach(ni => {
+  const href = ni.getAttribute('href');
+  if (href && window.location.pathname.endsWith(href)) ni.classList.add('on');
+});
+
+// ── EDIT PROFILE MODAL ──
+function openEditProfileModal() {
+  const overlay = document.createElement('div');
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:1000;display:flex;align-items:center;justify-content:center;padding:20px;';
+  const modal = document.createElement('div');
+  modal.style.cssText = 'background:var(--surface);border-radius:18px;padding:20px;width:100%;max-width:420px;border:1px solid var(--border);';
+  const curName = document.querySelector('.user-name').textContent;
+  const curBio  = document.querySelector('.user-bio').textContent;
+  const curHandle = document.querySelector('.user-handle').textContent;
+  modal.innerHTML = `
+    <div style="font-family:sans-serif;font-size:15px;font-weight:800;margin-bottom:14px;color:var(--text);">Edit Profile</div>
+    <div style="margin-bottom:10px;">
+      <div style="font-size:10px;color:var(--text3);font-weight:700;margin-bottom:4px;text-transform:uppercase;">Display Name</div>
+      <input id="ep-name" value="${curName}" style="width:100%;background:var(--surface2);border:1.5px solid var(--border);border-radius:10px;padding:10px 12px;font-size:13px;color:var(--text);outline:none;font-family:'DM Sans',sans-serif;">
+    </div>
+    <div style="margin-bottom:10px;">
+      <div style="font-size:10px;color:var(--text3);font-weight:700;margin-bottom:4px;text-transform:uppercase;">Handle</div>
+      <input id="ep-handle" value="${curHandle}" style="width:100%;background:var(--surface2);border:1.5px solid var(--border);border-radius:10px;padding:10px 12px;font-size:13px;color:var(--text);outline:none;font-family:'DM Sans',sans-serif;">
+    </div>
+    <div style="margin-bottom:14px;">
+      <div style="font-size:10px;color:var(--text3);font-weight:700;margin-bottom:4px;text-transform:uppercase;">Bio</div>
+      <textarea id="ep-bio" rows="3" style="width:100%;background:var(--surface2);border:1.5px solid var(--border);border-radius:10px;padding:10px 12px;font-size:13px;color:var(--text);outline:none;resize:none;font-family:'DM Sans',sans-serif;">${curBio}</textarea>
+    </div>
+    <div style="display:flex;gap:8px;">
+      <div id="ep-cancel" style="flex:1;padding:10px;border-radius:10px;background:var(--surface2);text-align:center;cursor:pointer;font-family:sans-serif;font-size:12px;font-weight:700;color:var(--text2);">Cancel</div>
+      <div id="ep-save" style="flex:1;padding:10px;border-radius:10px;background:var(--accent);text-align:center;cursor:pointer;font-family:sans-serif;font-size:12px;font-weight:700;color:white;">Save Changes</div>
+    </div>
+  `;
+  overlay.appendChild(modal);
+  document.body.appendChild(overlay);
+  overlay.querySelector('#ep-cancel').addEventListener('click', () => overlay.remove());
+  overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
+  overlay.querySelector('#ep-save').addEventListener('click', () => {
+    const newName   = overlay.querySelector('#ep-name').value.trim();
+    const newHandle = overlay.querySelector('#ep-handle').value.trim();
+    const newBio    = overlay.querySelector('#ep-bio').value.trim();
+    if (newName)   document.querySelector('.user-name').textContent   = newName;
+    if (newHandle) document.querySelector('.user-handle').textContent = newHandle;
+    if (newBio)    document.querySelector('.user-bio').textContent    = newBio;
+    overlay.remove();
+    showToast('Profile updated!');
+  });
+}
+
+// ── CONTEXT MENU ──
+let activeCtxMenu = null;
+function showContextMenu(e, items) {
+  if (activeCtxMenu) activeCtxMenu.remove();
+  const menu = document.createElement('div');
+  menu.style.cssText = `position:fixed;z-index:2000;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:6px;min-width:160px;box-shadow:0 8px 24px rgba(0,0,0,0.5);`;
+  const rect = e.target.getBoundingClientRect();
+  menu.style.top  = Math.min(rect.bottom + 4, window.innerHeight - 160) + 'px';
+  menu.style.right = (window.innerWidth - rect.right) + 'px';
+  items.forEach(item => {
+    const el = document.createElement('div');
+    el.textContent = item.label;
+    el.style.cssText = 'padding:8px 12px;font-size:12px;cursor:pointer;border-radius:8px;color:var(--text);font-family:sans-serif;';
+    el.addEventListener('mouseenter', () => el.style.background = 'var(--surface2)');
+    el.addEventListener('mouseleave', () => el.style.background = '');
+    el.addEventListener('click', () => { item.action(); menu.remove(); activeCtxMenu = null; });
+    menu.appendChild(el);
+  });
+  document.body.appendChild(menu);
+  activeCtxMenu = menu;
+  setTimeout(() => document.addEventListener('click', function close(ev) {
+    if (!menu.contains(ev.target)) { menu.remove(); activeCtxMenu = null; document.removeEventListener('click', close); }
+  }), 10);
+}
+
+// ── TOAST NOTIFICATION ──
+function showToast(msg) {
+  let t = document.getElementById('_toast');
+  if (!t) {
+    t = document.createElement('div');
+    t.id = '_toast';
+    t.style.cssText = 'position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--surface3);color:var(--text);padding:9px 16px;border-radius:50px;font-size:12px;font-family:sans-serif;font-weight:600;z-index:3000;opacity:0;transition:opacity 0.2s,transform 0.2s;pointer-events:none;white-space:nowrap;max-width:90vw;text-align:center;box-shadow:0 4px 16px rgba(0,0,0,0.4);';
+    document.body.appendChild(t);
+  }
+  clearTimeout(t._timer);
+  t.textContent = msg;
+  t.style.opacity = '1';
+  t.style.transform = 'translateX(-50%) translateY(0)';
+  t._timer = setTimeout(() => {
+    t.style.opacity = '0';
+    t.style.transform = 'translateX(-50%) translateY(20px)';
+  }, 2200);
+}
+
+// ── MINI PLAYER HEART (heart toggle on mini player) ──
 document.querySelector('.mp-heart').addEventListener('click', function(){
   const svg = this.querySelector('svg path');
   const filled = svg.getAttribute('fill') === 'var(--pink)';
@@ -2229,6 +2764,7 @@ document.querySelector('.mp-heart').addEventListener('click', function(){
 });
 </script>
 
+<script src="ads.js"></script>
 <script id="themeScript">
   const _toggle = document.getElementById('themeToggle');
   const _icon   = document.getElementById('ttIcon');
@@ -2238,6 +2774,13 @@ document.querySelector('.mp-heart').addEventListener('click', function(){
     document.body.classList.toggle('light', isLight);
     _icon.textContent  = isLight ? '☀️' : '🌙';
     _label.textContent = isLight ? 'Light' : 'Dark';
+    const themeRow = document.querySelector('#tab-settings .si-title');
+    document.querySelectorAll('#tab-settings .si-title').forEach(t => {
+      if (t.textContent.trim() === 'Theme') {
+        const valEl = t.closest('.si-row') && t.closest('.si-row').querySelector('.si-right.val');
+        if (valEl) valEl.textContent = isLight ? 'Light' : 'Dark';
+      }
+    });
   }
 
   applyTheme(localStorage.getItem('shurafah-theme') === 'light');
@@ -2249,15 +2792,16 @@ document.querySelector('.mp-heart').addEventListener('click', function(){
   });
 
   // Initialize Ads System
-  ADS.setUserType('guest');
-  ADS.init({
-    enabled: true,
-    placements: {
-      headerBanner: { enabled: true }
-    }
-  });
+  if (typeof ADS !== 'undefined') {
+    ADS.setUserType('guest');
+    ADS.init({
+      enabled: true,
+      placements: {
+        headerBanner: { enabled: true }
+      }
+    });
+  }
 </script>
-<script src="ads.js"></script>
 
 </body>
 </html>
